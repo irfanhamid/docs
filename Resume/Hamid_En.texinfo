@@ -1,0 +1,126 @@
+\input texinfo  @c -*-texinfo-*-
+@c %**start of header (This is for running texinfo on a region.)
+@setfilename Hamid_En
+@settitle Resume--Irfan Hamid
+@c %**end of header (This is for running texinfo on a region.)
+
+@majorheading @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @sc{Irfan Hamid}
+@multitable @columnfractions 0.3 0.7
+@item @strong{Email} @tab
+@uref{mailto:irfan.hamid@@gmail.com,,irfan.hamid@@gmail.com}
+@item @strong{Phone:} @tab +1 (206) 604 4504
+@item @strong{Snail:} @tab 12117 NE 142nd St, Kirkland, WA 98034
+@end multitable
+@noindent
+Developer with an interest in performance optimization, functional programming and real-time systems. Performed doctoral research in model-driven code generation for real-time systems and formal verification of the inter-process communication aspect of the generated code using process algebrae. Fluent in English, French and Urdu/Hindi.
+
+@unnumberedsec Professional Experience
+@multitable @columnfractions 0.6 0.2 0.2
+@item @strong{Microsoft Corp.} @tab @strong{SDE 2} @tab @strong{2008-Present}
+@end multitable
+@noindent
+@itemize @bullet
+@item @strong{Volatility metrics:} Developing the metrics and associated measurement tools. Involves indepth analysis of the online serving stack and the interaction of its various components. Driving multi-team effort which has resulted in improvements across the stack.
+@item @strong{Lossy key-value compression:} Implemented a key-value lookup system akin to a map but using minimum perfect hashing. This technique has enabled significant space and performance improvements and is being adopted across Bing.
+@item @strong{Bing Instant Answers:} Wrote service code on the query critical path--invoked on every query--that carries out arbitration of rich content like images and videos on the page.
+@item @strong{Suggested Sites:} Wrote offline code to calculate correlations between URLs in Bing's index; used in IE8 to provide users with relevant URLs.
+@end itemize
+
+@multitable @columnfractions 0.6 0.2 0.2
+@item @strong{Advanced Engineering Research Organization}
+@tab @strong{SDE}
+@tab @strong{2001-2003}
+@end multitable
+@noindent
+@itemize @bullet
+@item @strong{Radar Display Processor:} Designed and implemented a radar data acquisition and display system in Linux. Wrote both the analog data aquisition as well as the raw video display systems. Currently in use by the Civil Aviation Authority of Pakistan.
+@item @strong{C@math{^4}I Technology Demonstrator:} Designed and implemented self-forming WAN over heterogeneous media to act as the communication subsystem of a C@math{^4}I (Command, Control, Communication, Computers and Intelligence) system.
+@end itemize
+
+@unnumberedsec Education
+@multitable @columnfractions 0.08 0.72 0.2
+@item @strong{PhD} @tab @strong{@'Ecole Nationale Sup@'erieure des T@'el@'ecommunications, Paris} @tab @strong{2005-2008}
+@end multitable
+@noindent
+Conducted research on automatic generation of both application code, as well as formal verification code, of real-time systems from their architecture descriptions. Principal author of the @uref{http://aadl.enst.fr/arc/,,ARC} tool, an Eclipse plugin that generates @uref{http://www.acm.org/sigada/ada_letters/jun2004/ravenscar_article.pdf,,Ada Ravenscar} executable and LOTOS verification code from architectural descriptions given in @uref{http://www.aadl.info,,AADL} (an architecture description language for real-time systems).
+@multitable @columnfractions 0.08 0.72 0.2
+@item @strong{MSc} @tab @strong{@'Ecole Nationale Sup@'erieure des
+T@'el@'ecommunications, Paris} @tab @strong{2003-2004}
+@end multitable
+
+@itemize @bullet
+@item @strong{Major:} Distributed and real-time systems
+@item @strong{Grades:} 16/20
+@end itemize
+
+@multitable @columnfractions 0.08 0.72 0.2
+@item @strong{BS} @tab @strong{GIK Institute of Technology, Pakistan}
+@tab @strong{1997-2001}
+@end multitable
+
+@itemize @bullet
+@item @strong{Major:} Computer system engineering
+@item @strong{GPA:} 3.4/4.0
+@end itemize
+
+@c@multitable @columnfractions 0.8 0.2
+@c@item @strong{GIK Institute of Technology, Pakistan} @tab
+@c@strong{2000-2001}
+@c@end multitable
+@c@noindent
+@c My end of studies project was a complete cockpit design and instrument
+@c simulation system for the Pakistan Air Force. The system was built
+@c using Direct3D and allowed the user to design his cockpit and fly it
+@c in a 3D virtual world to test its ergonomics and usability.
+
+@unnumberedsec Publications
+@itemize @bullet
+@item Irfan Hamid, Elie Najm. @strong{Operational Semantics of Ada Ravenscar}. @emph{13th European Conference on Dependable Computing AdaEurope'08.} June 2008.
+@item Irfan Hamid, Bechir Zalila, Elie Najm, J@'er@^ome
+Hugues. @strong{Generating Frameworks for Asynchronous Hard Real-time
+Systems}. @emph{Innovations in
+Systems and Software Engineering: A NASA Journal}. March 2008.
+@item Irfan Hamid, Elie Najm. @strong{Real-time Connectors for
+Deterministic Data-flow.} @emph{13th IEEE International Conference on
+Embedded and Real-time Computing Systems and Applications}. August
+2007.
+@item Irfan Hamid, Bechir Zalila, Elie Najm, J@'er@^ome
+Hugues. @strong{A Generative Approach to Building a Framework for a Hard
+Real-Time System.} @emph{31st Annual IEEE/NASA Goddard
+Software Engineering Workshop}. March 2007.
+@item Bechir Zalila, Irfan Hamid, J@'er@^ome Hugues, Laurent
+Pautet. @strong{Generating High-integrity Distributed Applications from their
+Architectural Descriptions.} @emph{12th European
+Conference on Dependable Computing AdaEurope'07.} July 2007.
+@item Thomas Vergnaud, Irfan Hamid. @strong{Mod@'elisation en AADL
+pour la g@'en@'eration automatique d'applications.} @emph{G@'enie
+Logiciel, March 2007, Issue 80.}
+@item Thomas Vergnaud, Irfan Hamid et. al. @strong{Modeling and
+Generating Tailored Distribution Middleware for Embedded Real-time
+Systems.} @emph{Embedded Real-time Systems 2006 (ERTS'06).} January 2006
+@end itemize
+
+@unnumberedsec Skillset
+@multitable @columnfractions 0.15 0.15 0.7
+@item @strong{Technology} @tab @strong{Experience} @tab @strong{Major output}
+@item C/C++ @tab 8 years @tab Multiple projects during undergraduate studies and jobs
+@item C#/F# @tab 5 years @tab Various relevance, measurement and analysis tools at Bing 
+@item Java @tab 3 years @tab AADL to Ada code generator 
+@item Ada 95/2005 @tab 2 years @tab AADL to Ada code generator
+@item Win32 @tab 6 years @tab End of studies project (3D simulation and instrumentation)
+@item Linux @tab 8 years @tab Radar Display Processor, Radar Data Acquisition
+@item UML  @tab 3 years @tab Meta-models and transformations in code
+@end multitable
+@noindent
+Expertise in various modeling languages such as SDL, Esterel, Lustre and formal methods such as process algebrae (LOTOS) and timed automata (UPPAAL).
+
+@c@unnumberedsec Achievements
+@c@itemize @bullet
+@c@item Selected for graduate studies in France in 2003
+@c@item Dean's honor roll (GPA > 3.5) for 4 semesters out of 8 during BS
+@c@item Invited as judge of All Pakistan Software Competition, 2002
+@c@item Conducted 10 day ACM workshop on OpenGL and DirectX at my university
+@c@item Fluent in English, French and Urdu/Hindi
+@c@end itemize
+
+@bye
