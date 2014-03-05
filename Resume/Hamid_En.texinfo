@@ -4,15 +4,11 @@
 @settitle Resume--Irfan Hamid
 @c %**end of header (This is for running texinfo on a region.)
 
-@majorheading @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @sc{Irfan Hamid}
-@multitable @columnfractions 0.3 0.7
-@item @strong{Email} @tab
-@uref{mailto:irfan.hamid@@gmail.com,,irfan.hamid@@gmail.com}
-@item @strong{Phone:} @tab +1 (206) 604 4504
-@item @strong{Snail:} @tab 12117 NE 142nd St, Kirkland, WA 98034
-@end multitable
+@heading @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @sc{Irfan Hamid}
+@ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @uref{mailto:irfan.hamid@@gmail.com,,irfan.hamid@@gmail.com}
+
 @noindent
-Developer with an interest in performance optimization, functional programming and real-time systems. Performed doctoral research in model-driven code generation for real-time systems and formal verification of the inter-process communication aspect of the generated code using process algebrae. Fluent in English, French and Urdu/Hindi.
+Developer with an interest in scalability, erformance optimization, real-time systems and functional programming. Performed doctoral research in model-driven code generation for real-time systems and formal verification of the inter-process communication aspect of the generated code using process algebrae.
 
 @unnumberedsec Professional Experience
 @multitable @columnfractions 0.6 0.2 0.2
