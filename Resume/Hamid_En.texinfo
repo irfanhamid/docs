@@ -16,7 +16,7 @@ Developer with an interest in scalability, erformance optimization, real-time sy
 @end multitable
 @noindent
 @itemize @bullet
-@item @strong{Volatility metrics:} Developing the metrics and associated measurement tools. Involves indepth analysis of the online serving stack and the interaction of its various components. Driving multi-team effort which has resulted in improvements across the stack.
+@item @strong{Volatility improvements:} Developed the metric and associated tooling for quantifying differences in search results for the same query. Now being tracked across Bing as both a key metric and for identifying infrastructure problems. 
 @item @strong{Lossy key-value compression:} Implemented a key-value lookup system akin to a map but using minimum perfect hashing. This technique has enabled significant space and performance improvements and is being adopted across Bing.
 @item @strong{Bing Instant Answers:} Wrote service code on the query critical path--invoked on every query--that carries out arbitration of rich content like images and videos on the page.
 @item @strong{Suggested Sites:} Wrote offline code to calculate correlations between URLs in Bing's index; used in IE8 to provide users with relevant URLs.
