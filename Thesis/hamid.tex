@@ -1,0 +1,304 @@
+\documentclass[final,a4paper,twosided]{thenst}
+
+\usepackage{url}
+\usepackage{listings}
+\usepackage{pslatex}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[cyr]{aeguill}
+\usepackage[dvips]{graphicx}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{pstricks}
+\usepackage{verbatim}
+\usepackage{algorithm2e}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage[english,francais]{babel}
+%\usepackage[scaled]{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+
+\let\urlorig\url
+\renewcommand{\url}[1]{
+  \begin{otherlanguage}{english}\urlorig{#1}\end{otherlanguage}%
+}
+
+\lstdefinelanguage{aadl} {
+  morekeywords={in,out,package,end,bus,data,thread,port,group,process,processor,
+    system,memory,device,subprogram,public,private,event,property,set,applies,to,
+    units,type,implementation,parameter, reference},
+  morekeywords={properties,features,annex,modes,connections,flows,
+    subcomponents,calls,binding},
+  morekeywords={aadlinteger,aadlboolean,aadlstring,aadlfloat},
+  morecomment=[l]{--},
+}
+
+\lstdefinelanguage{lustre} {
+  morekeywords={if, then, else, pre, node, returns, let, tel, int,
+    bool, real, var, when},
+  morekeywords={true, false}
+}
+
+\lstdefinelanguage{lotos} {
+  morekeywords={specification, noexit, exit, behavior, process,
+    endproc, endspec, stop, where, eq, NAT, ne, and, or, neq},
+}
+
+\lstset {
+  language=ada,
+  basicstyle=\footnotesize\sffamily,
+  aboveskip=\bigskipamount,
+  belowskip=\smallskipamount,
+  abovecaptionskip=\smallskipamount,
+  belowcaptionskip=\medskipamount,
+  xleftmargin=\parindent,
+  captionpos=b,
+  tabsize=2,
+  frame=single
+}
+
+\newcommand{\Concept}[1]{#1\xspace}
+\newcommand{\Project}[1]{#1\xspace}
+
+\renewcommand{\baselinestretch}{1}
+\newcommand{\listingwidth}{0.95\linewidth}
+\newcommand{\todo}[1]{{\bf \emph{TODO~#1}}}
+\newcommand{\addref}[1] {\todo{Ref on : #1}}
+\newcommand{\aadl}{AADL\xspace}
+\newcommand{\ada}{Ada\xspace}
+\newcommand{\newada}{\Concept{Ada~2005}}
+\newcommand{\rcm}{RCM\xspace}
+\newcommand{\hrtuml}{HRT-UML\xspace}
+\newcommand{\rsprof}{Ravenscar Profile\xspace}
+\newcommand{\hi}{HI\xspace}
+\newcommand{\osate}{\Project{OSATE}}
+\newcommand{\assert}{ASSERT\xspace}
+\newcommand{\norb}{nORB}
+\newcommand{\microorb}{microORB}
+\newcommand{\vm}{VM\xspace}
+\newcommand{\polyorbhi}{PolyORB-HI\xspace}
+\newcommand{\polyorb}{PolyORB\xspace}
+\newcommand{\ocarina}{Ocarina\xspace}
+\newcommand{\gnat}{GNAT\xspace}
+\newcommand{\glade}{GLADE\xspace}
+\newcommand{\corba}{CORBA\xspace}
+\newcommand{\stood}{Stood\xspace}
+\newcommand{\hood}{HOOD\xspace}
+\newcommand{\kw}[1]{\texttt{\textbf{#1}}}
+%\newcommand{\dataport}{\pspolygon[linewidth=1pt,fillcolor=black,fillstyle=solid]
+%(0,0)(0,0.2)(0.2,0.1)\xspace\xspace\xspace}
+%\newcommand{\eventport}{\psline[linewidth=1pt](0,0)(0.2,0.1)(0,
+%0.2)\xspace\xspace\xspace}
+%\newcommand{\eventdataport}{\pspolygon[linewidth=1pt,fillcolor=black,
+%fillstyle=solid](0.02,0.07)(0.02,0.13)(0.08,0.1)\psline[linewidth=0.5pt](0,
+%0)(0.2,0.1)(0 ,0.2)\xspace\xspace\xspace}
+\newcommand{\dataport}{}
+\newcommand{\eventport}{}
+\newcommand{\eventdataport}{}
+\newcommand{\ts}{$\tau_s$\xspace}
+\newcommand{\tl}{$\tau_l$\xspace}
+\newcommand{\plong}{$T_{long}$\xspace}
+\newcommand{\pshort}{$T_{short}$\xspace}
+\newcommand{\simu}{Simulink$^\circledR$}
+\newcommand{\susp}{{\tiny$\ldots$}\xspace}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}
+\cleardoublepage}}
+
+\restylealgo{algoruled}
+
+\author{Irfan Hamid}
+\supervisor{Elie Najm}
+\president{Nicolas Halbwachs}
+\committee{
+  Tullio Vardanega & Reviewer\\
+  Jean-Fran\c cois Pradat-Peyre & Reviewer\\
+  Peter H. Feiler & Examiner\\
+  Juan Antonio de le Puente & Examiner
+}
+\thesisdate{30$^{th}$ of May, 2008}
+\title{Automatic Code Generation and Verification of Hard Real-time
+  Systems}
+
+\frtitle{G\'en\'eration automatique du code et la v\'erification des
+  syst\`emes temps-r\'eels}
+
+\enabstract{The increasing complexity of real-time software and a
+  corresponding decrease in times-to-market has necessitated new
+  software development methods for such systems, which expedite
+  various aspects of their engineering. Additionally, these systems
+  are often safety-critical, where a fault in the software could
+  result in loss of human life, which leads to strong correctness and
+  safety requirements being imposed on such software and associated
+  development processes. In this thesis, a new approach is explored
+  for the automatic generation of source code for real-time systems
+  from an architecture description language (ADL). The ADL chosen is
+  the Architecture Analysis \& Design Language, which is specific to
+  the real-time domain. The target runtime chosen is the Ravenscar
+  Profile of the Ada language for high-integrity systems, which is
+  robust and suitable for high-integrity systems and offline
+  schedulability analysis. The system description in the AADL is
+  converted to an ``execution framework'' which provides the runtime
+  entities such as threads and communication buffers corresponding to
+  the application architecture. This execution framework is then
+  fleshed out with the functional behavior of threads---in the form of
+  callbacks---to give a complete system. The code generation also
+  includes a verified solution for the control system problem of
+  deterministic inter-task communication. A formal semantics of the
+  target language is provided, thus allowing for the verification of
+  target code. A code generation tool has been developed that
+  implements the approach. Finally, a major avionics case study is
+  re-engineered using the developed tooling to validate the approach
+  for the considered domain.}
+
+\frabstract{La complexité croissante des logiciels temps-réels ainsi
+  que la réduction du temps de leur mise en marché necessitent le
+  développement de nouvelles méthodes afin d'accélérer divers aspects
+  d'ingénierie de ces systèmes. De plus, ces derniers sont souvent
+  critiques, puisqu'une défaillance dans le logiciel peut engendrer
+  des dégâts humains, ce qui implique de fortes exigences en matière
+  de sécurité. Nous avons exploré dans le cadre de cette thèse, une
+  nouvelle approche pour la génération automatique de code source pour
+  les systèmes temps-réels à partir d'un langage de déscription
+  d'architecture (ADL pour Architecture Description Language). L'ADL
+  choisi est le Architecture Description and Design Language (AADL),
+  spécifique au domaine temps-réel. Nous avons choisi d'utiliser le
+  profil Ravenscar du langage Ada; ce profil est un sous-ensemble
+  d'Ada dédié au systèmes temps-réels et critique, il est robuste et
+  se donne facilement à l'analyse d'ordonnonçabilité hors-ligne. La
+  déscription du système en AADL est convertie en un cadre d'execution
+  qui fournit les entitiés d'execution tels que les threads et les
+  tampons de communication correspondant à l'architecture de
+  l'application. Ensuite, ce cadre d'execution est complété par des
+  comportements fonctionnels des threads (sous formes de
+  callbacks). La génération de code inclut également une solution au
+  problème de communication déterministe entre les threads, un
+  problematique qui se présente dans le domaine d'automatisme; aussi
+  fournit est une méthode de généré de la vérification formelle pour
+  ces tampons de communication déterministe. Une sémantique formelle
+  du langage sible est fournie, permettant de vérifier le code
+  cible. Nous avons développé un outil de génération implementant
+  notre approche. Enfin, nous avons validé notre approche en
+  l'applicant à une étude de cas avionique bien détaillée.}
+
+\begin{document}
+\begin{otherlanguage}{english}
+\maketitle
+
+\begin{dedication}
+For my parents
+\end{dedication}
+\end{otherlanguage}
+
+\begin{acknowledgement}
+No man is an island; this is even truer for an endeavour such as
+research, where we all stand on the shoulders of giants. A plethora of
+people have helped and influenced me during my doctorate at the
+Computer Science and Networks Department of the ENST. First among
+these is, without a doubt, my advisor Elie Najm, whom I wish to thank
+for so much, including his guidance, patience, encouragement and
+friendship, for without him I would not have been able to complete my
+doctorate.
+
+My colleagues at the ENST, an exemplary set of people, who became dear
+friends over the course of my stay here. Raja {\sc Chiky}, my office
+colleague of 3 years now; Khaled {\sc Barbaria}, my other office
+colleague and a good friend and sometimes mentor of Ada. Bechir {\sc
+  Zalila}, a kindred soul who worked on code generation as well, and
+one of the most selfless people---and one of the best programmers---I
+know, always ready to share ideas as well as a coffee. Hoa {\sc Ha
+  Duong}, the walking encyclopedia to whom I shall always be grateful
+for---among other things---having introduced me to \emph{Doctor Who}
+and \emph{The Big Bang Theory}. Laurent {\sc Pautet}, who although not
+my advisor, always found the time to help me out whenever I needed,
+and to share a coffee and a smoke. Thomas {\sc Vergnaud}, the original
+``Mr. AADL'' of our little modeling and code generation group. Ahmad
+{\sc Fadlallah} for his help and company. Olivier {\sc Gilles}, with
+whom I've had endless discussions on (geo)politics, and Isabelle {\sc
+  Perseil}, with whom I've had endless discussions on modeling. Jérôme
+{\sc Hugues} for his incisive and always pertinent advice and
+admonishments. Julien {\sc Delange}, who will soon be the Linus {\sc
+  Torvalds} of the real-time systems community and Gilles {\sc
+  Lasnier}, the bon-vivant who is always cool as a cucumber and more
+than ready to lend a hand, I wish I had known you both
+earlier. Muhammad {\sc Tahir}, my compatriot in the
+department. Isabelle {\sc Demeure}, the head of the department and one
+of the gentlest people with the readiest smile I've had the pleasure
+of knowing. The very helpful, generous and \emph{always} boisterous
+and rambunctious department administrator Hayette {\sc Soussou}, as
+well as Celine {\sc Bizart}.
+
+My friends from Pakistan who came with me for studies to
+France. Specially the ones from my old engineering school: Asad,
+Usman, OK, Taj, Bilal, Kiani, Saadi, Cheema, Khattak. They say that
+``friends help you move, good friends help you move bodies'', you guys
+are \emph{great} friends.
+
+My friends from my Master of Science days in Paris. Ruben and
+Maria-Eugenia, a wonderful couple and a true testament to the merits
+of getting married. Kapil and Eftychia, a formidable man and his
+equally fiery woman. Rana and Wenping, always caring and ready to
+help. Aida, the twinkly-eyed Spanish pixie who is lost to us somewhere
+in Switzerland. My fellow geek and neighbor Mevegni. The ``Prince of
+Persia'' Hossein. Paco, the ``real'' researcher over at JHU. So many
+others: Sanaz, Victor, Claire, Marios, Alberto, Laura \ldots
+
+I had the good luck of staying at the Maison d'Italie during the
+entirety of my doctoral studies where I got to know some special
+people. Avais {\sc Daulat}, the lively neighbor whose door was always
+open and whom I consider myself lucky to have known, not to mention
+his better half Eleonora. Olivia and Sebastien, always welcoming and
+ready to have fun. Giulia and Marco, who came from Italy to attend my
+dissertation. Carolina, Krystelle, Sandra, Nadja, Celine, Naomi,
+Darius, Elena, Abdel, Teresa, Francesca, Maurice, Shin, Fumi, Kurtis,
+Roberta \ldots
+
+Finally, and most importantly, my parents Insha and Asiya, who have
+always nurtured my curiosity. It is to them that I owe all for they
+have always encouraged me to do whatever I wanted, so thank
+you. Bilal, the best younger brother a man could hope for, and then
+some.
+\end{acknowledgement}
+
+\makeabstracts
+
+\begin{otherlanguage}{francais}
+% Use only asterisked versions of section/subsection commands %
+\input{french_summary}
+\cleardoublepage%Necessary to preserve hdr/ftr on last page of summary
+\end{otherlanguage}
+
+\begin{otherlanguage}{english}
+\setcounter{tocdepth}{2}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\input{glossary}
+
+\input{intro.tex}
+\input{biblio.tex}
+\input{aadlrs.tex}
+\input{code_gen.tex}
+\input{adv_gen.tex}
+\input{formal_sem.tex}
+\input{conclusions.tex}
+
+\bibliographystyle{plain}
+\bibliography{hamid}
+
+\appendix
+\input{mcc.tex}
+\setcounter{page}{0}
+\input{ada.tex}
+\end{otherlanguage}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docbase="/home/hamid/mortimer/svn/scratchpad/figs"
+   sodipodi:docname="example.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path3018"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70000001"
+     inkscape:cx="239.29792"
+     inkscape:cy="467.8604"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1179"
+     inkscape:window-height="1126"
+     inkscape:window-x="732"
+     inkscape:window-y="42"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.43190217;stroke-miterlimit:4;stroke-dasharray:2.86379919, 1.43190056;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1872"
+       width="117.1777"
+       height="105.67042"
+       x="314.71143"
+       y="416.28668"
+       transform="matrix(1,0,-0.2933709,0.9559987,0,0)"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.43190265;stroke-miterlimit:4;stroke-dasharray:2.86380009, 1.43190102;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2760"
+       width="117.1777"
+       height="105.67048"
+       x="541.08783"
+       y="416.48114"
+       transform="matrix(1,0,-0.2933709,0.9559987,0,0)"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.43190527;stroke-miterlimit:4;stroke-dasharray:2.86380504, 1.43190355;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2762"
+       width="117.1777"
+       height="105.67081"
+       x="454.38895"
+       y="607.91595"
+       transform="matrix(1,0,-0.2933709,0.9559987,0,0)"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="211.94923"
+       y="391.2092"
+       id="text2764"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2766"
+         x="211.94923"
+         y="391.2092">Sensor_A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="424.79767"
+       y="392.04599"
+       id="text2768"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2770"
+         x="424.79767"
+         y="392.04599">Data_Fusion</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="303.50037"
+       y="573.61743"
+       id="text2772"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2774"
+         x="303.50037"
+         y="573.61743">Alrm_1</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.25103581px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 288.55409,440.20199 C 288.55409,457.09381 288.55409,457.09381 288.55409,457.09381 L 303.30305,448.6479 L 288.55409,440.20199 z "
+       id="path2794"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.25103581px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 405.6451,415.92387 C 405.6451,432.81569 405.6451,432.81569 405.6451,432.81569 L 420.39406,424.36978 L 405.6451,415.92387 z "
+       id="path2796"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 303.42857,448.64789 C 334.07468,421.79219 405.29042,424.82265 405.29042,424.82265"
+       id="path2798"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.4545455px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 208.15584,492.9466 L 215.42857,507.49206 L 222.7013,492.9466"
+       id="path2802"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.4545455px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 259.28495,614.31087 L 273.85932,607.09622 L 259.34298,599.76552"
+       id="path2804"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 214.56128,507.63774 C 214.75742,623.76864 258.19397,607.6062 258.19397,607.6062"
+       id="path2808"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="203.3829"
+       y="369.94495"
+       id="text2810"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2812"
+         x="203.3829"
+         y="369.94495">Period =&gt; 20ms</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="426.62662"
+       y="368.93481"
+       id="text2814"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2816"
+         x="426.62662"
+         y="368.93481">Period =&gt; 40ms</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="279.14435"
+       y="541.4881"
+       id="text2818"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2820"
+         x="279.14435"
+         y="541.4881">Period =&gt; 40ms</tspan><tspan
+         sodipodi:role="line"
+         x="279.14435"
+         y="556.4881"
+         id="tspan2822">Deadline =&gt; 30ms</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="276.11389"
+       y="610.17847"
+       id="text2824"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2826"
+         x="276.11389"
+         y="610.17847">launch_A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="178.1291"
+       y="486.11252"
+       id="text2828"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2830"
+         x="178.1291"
+         y="486.11252">launch_alrm_1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="254.9007"
+       y="450.75717"
+       id="text2832"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2834"
+         x="254.9007"
+         y="450.75717">outp</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="425.55557"
+       y="427.82825"
+       id="text2836"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2838"
+         x="425.55557"
+         y="427.82825">inpA</tspan></text>
+    <g
+       id="g3036"
+       transform="translate(487.23587,316.62364)"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         transform="matrix(1.260682,0,0,1.260682,57.7176,-21.45825)"
+         d="M -192.93914 94.232491 A 11.616755 11.616755 0 1 1  -216.17265,94.232491 A 11.616755 11.616755 0 1 1  -192.93914 94.232491 z"
+         sodipodi:ry="11.616755"
+         sodipodi:rx="11.616755"
+         sodipodi:cy="94.232491"
+         sodipodi:cx="-204.55589"
+         id="path2846"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         transform="translate(-0.478572,-0.771422)"
+         d="M -198.75 98.165749 A 0.8035714 0.8035714 0 1 1  -200.35715,98.165749 A 0.8035714 0.8035714 0 1 1  -198.75 98.165749 z"
+         sodipodi:ry="0.8035714"
+         sodipodi:rx="0.8035714"
+         sodipodi:cy="98.165749"
+         sodipodi:cx="-199.55357"
+         id="path2848"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         id="path2852"
+         d="M -199.82143,97.183609 C -193.03572,90.397894 -193.03572,90.397894 -193.03572,90.397894"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3034"
+         d="M -200.17857,97.362181 C -209.28571,89.326466 -209.28571,89.326466 -209.28571,89.326466"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3042"
+       transform="translate(711.64177,317.05274)"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         transform="matrix(1.260682,0,0,1.260682,57.7176,-21.45825)"
+         d="M -192.93914 94.232491 A 11.616755 11.616755 0 1 1  -216.17265,94.232491 A 11.616755 11.616755 0 1 1  -192.93914 94.232491 z"
+         sodipodi:ry="11.616755"
+         sodipodi:rx="11.616755"
+         sodipodi:cy="94.232491"
+         sodipodi:cx="-204.55589"
+         id="path3044"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         transform="translate(-0.478572,-0.771422)"
+         d="M -198.75 98.165749 A 0.8035714 0.8035714 0 1 1  -200.35715,98.165749 A 0.8035714 0.8035714 0 1 1  -198.75 98.165749 z"
+         sodipodi:ry="0.8035714"
+         sodipodi:rx="0.8035714"
+         sodipodi:cy="98.165749"
+         sodipodi:cx="-199.55357"
+         id="path3046"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         id="path3048"
+         d="M -199.82143,97.183609 C -193.03572,90.397894 -193.03572,90.397894 -193.03572,90.397894"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3050"
+         d="M -200.17857,97.362181 C -209.28571,89.326466 -209.28571,89.326466 -209.28571,89.326466"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.89999998;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 382.4179,583.99969 L 371.98079,598.4379 L 383.28766,598.4379 L 374.59007,607.55677"
+       id="path3052"
+       inkscape:export-filename="/home/hamid/mortimer/svn/site/figs/control.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.02179956;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2424"
+       width="432.85715"
+       height="391.52786"
+       x="268.10983"
+       y="352.2312"
+       transform="matrix(1,0,-0.2874814,0.9577862,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="359.28571"
+       y="330.79077"
+       id="text3395"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3397"
+         x="359.28571"
+         y="330.79077">Part</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4368"
+       width="622.85712"
+       height="454.28571"
+       x="20.857143"
+       y="296.64789"
+       ry="51.42857"
+       rx="51.42857" />
+  </g>
+</svg>

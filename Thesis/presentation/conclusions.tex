@@ -1,0 +1,73 @@
+\section{Conclusions \& future work}
+
+\subsection{Summary}
+
+\frame {
+  \frametitle{Summary of contribution}
+  \begin{itemize}
+    \item \alert{Code generation patterns from AADL to Ada Ravenscar}
+    \item \alert{Domain meta-model to represent Ravenscar systems}
+    \item \alert{The ARC code generator to validate said rules}
+    \item \alert{Deterministic connectors and their verification}
+    \item \alert{Structured operational semantics of the RMM}
+    \item \alert{Major case study, re-engg. of an existing avionics
+      platform}
+  \end{itemize}
+}
+
+\subsection{Observations}
+
+\frame {
+  \frametitle{Observations}
+  \begin{itemize}
+    \item Code generation approach seems sound
+    \item AADL and Ada Ravenscar make good match
+    \item Code generation saves a lot of time and effort
+      \begin{itemize}
+        \item GAP case study was re-engineered
+        \item AADL model size $\implies$ 750 locs
+        \item Generated code $\implies$ 7.2 klocs
+        \item 20 threads
+        \item Approx. 100 connections
+      \end{itemize}
+      \pause
+    \item The deterministic connector work is a step in the right
+      direction for asynchronous control systems
+    \item The semantics, though theoretical, could be implemented and
+      used for a more systemic verification
+  \end{itemize}
+}
+
+\subsection{Criticisms}
+
+\frame {
+  \frametitle{Critique}
+  \begin{itemize}
+    \item No distribution facility
+    \item No specification of real-time ``transactions''
+    \item Transactions will entail having PO call a PO
+    \item Data flow verification mechanism can be improved
+    \item Semantics need to be transported from wood to silicon
+    \item Did not use transformation language like ATL
+  \end{itemize}
+}
+
+\subsection{Future work \& perspectives}
+
+\frame {
+  \frametitle{Future work}
+  \begin{itemize}
+    \item All those points listed as a critique
+    \item Integrating various functional models into AADL/Ravenscar
+    \item Specially interesting, having Simulink model as thread
+      callback
+    \item Hypertext traceability between model and code
+  \end{itemize}
+}
+
+\subsection{Thank you}
+
+\frame {
+  \frametitle{Thank you for your attention}
+  If you have any questions
+}

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docbase="/home/hamid/mortimer/svn/scratchpad/presentation/figs"
+   sodipodi:docname="thread2task.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutS"
+       style="overflow:visible">
+      <path
+         id="path2865"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.2)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path2954"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path2960"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path2948"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="375"
+     inkscape:cy="905.29375"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1134"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:black;stroke-width:2.08677578;stroke-miterlimit:4;stroke-dasharray:12.52065527, 4.17355177;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1876"
+       width="386.57932"
+       height="142.05563"
+       x="124.12759"
+       y="31.441946"
+       transform="matrix(1,0,-0.464506,0.88557,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-size:18;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Courier 10 Pitch"
+       x="111.18945"
+       y="51.190235"
+       id="text2764"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2766"
+         x="111.18945"
+         y="51.190235"
+         style="fill:#6c6753">Dispatch_Protocol =&gt; Periodic</tspan><tspan
+         sodipodi:role="line"
+         x="111.18945"
+         y="73.690235"
+         id="tspan2768"
+         style="fill:#0000ff">Period =&gt; 20 ms</tspan><tspan
+         sodipodi:role="line"
+         x="111.18945"
+         y="96.190235"
+         id="tspan2770"
+         style="fill:#ff0000">Deadline =&gt; 5 ms</tspan><tspan
+         sodipodi:role="line"
+         x="111.18945"
+         y="118.69024"
+         id="tspan2772"
+         style="fill:#de8787">Storage_Size =&gt; 4kb</tspan><tspan
+         sodipodi:role="line"
+         x="111.18945"
+         y="141.19024"
+         id="tspan2774"><tspan
+   style="fill:#88aa00"
+   id="tspan2182">Compute_Entrypoint =&gt; &quot;On_TH1</tspan>&quot;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Courier 10 Pitch"
+       x="31.203995"
+       y="228.17728"
+       id="text2776"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="31.203995"
+         y="228.17728"
+         id="tspan2780"><tspan
+           style="font-weight:bold"
+           id="tspan2176">package</tspan><tspan
+           style="fill:#aa8800"
+           id="tspan2200"> TH1</tspan><tspan
+           style="font-weight:bold"
+           id="tspan2179"> is new</tspan><tspan
+           style="fill:#6c6753"
+           id="tspan2192"> Ravenscar_Periodic</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="31.203995"
+         y="250.86478"
+         id="tspan2790">     (<tspan
+   style="fill:#0000ff"
+   id="tspan2178">20</tspan>, <tspan
+   style="fill:#ff0000"
+   id="tspan2180">5</tspan>, 240, <tspan
+   style="fill:#d35f5f"
+   id="tspan2190">4096</tspan>, <tspan
+   style="fill:#88aa00"
+   id="tspan2184">Dispatchers.On_TH1</tspan>);</tspan></text>
+    <path
+       style="fill:black;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:11.32144356;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutS);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 251.41238,163.17901 C 251.41238,193.88854 251.41238,193.88854 251.41238,193.88854"
+       id="path2794" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Courier 10 Pitch"
+       x="264.5575"
+       y="20.502182"
+       id="text2196"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2198"
+         x="264.5575"
+         y="20.502182"
+         style="fill:#aa8800">TH1</tspan></text>
+  </g>
+</svg>

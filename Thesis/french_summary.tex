@@ -1,0 +1,1644 @@
+\sommairefr{It has always been a marvel to me---that French language;
+  it has always been a puzzle to me. How beautiful that language is!
+  How expressive it seems to be! And when it comes from lips like
+  those of Sarah Bernhardt, how eloquent and limpid it is!  And, oh, I
+  am always deceived---I always think I am going to understand
+  it}{Mark Twain}
+
+\section*{Introduction}
+Les ordinateurs sont devenus plus petits, plus puissants et plus
+fiables; des avancées qui ont donné naissance aux utilisations
+d'ordinateurs qui était inimaginable il y a même quelques
+décennées. L'ordinateur, qui, à l'origine a été conçu et construit en
+tant qu'un résolutionneur d'équations, se trouve aujourd'hui faire des
+tâches très divers et variées. La socité elle-même est devenue plus
+exigeante au niveau téchnologique, au point que
+``l'ordinateurisation'' est un moyen nécessaire pour répondre à ses
+attentes. Les exemples de cette omnipresence d'ordinateurs incluent
+les freins anti-verouillage, les machines à laver automatique ainsi
+que les téléphones portables et montres-bracelets qui ont plus de
+capacités de calculs que des super-calculatrices d'il y a 20 ans.
+
+En fait, selon les estimations d'industrie, parmi les 6
+\emph{milliards} de processeurs fabriqué par année, 90-98\% sont
+embarqués et donc invisibles. Les utilisations perçues majeures des
+ordinateurs actuellement se trouvent être les suivantes:\\
+
+\begin{itemize}
+\item{Les bases de données;}
+\item{Le calcul scientifique;}
+\item{Les applications financières;}
+\item{Le bureautique;}
+\item{La communication via les courriéls, les messagerie instantanées et
+  du réseau sociale;}
+\item{La rédaction, tel les livres ainsi que les journaux et revues
+  etc.;}
+\item{Le divertissement, tel le lecture des films, les jeux vidéos
+  etc.}
+\end{itemize}
+
+\subsection*{Les systèmes temps-réels}
+Parmi d'autres usages d'ordinateur à nos jours, il y a aussi celle des
+systèmes temps-réels. Qu'est-ce un système temps-réel? Brièvement,
+c'est un système ou un paradigme ou une situation où la validité du
+résultat d'un calcul dépend aussi fortement sur le \emph{moment où ce
+  résultat est disponible} ainsi que sur le valeur du résultat. Le
+moment dans le temps jusqu'où les résultats doivent êtres disponibles
+est appelé le ``deadline'' pour ce calcul. Les utilisations
+importantes des systèmes temps-réels sont:\\
+
+\begin{itemize}
+\item{Contrôle de processus industriel;}
+\item{Contrôle de plate-forme mobile ou des véhicules comme des
+  voitures ou avions (aussi appelé l'automatique);}
+\item{Surveillance d'état de véhicules et des capteurs comme des GPS
+  et des systèmes de contrôle de mission dans les avions;}
+\item{Multimédia comme les lecteurs de vidéos.}
+\end{itemize}
+
+Des systèmes temps-réels peuvent être découpés en deux catégories;
+chacune desquelles dépends de la validité des résultats d'un calcul
+après son deadline. Les systèmes ``temps-réels durs'' sont ceux dans
+lesquels la validité des résultats après le deadline sont totalement
+invalides; tandis que les systèmes ``temps-réels mous'' sont ceux dans
+lesquels la validité des résultats décroît d'une manière plus lente
+après le deadline. Une représentation graphique de cette validité en
+tant que fonction du temps est montré dans la
+Figure~\ref{fig:classification_systemes}.
+
+\begin{figure}
+\centering
+\includegraphics{figs/hard_vs_soft}
+\caption{\`A gauche: la validité des résultats d'un système temps-réel
+  dur. \`A droite: la validité des résultats d'un système temps-réel
+  mous.}
+\label{fig:classification_systemes}
+\end{figure}
+
+La naissance des systèmes temps-réels se trace jusqu'à l'article
+séminale de Leyland et Liu sur l'ordonnançabilité des tâches
+temps-réels~\cite{liu@jacm73}. Cette article a introduit l'affectation
+``Rate Monotonic'' pour les priorités des tâches temps-réels qui donne
+un ordonnance faisable si elle existe, ainsi que la technique
+d'analyse pour déterminer si l'ensemble de tâches donné est
+ordonnançable.
+
+La dichotomie déjà présenté nécessite un peu de clarification et
+caractérisation. Certaines applications temps-réels peuvent êtres
+construites à partir seulement des ``timers'' de haute résolution; un
+exemple typique de ce type de système est une machine à laver
+automatique avec plusieurs type et nombre de cycles. Au démarrage de
+chaque cycle, un timer qui correspond à sa durée est armé; à l'arrivée
+de ce dernier, le cycle est terminé et le prochain commence---sauf à
+la fin du dernier cycle.
+
+Au deuxième extrême de complexité de systèmes sont, par exemple, des
+systèmes automatique; ceux qui contrôle un plate-forme mobile tel un
+avion ou une voiture. Ce type de système nécessite une sophistication
+de support d'exécution sous-jacente qui dépasse largement les simples
+``timers''. Ici sont nécessaires des tâches cyclique, qui sont
+déclenchées régulièrement et fiablement par un système d'exploitation
+robuste qui assure que les délais de déclenchement sont inférieures à
+une certaine borne bien établie et déterminée.
+
+Finalement, il y a des systèmes qui sont un mélange des deux types
+déjà présenté. Ces systèmes contiennent---typiquement---une mélange
+des tâches cycliques (qui sont la plupart dures) ainsi que des tâches
+\emph{aperiodique} (qui sont la plupart mouches). Les exemples de ces
+systèmes sont des ``mission management systems'' sur des avions, des
+radars, et ``assembly lines''.
+
+\subsection*{Logiciel haute intégrité et la certification}
+\`A cause de la sophistication augmentant des systèmes automatiques,
+la seule manière de les manipuler, manoeuvrer et surveiller
+correctement se trouve être mettre un ordinateur dans le boucle de
+contrôle. L'ordinateur peut stabiliser des plates-formes qui sont de
+nature instables et dans le cas de système de surveillance, peut
+présenter une image synthétisée et précise de la situation. Due à
+cette ordinateurisation des systèmes qui contrôle des voitures, avions
+et trains etc., une faute dans leurs logiciels peut résulter
+directement en perte de vies humaines. Ce genre de logiciels sont
+appelées des logiciels de ``haute intégrité'', où une faute peut
+engendrer la perte de vie humaine (avions, voiture etc.) ou la perte
+d'une mission (satellites, sondes, lanceurs etc.). \`A cause d'impacts
+sévères de fautes dans ces systèmes, les organes gouvernementales
+certifient des logiciels qui peuvent être mises à bords de ses
+plates-formes. Dans le cas de l'avionique, spécifiquement, c'est le
+FAA et EUROCAE qui certifie les logiciels, et le standard pour
+certifier les logiciels avioniques s'appelle ``DO-178B, Software
+Considerations in Airborne Systems and Equipment
+Certification''~\cite{do178b}. Cette certification augmente
+significativement le prix du logiciel, qui augmente le prix du produit
+totale. Donc, une approche quiconque pour réduire le prix de la
+certification est toujours utile au domaine.
+
+\subsection*{Ingénierie Dirigée par les Modèles}
+Un modèle est une abstraction ou approximation d'un système. Cette
+abstraction, par sa nature même, se donne plus facilement à
+l'analyse. Il est aussi plus facile de créer le modèle que de créer
+directement le système à la main. Les modèles existent dans d'autres
+domaines de la science depuis des siècles; l'exemple archétypique d'un
+modèle est l'ensemble d'équations qui approximent le trajectoire d'un
+projectile. De même, Ingénierie Dirigée par les Modèles (IDM),
+Développement Dirigé par les Modèles (DDM) et d'autres alias sont
+utilisés pour les approches de développement du logiciel
+où~\cite{france@fose07}:
+
+\begin{quote}
+``models are the primary artifacts of development and developers rely
+  on computer-based technologies to transform models to running
+  systems''
+\end{quote}
+
+L'IDM a vraiment décollé comme technique pendant les années 1990s avec
+la formation de l'``Object Management Group'' et la standardisation
+d'UML (Unified Modeling Language)~\cite{uml-super}, qui reste toujours
+le langage de modélisation le plus répandu. Avant l'UML, il existaient
+d'autres langages de modélisation aussi. En général, en informatique,
+les modèles servent une ou plusieurs des buts suivantes:
+
+\begin{itemize}
+\item{De la documentation;}
+\item{De l'analyse;}
+\item{De la génération du code.}
+\end{itemize}
+
+Le cycle de développement---comme promu par l'IDM et spécifiquement
+dans le cadre de OMG+UML---est montré dans la
+Figure~\ref{fig:idm_processus}. Après la capture d'exigences, un design
+préliminaire est construit, qui est raffiné au fur et sur mesure pour
+avoir des designs progressivement plus détaillés. \`A chaque étape de
+cette raffinement, des analyses différentes peuvent être appliquées au
+modèle. Au moment ou le design est assez détaillé, le code qui
+correspond peut être généré et simulé. Suite aux simulations, des
+modifications peuvent être apportées au code.
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.0]{figs/mde_chain}
+\caption{Les étapes typique du processus de développement IDM}
+\label{fig:idm_processus}
+\end{figure}
+
+\subsection*{Contexte et survole du travail}
+\'Etant donné la complexité des systèmes temps-réels ainsi que leurs
+criticité, ça devient infaisable, si ne pas impossible, de les écrire
+totalement à la main. \`A cette fin, il y a plusieurs approches plus
+ou moins IDM ou le design du système est donné dans un langage de haut
+niveau et des outils aident en générant automatiquement du code source
+correspondant. Dans la section suivante, un survole de différentes
+méthodes et langages de haut niveau sera donné. Cette génération du
+code est toujours conçue pour un ``couple'', ç-à-d, le langage de haut
+niveau qui est le source, et le langage de programmation qui est le
+cible de cette opération.
+
+Il existe un besoin pour avoir un ``couple'' de langage source qui est
+un ADL spécifique au domaine (avionique, temp-réel dûr, \ldots) ainsi
+qu'un langage et exécutif cible qui est spécifique au domaine. Ce
+couple a été identifié comme le langage AADL en tant que source et le
+profil Ravenscar d'Ada 2005 comme langage
+cible~\cite{burns@adalett04}, avec l'Open Ravenscar Kernel
+(ORK)~\cite{puente@ae00} comme l'exécutif.
+
+Pourquoi existe ce besoin et à quoi ça sert \emph{exactement}
+d'introduire encore une nouvelle couche d'abstraction dans les
+processus de développement des systèmes de haute criticité? Comme déjà
+dit, les systèmes à haute criticité doivent être certifiés par les
+organes gouvernementales. L'avionique est certifié selon un standard
+appelé le ``Software Considerations in Airborne Systems and Equipment
+Certification'', ou DO-178B~\cite{do178b}. Selon les estimations
+d'industrie, suivre ce standard peut rajouter de 50\% à 100\% à la
+prix d'un projet. En vue de ça, la Commission Européenne a commencé le
+projet ASSERT\footnote{\url{http://www.assert-online.org}}, qui a
+comme but de créer de nouvelles méthodes et approches pour développer
+les systèmes avioniques et spatiales. L'une des approches à investiger
+est celle du couple AADL+Ada Ravenscar, qui pourrais potentiellement
+réduire le prix de ce genre de logiciel. La réduction du temps de
+développement est claire, car quand on écrit dans un langage plus
+abstrait et convertis automatiquement au code, ça fait gagner du
+temps. Aussi, si la générateur du code lui-même se trouve être
+certifié, le code générer pourrais être exonéré du processus chère et
+coûteux (en temps et argent) de la certification.
+
+Le travail achevé et présenté dans cette thèse consiste principalement
+en règles de génération du code haute intégrité Ada depuis le langage
+AADL et un générateur du code qui implémente ces règles. Le code
+généré est dans la forme d'un cadre d'exécution, qui fournit les
+entités d'exécution nécessaire et bien dimensionnée pour
+l'architecture comme décrit. Ces entités d'exécution consiste en
+(entre autres choses) les threads, les tampons d'échange de messages
+entre ces threads, les mécanisms d'envoi d'évènement et les APIs
+généré pour accéder facilement à tous ces artefacts. Ce cadre
+d'exécution et ensuite rempli par les caractéristiques fonctionnelle
+des threads (sous formes de ``callbacks''), qui complète le système.
+
+Aussi présenté est une solution élégante au problème---venant du
+domaine d'automatisme, qui est fortement lié au domaine sous
+considération---de la communication déterministe entre différents
+threads. La solution présentée est aussi intégrée dans l'outillage
+développé pour fournir un toolkit qui répond aux besoins d'automatisme
+aussi. Une vérification formelle de la validité de la solution au
+problème de communication déterministe utilisant l'algèbre de
+processus LOTOS~\cite{bolognesi@cnis87, logrippo@cnis92,
+  garavel@cav07} est présentée aussi, ainsi que l'intégration de
+\emph{ça} génération automatique avec l'outillage développé.
+
+Une sémantique formelle du code généré est présentée, sous forme d'une
+sémantique structurée opérationnelle (SOS pour Structured Operational
+Semantics). Cette sémantique permet de raisonner d'une manière
+mathématiquement rigoureuse sur le code généré. Dans le futur, cette
+sémantique pourrais donner naissance aux simulateurs précis ainsi
+qu'une vérification systémique de ces systèmes.
+
+\section*{État de l'art}
+Comme déjà constaté, les systèmes temps-réels ne sont pas nouveaux, et
+donc ne sont pas nouveaux les approches pour les implémenter. Leyland
+et Liu ont donné la première analyse rigoureuse de l'ordonnonçabilité
+d'un ensemble des tâches temps-réels~\cite{liu@jacm73}. Mais le
+concept d'une tâches temp-réel en tant qu'une unité d'exécution
+distinct et (quasi)-indépendant a été présenté par Manacher bien
+avant~\cite{manacher@jacm67}.
+
+\subsection*{Les tâches---ou threads---temps-réels}
+Nous définissons---dans le contexte de cette thèse---une tâche
+temp-réel comme étant une fonctionnalité ou séquence d'actions qui
+devraient être prise par le système, et ça sous des contraintes et
+propriétés temporelle précises. Les tâches temps-réels sont quasiment
+toujours récurrents, ç-à-d, elles se répètent toute au long de la vie
+du système.
+
+Il y a deux types majeures de tâches temps-réels; celles qui sont
+\emph{cyclique} (ou \emph{périodique}) et celles qui ne le sont pas
+(on les appel aussi \emph{aperiodique}). Des tâches cycliques sont
+celles qui sont déclenchées aux intervalles régulières, qu'on appel
+leur \emph{période}. Normalement les tâches périodiques sont des
+tâches dures dans un systèmes---soit disant, elles ne doivent pas
+rater leurs délais. Elles sont utilisées pour des boucles de contrôle,
+pour lire les données depuis les capteurs, pour mettre à jour
+périodiquement les écrans des systèmes tels que les GPS etc.
+
+Le deuxième type de tâches c'est des aperiodiques, celles qui sont
+déclenchées en réception d'un év\'enement, que ça soit généré par
+l'environnement (év\'enement externe) ou par une autre tâche
+(év\'enement interne). Ces tâches peuvent être mous ou dures. Il y a
+une version plus robuste de ces tâches qui s'appellent les tâches
+sporadiques, celles-là sont déclenchées par la réception d'un
+év\'enement mais elles enforcent aussi une séparation minimale entre
+deux déclenchement de la même tâche, et donc ne peuvent pas surcharger
+le système au cas de ``rafale d'év\'enement''.
+
+\subsection*{L'ordonnancement}
+L'ordonnancement des tâches temps-réels est une des activités les plus
+importantes dans un tel système. L'ordonnancement dénote la
+séquencement des différentes tâches dans le système. Dans un système
+temp-réel, l'ordonnanceur doit tenir compte de différentes contraintes
+temporelles des tâches impliquées et prendre des décisions qui
+garantissent le moindre de rates de délais des tâches.
+
+Il y a plusieurs types d'ordonnanceurs temp-réel, nous nous
+concentrons ici sur l'ordonnanceur préemptif aux priorités fixes (FPPS
+pour Fixed Priority Preemptive Scheduler), car c'est très répandu et
+c'est l'ordonnanceur stipulé par le Profil Ravenscar. Simplement, un
+ordonnanceur FPPS implique qu'une tâche peut être préemptée (et son
+état sauvegardé pour la remettre en marche exactement au même endroit
+dans le futur), et que les priorités de tâches sont statiques et fixes
+pendant la vie du système. Aussi, un FPPS implique qu'à n'importe quel
+moment donné, la tâche la plus prioritaire qui est ``prête'' est celle
+qui est sur le processeur (bien sur au cas ou il y a un seul
+processeur).
+
+Étant donné un ensemble de tâches et leurs caractéristiques
+temporelles tels que le fait qu'une tâche est périodique ou pas, sa
+période, sa délai etc.; et étant donné le fait que l'ordonnanceur sur
+lequel cet ensemble de tâches va tourner est un FPPS, il existe un
+teste extrêmement simple pour déterminer si ledit ensemble est
+ordonnançable. Cependant il ne faut pas oublier que---la version
+basique de---ce teste est applicable seulement aux tâches
+indépendantes; c-à-d celles qui ne se communiquent ou ne se
+synchronisent pas entre elles.
+
+\subsection*{Les approches d'Ingénierie Dirigé par les Modèles}
+Comme déjà indiqué, il y a plusieurs techniques de développement de
+logiciel basé sur les modèles, dont aussi celles qui sont utilisées
+pour les systèmes temps-réels et/ou critiques. La suite donne des
+petites introductions aux plus importantes parmi celles-ci.
+
+\subsubsection*{Lustre et SCADE Suite}
+Lustre est un langage fonctionnelle pour modéliser des systèmes
+réactifs et synchr\^one en tant que flux de données qui est pertinent
+aux systèmes réactifs; dont principalement des systèmes
+automatiques~\cite{halbwachs@popl87, halbwachs@ieee91}. Industrialisé
+par Esterel Technologies, son générateur du code est certifié jusqu'au
+niveau ``A'' du standard DO-178B. Dans le spectre des langages, Lustre
+est synchr\^one; ç-à-d, il est considéré qu'il y a une résolution
+minimale d'activité du système, au-delà duquel n'est pas possible une
+fréquence d'év'enements. Cet hypothèse permet de générer du code
+déterministe et qui ne repose pas nécessairement sur un certain
+système d'exploitation ou un autre; et ça puisque le choix logique
+d'implémenter un programme synchr\^one se trouve être un exécutif
+cyclique.
+
+Comme déjà dit, Lustre implémente un paradigme de flux de données;
+chaque \emph{noeud} d'un programme définit les traitement sur ses flux
+``entrants'' qui transforment ces valeurs et les transmettent en tant
+que flux ``sortants''. Ces flux sont, en Lustre, représentés par des
+paramètres de ces noeuds. Les avantages qu'apporte Lustre sont
+nombreuses:
+
+\begin{itemize}
+\item{C'est un langage mathématiquement définit qui est très aligné à
+  l'automatisme;}
+\item{C'est facile à apprendre et fournit une exécution robuste et
+totalement déterministe;}
+\item{Il fournit des abstractions très proche aux concepts natifs de
+l'automatisme;}
+\item{Car le code Lustre est représenté comme un automate, on peut appliqué
+du ``model-checking'' sur des modèles Lustre, et fournir de la vérification;}
+\item{Avec SCADE Suite (la version commercialisée par Esterel Technologies),
+il y a la possibilité de générer directement du code C certifié
+jusqu'au niveau ``A'' de DO-178B.}
+\end{itemize}
+
+Ceci dit, il y a quand-même un certain nombre de désavantages associés
+avec l'utilisation de Lustre et/ou SCADE Suite:
+
+\begin{itemize}
+\item{Le plus grand désavantage reste le fait que Lustre génère un
+  programme synchr\^one qui doit tourner sur un exécutif
+  cyclique. Donc toutes les tâches doivent être périodique;}
+\item{Sa nature cyclique et synchr\^one engendre la perte de plusieurs
+  cycles du processeur;}
+\item{Ce n'est pas pratique pour programmer des systèmes temps-réels
+générique; ç-à-d ceux qui ne sont pas des systèmes automatiques.}
+\end{itemize}
+
+\subsubsection*{MATLAB \simu}
+\simu est un ``add-on'' ou plugin pour MATLAB qui laisse modéliser les
+systèmes hybrides en utilisant des symboles graphiques pour
+représenter les transformations à apporter sur les données qui entrent
+pour produire les données sortantes; assez similaire au Lustre. Le
+plugin laisse générer aussi du code C en utilisant l'outil Real-Time
+Workshop (RTW). RTW peut générer du code pour un nombre important
+d'environnement cible, du système d'exploitation temps-réel complèxe
+jusq'aux éxecutables minimales. Le code généré par RTW peut \^{e}tre
+mono-t\^ache, soit synchr\^{o}ne comme Lustre, ainsi que multi-t\^ache, ce
+qui necessite un RTOS sous-jacente.
+
+Un autre avantage de Simulink est le fait qu'il nous laisse concevoir
+le système en forme visuelle, avec des bloques hierarchique de
+computation avec des ports qui peut \^{e}tre branch\'{e}s pour
+communiquer entre t\^aches. Figure~\ref{fig:abs_simulink_fr} est un
+\'exemplaire d'un composant qui calcul la valeur absolue d'un
+entier. Chaque mod\`ele a une fr\'equence de base qui est la
+fr\'equence maximale d'ensemble de t\^aches. Les autres bloques dans
+le syst\`eme sont soit \`a la m\^eme fr\'equence soit son
+multiple. Figure~\ref{fig:subsystem_simulink_fr} est un exemplaire
+d'un sous-syst\`eme utilis\'es comme un bloque hierarchique dans un
+syst\`eme englobant. Les ports d'entr\'ees et sorties deviennent les parametres
+formels dans le code gener\'e.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figs/abs_simulink}
+\caption{Un mod\`ele Simulink pour calculer la valeur absolue d'un
+  entier}
+\label{fig:abs_simulink_fr}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figs/abs_block_simulink}
+\hspace{10mm}
+\includegraphics[scale=0.5]{figs/subsystem_simulink}
+\caption{Gauche: La logique de valeur absolue defini comme un
+  sous-syst\'eme.  \texttt{Abs\_In} et \texttt{Abs\_Out} sont les
+  ports d'entr\'ees et sorties. Droite: Le sous-syst\`eme de valeur
+  absolue utilis\'ee dans un syst\'eme, les ports sont connect\'ees a
+  une source et un scope}
+\label{fig:subsystem_simulink_fr}
+\end{figure}
+
+Simulink est extremement repandu dans le domaine de
+l'automatique. L'outillage existe qui peux m\^eme traduire ces
+mod\`eles~\cite{caspi@emsoft04} \`a Lustre~\cite{caspi@sigplan03},
+ausi qu'\`a Z~\cite{arthan@icfem00}. Il a \'et\'e utilis\'e dans
+l'industrie pour concevoir le syst\`eme d'aterrisage
+d'avions\footnote{Boeing X40A}, contr\^ole de vitesse
+vehiculaire\footnote{Merceses-Benz trucks} et freinage
+automatis\'e\footnote{Pacifica Group Technologies}.
+
+\paragraph{Advantages de MATLAB Simulink}
+\begin{itemize}
+\item{Mod\'elisation haut-niveau de syst\`emes automatiques;}
+\item{G\'en\'eration du code cibl\'e aux syst\`emes d'\'exploitations
+  differents;}
+\item{Biblioth\`eque importante de composants pr\'ed\'efinis pour
+  d'algorithmes standards d'automatique;}
+\item{G\'en\'eration du code synchr\^one ainsi qu'asynchr\^one, ç-à-d,
+  cibl\'e \'a un RTOS;}
+\item{Simulation fourni la possibilit\'e de deboggage au niveau du
+  mod\`ele.}
+\end{itemize}
+
+\paragraph{D\'esadvantages of MATLAB Simulink}
+\begin{itemize}
+\item{Principalement pertinent aux syst\`emes automatiques;}
+\item{Son avantage principale---\'etant pr\`es du domaine
+  d'automatique---est aussi son d\'esavantage principale. \`A cause de
+  sa sp\'ecificit\'e, ce n'est pas tr\`es dou\'e au d\'eveloppement de
+  syst\`emes temps-r\'eel g\'en\'erales;}
+\item{Compar\'e \'a SCADE, Simulink ne g\'en\'ere pas du code
+  certifi\'e DO-178B, donc le code doit \^etre certifi\'e
+  independament.}
+\end{itemize}
+
+\subsection*{Unified Modeling Language}
+La version 2 d'Unified Modeling Language~\cite{uml-infra, uml-super},
+soit UML2, est un langage de conception de logiciel standardiz\'e par
+l'Object Management Group (OMG). C'est principalement un langage
+graphique pour la conception de logiciel orient\'e objet. L'OMG a
+standardis\'e l'UML en utilisant un framework de m\'eta-mod\'elisation
+Meta-Object Facility~\cite{mof-std}, soit MOF. Un m\'eta-modèle est
+le modèle d'un modèle, car il d\'ecrit l'univers de tout les
+modèles possible qui sont structurellement valides. Dans le domaine
+de compilateurs, un m\'eta-mod\`ele est l'\'egale \`a une arbre de
+syntaxe abstrait.
+
+UML2 est un langage d'usage g\'en\'erale pour la conception de
+logiciel, gr\^ace auquel il compris un nombre important de type de
+diagramme; il y'en a pour de la documentation, de l'analyse, et
+finalement, de la g\'en\'eration du code. Un diagramme de classes
+montre la relation entre les classes dans le syst\`eme sous \'etude,
+il montre l'hierarchie de classes, les associations et la composition
+entre elles. De plus, la diagramme de classe peux aussi montrer les
+d\'etails de classes comme m\'ethodes, donn\'ees et leurs attributs.
+
+Figure~\ref{fig:class_diag_fr} montre l'\'exemple d'un controlleur
+automotive. La classe \texttt{RPM\_Controller}, qui est d\'eriv\'ee de
+\texttt{Value\_Controller}. Les classes \texttt{RPM\_Controller} et
+\texttt{Driver\_Input} sont ``actives'', ç-à-d, elles ont leurs propres
+t\^aches d'\'ex\'ecution. Les deux ont d'associations \`a
+\texttt{Driver\_Params}, qui repr\'esent un tampon partag\'e. Les
+autres classes dans l'architecture repr\'esentent les composants
+d'acc\'el\'eration et de freinage. Le code g\'en\'er\'e pour ce
+mod\`ele r\'esulterat en t\^aches pour les deux classes actives, ainsi
+que le tampon partag\'e, les m\'ethodes et les donn\'ees encapsul\'ees
+par d'objets.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{figs/class_diag}
+\caption{Un diagramme de classes avec les r\'elations de types
+  differents en UML2, cr\'ee avec Rhapsody}
+\label{fig:class_diag_fr}
+\end{figure}
+
+Le deuxi\`eme diagramme pertinent aux syst\`emes temps-r\'eel est le
+``statechart'', soit graphe d'\'etat~\cite{jansamak@acsc04,
+  allen@sigplan95}. Les statecharts sont les machines \`a \'etats finis
+attach\'es aux classes actives pour d\'ecrire leurs comportements. Les
+statecharts sont un type d'automates \'etendus avec la capacit\'e de
+modifier les attributs de sa classe et d'envoyer les
+\emph{signaux}---\'evennements asynchr\^ones---aux autres classes
+actives~\cite{lynch@concur01}. Figure~\ref{fig:statechart_fr} montre un
+machine \`a \'etat qui impl\'ement un chauffage d'eau avec thermostat.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figs/statechart}
+\caption{Un diagramme de statechart d'UML2, attach\'e a une classes pour
+  d\'ecrire sont comportement}
+\label{fig:statechart_fr}
+\end{figure}
+
+Avec ces capacit\'es, l'utilisation d'UML2 est r\'epandu dans
+l'industrie pour d'applications temps-r\'eel. Les outils de conception
+comme Rhapsody$\circledR$ fournis la g\'en\'eration du code, qui
+r\'eduit la dur\'ee de developpement. Ceci dit, il y a plusieurs
+d\'esavantages d'UML2 dans les syst\`emes \`a haute integrit\'e.
+\begin{comment}
+Le langage est tr\`es large et complexe, ses s\'emantiques sont pas
+d\'efinies form\'ellement, ce qui laisse les outils choisir leurs
+propres interpr\'etations. Hors, le probl\`eme principale est que
+l'UML2 n'est pas conçu pour les syst\`emes temps-r\'eel, alors il n'y
+a pas les concepts de priorit\'e, de d\'elai, le temps d'\'execution
+au pire cas.
+\end{comment}
+
+\paragraph{Advantages d'UML2}
+\begin{itemize}
+\item{Standardis\'e et tr\`es r\'epandu dans l'industrie;}
+\item{Proche du domaine de logiciel;}
+\item{La mod\'elisation orient\'ee objet et l'int\'egration de
+  comportement fonctionnel;}
+\item{Les r\'egles de g\'en\'eration du code sont naturels et
+  intuitifs, surtout vers des langage comme C/C++.}
+\end{itemize}
+
+\paragraph{D\'esadvantages d'UML2}
+\begin{itemize}
+\item{Le langage n'est pas conçu pour les syst\`emes temps-r\'eel,
+  alors il n'y a pas de concepts comme d\'elai, priorit\'e etc.;}
+\item{Absence des s\'emantiques formelles, les comportements du code
+  g\'en\'er\'e par d'outils diff\'erents ne sont pas les m\^emes;}
+\item{Complexit\'e de langage, le standard fais 2000 pages, avec 13
+  types de diagrammes diff\'erents;}
+\item{Couplage tr\`es fort avec la programmation orient\'ee objet. Les
+  syst\`emes temps-r\'eel \'evitent l'orientation objet en faveur de
+  temps d'\'ex\'ecution d\'eterministe;}
+\item{Utilisation de la \emph{surcharge s\'emantique} sur d'artefacts
+  de bases pour \'enumer\'e de nouveaux concepts. Par \'exemple, une
+  t\^ache en UML2 est repr\'esent\'ee par une classe active, hors ce
+  n'est pas une classe.}
+\end{itemize}
+
+\subsection*{HRT-HOOD, HRT-UML et MARTE UML}
+Cette section regroupe plusieurs t\'echnologies et langages de
+conception pour les syst\`emes temps-r\'eel bas\'e autour d'UML. \`A
+cette fin, ils utilisent le syst\`eme de profils pour \'etendre l'UML
+avec leurs propres artefacts au but de d\'efinir les concepts
+temps-r\'eel et haute integrit\'e.
+
+Le Hierarchical Object Oriented Design
+methodologie~\cite{vielcanet@wadas89} \'etait un t\'echique de
+conception d\'evelopp\'e par l'industrie a\'erospatial pour l'Agence
+Spatiale d'Europe. Sa version prochaine, cibl\'e au syst\`eme
+temps-r\'eel, est HRT-HOOD (Hard Real-Time HOOD)~\cite{burns@rts94},
+qui contient les artefacts sp\'ecefique \`a l'analyse d'ordonnacement
+et de suret\'e. HRT-HOOD, et son cousin, HRT-UML, qui est un profil
+UML \`a repr\'esenter HRT-HOOD, contient les artefacts comme
+``t\^aches cyclique'', ``t\^aches sporadique'' etc. Chacun comportant
+des ``propri\'et\'es'' pertinentes en forme de donn\'ees de classe
+comme p\'eriode et priorit\'e.
+
+Le profil MARTE (Modeling and Analysis Real-Time and Embedded
+systems) est un standard d'OMG~\cite{omg-marte}. Les m\'ecanismes
+similaire \`a HRT-HOOD sont utilisé \`a d\'ecrire les aspects
+temps-réel du système, ç-à-d, le st\'ereotype est employ\'e de
+mani\`ere r\'epandu pour d\'ecor\'e les classes avec la
+s\'emantique, une s\'emantique qui se m\`ene \`a \^etre pars\'ee par
+d'outils. Ce profil contient aussi de la notation pour QdS (Qualit\'e
+de Service) ainsi que pour la fiabilit\'e~\cite{bernardi@wosp07}. Il y
+a aussi une proposition d'utiliser MARTE comme un m\'ecanisme de
+mod\'elisation en AADL---le langage d'architecture discuter dans cette
+th\`ese---en cr\'eant une correspondance de MARTE \`a
+AADL~\cite{gerard@iceccs07}.
+
+\section*{Ada Ravenscar}
+Ada et son ``runtime'' ou \'ex\'ecutif contient un nombre important
+primitifs de t\^aches et de communication entre t\^aches comme membre
+d'ordre premi\`er du langage. En comparison, l'approche adopt\'e par
+d'autres langages est d'utiliser les APIs pour s'appuyer sur le
+syst\`eme d'exploitation en dessous pour ces primitifs; comme exemple,
+l'API POSIX qui dote C et C++ avec les t\^aches, les mutexes et les
+s\'emaphores. Cette promotion d'artefacts de runtime \`a Ada a
+d'avantages importants, aisni que les d\'esavantages; l'avantage
+principale \'etant la portabilit\'e et la capacit\'e d'analyser les
+programs au niveau de compilateur afin de trouver de probl\`emes
+d'ordonnancements etc.
+
+Ada a eu plusieurs versions; Ada 83, Ada 95 et finalement Ada 2005, le
+langage consid\'er\'e dans cette th\`ese. \`A fin d'\'eviter les
+primitifs non-d\'eterministe d'Ada, comme le rendezvous, et la manque
+d'impl\'ementation d'artefacts temps-r\'eel comme des t\^aches dans
+Ada 83, les industrielles utilisaient les primitifs de t\^aches et de
+communication inter-t\^aches fournis par le syst\`eme
+d'\'exploitation. Le Profil Ravenscar~\cite{burns@adalett99} pour Ada
+a \'et\'e propos\'e en 1999 et adopt\'es en
+2004~\cite{burns@adalett04}. Ravenscar est une r\'estriction aux
+primitifs de t\^aches d'Ada 95 et d'Ada 2005 \`a un sous-ensemble
+garantissant l'ordonnancabilit\'e temps-r\'eel et la sur\'et\'e. Avec
+Ada 2005, le Profil Ravenscar fait parti du standard~\cite{arm05}. Le
+Profil Ravenscar impose un ensemble de r\'estrictions, les plus
+importantes \'etant les suivantes:
+
+\begin{itemize}
+\item{La cr\'eation de t\^aches dynamique est interdite, toutes les
+  t\^aches du syst\`eme doivent \^etres d\'eclar\'ees de mani\`ere
+  statique. Les t\^aches hierarchique sont aussi interdites;}
+\item{Les t\^aches ne peuvent pas se terminer. Les t\^aches
+  temps-r\'eel sont normalement du type ``boucle infini''; cette
+  restriction, avec celle qui interdit la cr\'eation des t\^aches,
+  garantit un ensemble de t\^aches fixe pendant la vie du syst\`eme;}
+\item{Les t\^aches ne peuvent pas changer leurs priorit\'es, qui sont
+  d\'efinis dans le code du mani\`ere statique;}
+\item{Les objets de synchronisation doivent \^etre au niveau globale;}
+\item{La cr\'eation dynamique d'objets---avec d'allocateurs---est
+  interdite;}
+\item{Le primitif de rendezvous---un type de variable
+  conditionnelle---est interdit;}
+\item{Le contr\^ole asynchr\^one est interdit, ç-à-d, des t\^aches ne
+  peuvent pas susprendre et ne peuvent pas reprendre l'\'ex\'ecution
+  d'autres t\^aches;}
+\item{Les objets proteg\'es---objets de synchr\^onisation---doivent
+  suivre le protocole de plafond de priorit\'e~\cite{sha@toc90};}
+\item{Utilisation d'un ordonnanceur \`a priorit\'es fixe, avec
+  pr\'eemption en fonction de priorit\'e et tournoi \`a la ronde sous
+  la m\^eme bande de priorit\'es.}
+\end{itemize}
+
+Le but principale, qui est l'ordonnancabilit\'e---et son
+analyse---ainsi que la suret\'e d'\'ex\'ecution d\'eterministe, peut
+\^etre guarantit avec ces restrictions. Surtout, nous pouvons faire
+l'analyse d'ordonnancabilit\'e d'ensemble de t\^aches d'un syst\`eme
+Ravenscar avec la technique de Response Time
+Analysis~\cite{burns-rtspl} (pages 475---479). Un deuxi\`eme avantage
+est l'absence des deadlock, gr\^ace au protocole de plafond de
+priorit\'e.
+
+Ici, nous allons donner un \'exemple de cr\'eation de t\^ache avec Ada
+Ravenscar. Les types de t\^aches les plus importantes pour les
+syst\`emes temps-r\'eels sont les t\^aches p\'eriodiques et les
+t\^aches sporadiques. Nous d\'efinissons les deux avec des primitifs
+d'Ada. Le code dans Listing~\ref{lst:one_periodic_task_fr} d\'efinit
+une t\^ache p\'eriodique \`a p\'eriode de 20ms. L'impl\'ementation
+s'appuie sur le primitif de \kw{delay until}. Nous pouvons constater
+que la r\'esponsabilit\'e d'assurer que la t\^ache soit p\'eriodique
+est au programmateur, et la nature p\'eriodique de la t\^ache est
+evident dans la structure du code sur les lignes 8, 11 et 12.
+
+\begin{minipage}{\listingwidth}
+\lstset{language=ada,
+  numbers=left,
+  numberstyle=\tiny
+}
+\begin{lstlisting}[firstnumber=1, label=lst:one_periodic_task_fr,
+    caption=Une t\^ache p\'eriodique Ravenscar avec un p\'eriode de
+    20ms]
+task Task_A is 
+  pragma Priority (240);
+endTask_A;
+
+task body Task_A is
+  Next_Dispatch : Ada.Real_Time.Time;
+begin
+  Next_Dispatch := Ada.Real_Time.Clock;
+  loop
+    -- ...Periodic response code for Task_A...
+    Next_Dispatched := Next_Dispatch + Ada.Real_Time.Microseconds (20);
+    delay until Next_Dispatch
+  end loop;
+end Task_A;
+\end{lstlisting}
+\end{minipage}
+
+Les t\^aches sporadiques sont celles qui ne s'activent pas aux moments
+pr\'ed\'et\'ermin\'es, mais en cons\'equence d'\'evennements reçus par
+le syst\`eme. Ces \'evennements peuvent \^etres le r\'esultat d'un
+interrupt ou bien envoy\'e par une autre t\^ache. La propri\'et\'e
+interressante d'une t\^ache sporadique qui la rend utile est qu'elle
+guarantit un laps du temps minimale entre deux
+activations. C'est-\`a-dire, les t\^aches sporadiques ne surcharge pas
+un syst\`eme aux moments de rafale
+d'\'evennements. Listing~\ref{lst:sporadic_fr} montre la squellete
+d'une t\^ache sporadique en Ada Ravenscar.
+
+\begin{minipage}{\listingwidth}
+\lstset{language=ada,
+  numbers=left,
+  numberstyle=\tiny
+}
+\begin{lstlisting}[label=lst:sporadic_fr, caption=Une t\^ache sporadique en Ada Ravenscar]
+task type Sporadic(
+   Priority_P : System.Any_Priority;
+   Min_Separation_P : Ada.Real_Time.Time_Span
+   ) is pragma Priority(Priority_P);
+end Sporadic;
+
+task Sporadic is
+   Min_Separation : Ada.Real_Time.Time_Span;
+   Next_Dispatch : Ada.Real_Time.Time;
+begin
+   Min_Separation := Min_Separation_P;
+   loop
+      Event_Object.Await;
+      Next_Dispatch := Ada.Real_Time.Clock + Min_Separation;
+      -- ... Non-suspending sporadic response code ...
+      delay until Next_Dispatch;
+   end loop;
+end Sporadic;
+\end{lstlisting}
+\end{minipage}
+
+Pour la communication inter-t\^ache, Ada fournit les objets
+prot\'eg\'es. Ceux sont similaires aux objets synchr\^onis\'es en
+Java, ç-à-d, seule une t\^ache peut entrer dans les fonctions ou les
+proc\'edures de l'objet en m\^eme temps. La fonctionnalit\'e de ``data
+port'' peut \^etre impl\'em\'ent\'e en encapsulant une instance ou un
+tampon de type requis comme membre d'objet. Les procedures et les
+fonctions d'acc\`es \`a ces donn\'es garantirons l'absence de
+conditions de course entre t\^aches. Pour impl\'ementer l'\'echange
+d\'evennements entre t\^aches, Ada nous fournis l'artefacts de
+``entry'' sur les objets prot\'eg\'es, soit une variable
+conditionnelle. Simplement, une t\^ache peut attendre sur l'entr\'ee,
+et une t\^ache peut la d\'eclencher en appellant un proc\'edure de
+l'objet prot\'eg\'e qui signale l'entr\'ee.
+
+L'analyse principale qui peut être effectuée sur un syst\`eme conforme
+au Ravenscar est celle d'ordonnancabilit\'e. Comme indiqué
+précédemment, le profil Ravenscar prévoit l'utilisation d'un
+ordonnanceur de priorité fixe avec tournoi à la ronde sous la même
+bande de priorité, ç-à-d, ``Fixed Priority Preemptive Scheduler'' ou
+FPPS. En supposant que toutes les tâches sont périodiques, indépendant
+(pas de communication inter-tâches ou de synchr\^onisation) et d\^ures
+(pas de délais non respectés), puis l'affectation de priorit\'es selon
+l'affectation monotone \`a p\'eriode, ou ``Rate Monotonic
+Assignment'', resultera \`a un ordonnancement faisable si l'un est
+possible sous un ordonnanceur FPPS~\cite{liu@jacm73}. Le RMA stipule
+que les t\^aches d'un syst\`eme seront affectu\'ees leurs priorit\'e
+en ordre inverse de leurs p\'eriode; c'est-\`a-dire, la t\^ache la
+plus prioritaire du syst\`eme serait celle avec la moindre p\'eriode.
+
+Hors, le plupart de syst\`emes temps-r\'eel ont des t\^aches qui
+doivent se communiquer. Dans ce cas, il faut prendre en compte le
+temps d\'epenser par des t\^aches bloqu\'ees sur d'objets prot\'eg\'es
+\`a fin de communiquer avec d'autres. Car les t\^aches acc\`edant aux
+objets prot\'eg\'es auront la priorit\'e de plafond, il est possible
+d'analyser la faisabilit\'e d'ensemble de t\^aches en utilisant
+Eq.~\ref{eq:rma_w_sync}. Le temps de bloquage maximale de chaque
+t\^ache peut \^etre calcul\'e avec l'\'equation ci-dessous:
+
+\begin{displaymath}
+B_j = \max_{k=1}^{K} \Big(usage(k,j)\times C_k\Big)
+\end{displaymath}
+\noindent
+
+Si une t\^ache $j$ acc\`ede \`a un objet prot\'eg\'e $k$, $usage(k,
+j)$ sera 1, sinon 0; et la terme $C_k$ est le temps d'\'execution au
+pire des cas du proc\'edure ou entr\'ee de l'objet \`a laquelle $j$
+acc\`ede, dans ce cas, $k$.
+
+\section*{Architecture Analysis and Design Language}
+Dans cette section, nous donnons une introduction au langage
+d'architecture Architecture Analysis and Design Language
+(AADL)~\cite{AS5506}. Ce langage, d\'evelopp\'e par un groupe
+d'industrielles et d'universit\'es, est cibl\'e tr\`es
+sp\'ecifiquement au domaine temps-r\'eel distribu\'e et
+embarqu\'e. C'est un langage bas\'e sur la notion de composant, qui se
+communiquent sur des connexions entre eux. Ici, nous allons pr\'eciser
+que ``l'architecture'' d'un syst\`eme est \`a l'\'echelle plus large
+que ``la conception'' ou ``design'' au niveau logicielle de ses
+composants. Alors, le syst\`eme sera d\'ecrit avec un langage comme
+AADL, qui donne la d\'escription \`a l'\'echelle, et la conception
+fonctionelle des composants pourrais \^etre donn\'ee avec des moyens
+auxiliares, comme discut\'e ci-dessous.
+
+L'AADL est un langage hierarchique; les composants composite \'etant
+ceux qui ont de sous-composants, et les composants feuille \'etant
+ceux qui n'en ont pas. Le noyau du langage contient seulement la
+capabilit\'e de d\'ecrire la parti non-fonctionnelle du syst\`eme, il
+n'y a aucune capacit\'e de doter la d\'efinition fonctionnelle---soit
+algorithmique---aux composants. Alors l'imp\'ementation de composants
+logicielles peut \^etre donn\'ee en langage de programmation
+traditionnelle comme C, C++ ou Java; elle peut m\^eme \^etre donn\'ee
+avec des Statecharts ou d'autre outil graphique, si une corr\'espondance
+entre les deux (interfaçage AADL et Statecharts) est d\'efinie.
+
+Un \'exemple typique serait un composant ``thread'' en AADL, qui
+repr\'esente une t\^ache. Ce composant a des propri\'et\'es comme
+priorit\'e, type (p\'eriodique, sporadique) ainsi que sa p\'eriode. De
+plus, ce composant aura aussi les d\'efinitions d'interface, ce qui le
+doteront de la capacit\'e d'interagir avec son environnement. Cette
+interfaçage d\'ecrit le structure non-fonctionnelle du composant. Une
+fois d\'efinis, l'on utilisera---par \'exemple---du code Ada pour
+fournir le comportement fonctionnelle \`a ce
+composant. Figure~\ref{fig:comp_code_fr} est la repr\'esentation
+graphique d'un composant thread. La propri\'et\'e de p\'eriode est
+montr\'ee, \`a 40 msec, ainsi que l'interface de quatres ports. Ces
+ports, qui sont typ\'e en AADL, se traduisent envers des objets
+prot\'eg\'es avec proc\'edures d'acc\`es en Ada, ou en m\'ethodes de
+mutation et acc\'es en C, qui assurent la s\^uret\'e de concurrence de
+t\^aches en utilisant des mutexes ou des s\'emaphores.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{figs/comp_code}
+\caption{Un composant thread en AADL, d\'ecris au syntaxe graphique du
+  langage, avec deux port d'entr\'ees et de sorties. La t\^ache est
+  periodique, avec une p\'eriode de 40 msec. Veuillez noter que la
+  r\'eponse fonctionnelle de la t\^ache est donn\'ee en C}
+\label{fig:comp_code_fr}
+\end{figure}
+
+Un composant en AADL peut \^etre du type mat\'eriel (bus, processeur)
+ou logiciel (prototype de fonction, t\^aches, ou type de donn\'ee). Un
+composant doit avoir une sp\'ecification; il peut aussi optionellement
+avoir une ou plusieurs impl\'ementations. L'impl\'ementation d'un
+composant complexe pourrais avoir, par \'exemple, ses sous-composants,
+les connexions entre ses sous-composants, ainsi que ses modes
+d'op\'eration. L'AADL a sept types de composants, class\'es en
+composants logiciels, composants mat\'eriels et composant
+hybride. Table~\ref{tab:comp_cats_fr} fournis un survole de ces types de
+composants.
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Classe} & \textbf{Cat\'egorie} & \textbf{En br\`ef}\\
+\hline
+ & Process & Un processus avec m\'emoire virtuelle et plusieurs t\^aches\\
+ & Thread & Unit\'e primitif d'\'ex\'ecution ind\'ependente\\
+\textbf{Software} & Thread group & Un groupe de t\^aches\\
+ & Data & Un type de donn\'ees ou instance d'un type\\
+ & Subprogram & Un proc\'edure d'un langage de programmation\\
+\hline
+ & Processor & Microprocesseur avec un ordonnanceur\\
+\textbf{Execution platform} & Memory & Stockage de donn\'ees (RAM, ROM ou disque d\^ur)\\
+ & Bus & Un canal de communication au mat\'eriel\\
+ & Device & Mat\'eriel sp\'ecialis\'e avec interface d\'efinis\\
+\hline
+\textbf{Hybrid} & System & Composant hybride pour encapsul\'e l'architecture du syst\`eme\\
+\hline
+\end{tabular}
+\caption{Les classes et cat\'egories differentes de composants d'AADL}
+\label{tab:comp_cats_fr}
+\end{table}
+
+Listing~\ref{lst:props_comps_fr} montre un bout du code AADL qui
+d\'efinis une interface de t\^ache, une impl\'ementation du t\^ache,
+ainsi qu'un composant processus qui en regroupe. L'interface de la
+t\^ache montre aussi un port de sorti typ\'e d'un entier. Le port
+\texttt{Data\_Out} pourrait \^etre connect\'e avec un autre \texttt{in
+  port} ou \texttt{in out port} du m\^eme type---c'est \`a dire du
+type entier---sur un autre composant. La deuxi\`eme chose \`a
+remarquer est la s\'emantique des propri\'et\'es; celle d\'efini sur
+l'interface (ligne 6) est pr\'es\'eanc\'e par celle de
+l'impl\'ementation (ligne 11), et celle-l\`a est pr\'es\'eanc\'e par
+celle de la d\'efinition (ligne 18).
+
+\begin{minipage}{\listingwidth}
+\lstset{language=aadl,
+  numbers=left,
+  numberstyle=\tiny
+}
+\begin{lstlisting}[label=lst:props_comps_fr, caption=Interfaces et impl\'ementations de
+    composants avec des ports et des propri\'et\'es]
+
+thread T1
+features
+   Data_Out : out data port Ravenscar.Integer;
+properties
+   Period => 10 ms;
+end T1;
+
+thread T1.Impl
+properties
+   Period => 20 ms
+end T1.Impl;
+
+process P
+subcomponents
+   Thread1 : thread T1;                         -- Période de 10 msec
+   Thread2 : thread T1.Impl;                    -- Période de 20 msec
+   Thread3 : thread T1.Impl {Period => 30 ms;}; -- Période de 30 msec
+end P;
+\end{lstlisting}
+\end{minipage}
+
+\section*{G\'en\'eration du Code}
+Dans cette s\'ection, nous d\'ecrirons l'une des contributions
+principale de cette th\`ese, ç-à-d, la g\'en\'eration du code Ada 2005
+conformant au Profil Ravenscar de la part de mod\`ele AADL. Ceci est
+une transformation du mod\`ele, le mod\`ele source \'etant en AADL, et
+le mod\`ele cible \'etant le syntaxe d'Ada.
+
+L'ing\'enierie dirig\'e par des mod\`eles, et la g\'en\'eration du
+code automatique est avantageux quelconque soit le langage de
+programmation choisi comme cible, mais devient encore plus attirant au
+cas d'Ada, si ses primitifs sont utilis\'es pour cr\'eer les t\^aches
+et les objets prot\'eg\'es pour la synchr\^onisation. La raison
+principale \'etant que---par \'exemple---cr\'eer une t\^ache en Ada
+necessite sa d\'eclaration comme artefact du code, en comparaison d'un
+appel \`a l'RTOS en dessous en cas du C/C++. Nous avons d\'ej\^a vu
+qu'en Ada Ravenscar, la cr\'eation d'une t\^ache a besoin d'un
+squelette. Consid\'erez les Listings~\ref{lst:api_thread_fr}
+et~\ref{lst:ada_task_fr}, \`a gauche, l'RTOS prendras soin d'assurer
+qu'une t\^ache \`a p\'eriode correcte est instanci\'ee, et va la
+reveiller aux instants correctes; \`a droite, et comme discut\'e
+pr\'ecedemment, en Ada Ravnescar, l'on doit encoder la
+caract\'eristique p\'eriodique de la t\^ache nous-m\^eme, en utilisant
+le primitif de \texttt{delay until}. Cr\'eer ces squelette---ainsi que
+ceux d'objets prot\'eg\'es---\`a la main pour un syst\`eme complexe
+risque d'introduire des bugs.
+
+\begin{minipage}{0.40\linewidth}
+\lstset{language=c}
+\begin{lstlisting}[label=lst:api_thread_fr, caption = Un API d'RTOS pour cr\'eer une t\^ache p\'eriodique]
+_rtos_create_periodic_thread(
+   priority, 
+   period,
+   stack_size, 
+   &response
+);
+
+void response (void *data)
+{
+   /* Periodic response code here */
+}
+\end{lstlisting}
+\end{minipage}
+\hspace{8mm}
+\begin{minipage}{0.50\linewidth}
+\lstset{language=ada}
+\begin{lstlisting}[label=lst:ada_task_fr, caption=Une t\^ache p\'eriodique d\'eclar\'ee en Ada Ravenscar]
+task body Periodic_Task is
+  Period : Ada.Real_Time.Time_Span;
+  Next_Dispatch : Ada.Real_Time.Time;
+begin
+  Next_Dispatch := Ada.Real_Time.Clock;
+  loop
+    delay until Next_Dispatch;
+    -- Periodic response code
+    Next_Dispatch := Next_Dispatch + Period;
+  end loop;
+end Periodic_Task;
+\end{lstlisting}
+\end{minipage}
+
+\subsection*{Schema des transformations}
+En sa totalit\'e, l'ensemble de t\^aches et d'objets prot\'eg\'es dans
+un syst\`eme constitue le ``framework d'\'ex\'ecution''. Ce framework
+assure les propri\'et\'es non-fonctionnelle du syst\`eme, comme le
+respect de d\'elais de t\^aches, et les connexions entre t\^aches. Les
+propri\'et\'es fonctionnelle du syst\`eme, ç-à-d, celles qui repondent
+aux besoins fonctionnelles, sont impl\'ement\'ees dans les ``trous''
+de ce framework. Dans le cas du Listing~\ref{lst:ada_task_fr}, un de
+ces trous se trouve sur la ligne marqu\'ee ``\texttt{-- Periodic
+  response code}'', la remplacer par du code applicatif r\'epondant
+aux besoin fonctionnelle du syst\`eme sera l'objectif.
+
+Dans le cadre de ce travail, nous avons d\'evelopp\'e une
+corr\'espondance---soit mapping---entre AADL et Ada Ravenscar. De
+plus, nous avons d\'evelopp\'e l'outillage pour convertir des
+mod\`eles AADL automatiquement au code Ada Ravenscar en fonction de ce
+mapping. Le noyau conformant \`a Ada Ravenscar que l'on a choisi est
+l'Open Ravenscar Kernel (ORK)~\cite{puente@ae00}; hor, gr\^ace \`a la
+portabilit\'e d'Ada, le code g\'en\'er\'e pourrait s'\'ex\'ecuter sur
+d'autres noyaux conformant au standard Ravenscar. Ceci dit, nous avons
+pas test\'e cette hypoth\`ese. Le mapping est le suivant pour les
+diff\'erents types de composants AADL:
+
+\begin{description}
+\item[Processus:]{Transform\'e en unit\'e de compilation d'Ada;}
+\item[T\^ache p\'eriodique:]{Transform\'ee en t\^ache Ada avec des
+  propri\'et\'es pertinentes transform\'ees en code, ç-à-d, sa
+  p\'eriode et la taille de sa pile;}
+\item[T\^ache sporadique:]{Transform\'ee en t\^ache Ada avec des
+  propri\'et\'es pertinentes, ainsi que la mise en application de
+  temps minimale entre arriv\'es d'\'evennements. Un objet prot\'eg\'e
+  que l'on appel un \emph{synchr\^oniseur} est aussi g\'en\'er\'e sur
+  laquelle se bloque cette t\^ache en attente de d\'eclenchement;}
+\item[Data port:]{Transform\'e en objet prot\'eg\'e du m\^eme type que
+  le port, et les proc\'edures \texttt{Get} et \texttt{Set} d'acc\`es
+  aux donn\'ees. Nous appelons ce type d'objet prot\'eg\'e un
+  \emph{echangeur};}
+\item[Event (data) port:]{Transform\'e \`a un type dans
+  l'\'enum\'eration d\'evennements que sa t\^ache peut recevoir, au
+  cas de port d'entr\'ee; et dans un proc\'edure qui met son type
+  d'\'evennement dans le synchr\^oniseur de la t\^ache cible au cas de
+  port de sorti;}
+\item[Data component:]{Transform\'e \`a un type Ada;}
+\item[Data subcomponent:]{Transform\'e \`a soit un objet prot\'eg\'e,
+  soit un paquetage Ada avec un instance de donn\'ees priv\'es du type
+  indiqu\'e. L'objet prot\'eg\'e est g\'en\'er\'e si le contr\^ole de
+  concurrence est requis, sinon le paquetage est g\'en\'er\'e.}
+\end{description}
+
+\`A fin de valider les r\`egles de g\'en\'eration du code, nous avons
+d\'evelopp\'e un plugin Eclipse qui les impl\'emente. Le plugin,
+nomm\'e ARC (AADL \`a Ravenscar Convertisseur), est bas\'e sur l'outil
+OSATE AADL~\cite{sei-osate} pour parser les mod\`eles AADL. ARC ne
+convertit pas les mod\`eles AADL directement en code Ada, mais les
+traduit d'abord envers un mod\`ele intermediare bas\'e sur le
+Ravenscar M\'eta-Mod\`ele (RMM), que l'on a d\'evelopp\'e. Les
+avantages de cette approche sont: premi\`erement, la facilit\'e de
+traduction, car AADL est un langage complexe, le traverser et le
+traduire directement en Ada aurait \'et\'e tr\`es complexe; et
+deuxi\`emement, ecrire un g\'en\'erateur du code envers un autre
+langage conforme au Ravenscar est beaucoup plus façile, il s'agit
+simplement d'écrire un traversale et traduction du RMM vers le nouveau
+langage. Ici, il faut noter que l'AADL est beaucoup plus expressif
+qu'Ada Ravenscar, ç-à-d, il est possible de décrire des systèmes en
+AADL que l'on ne pourrait jamais traduire en Ada Ravenscar
+correctement. Pour réspecter les contraintes du Profil Ravenscar, ARC
+fait d'abord une vérification du modèle AADL selon un ensemble de
+contraintes défini en Object Constraint Language (OCL)~\cite{ocl}. Les
+\'exemples des contraintes sont:
+
+\begin{itemize}
+\item{Chaque t\^ache doit \^etre p\'eriodique ou sporadique;}
+\item{Le d\'elai d'une t\^ache doit \^etre moins que sa p\'eriode;}
+\item{Chaque impl\'ementation de processus doit avoir au moins une t\^ache;}
+\item{Chaque t\^ache sporadique doit avoir au moins un \texttt{in event port};}
+\end{itemize}
+
+Au cas ou il y a des incoh\'erences dans le mod\`ele AADL, cette
+incoh\'erence est annot\'e, un genre d'erreur sur le mod\`ele
+lui-m\^eme. Figure~\ref{fig:arc_process_fr} montre les \'etapes
+importantes dans la transformation d'un mod\`ele AADL vers code Ada
+avec le plugin ARC.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{figs/ARC_process}
+\caption{Une vue d'ensemble d'outillage ARC}
+\label{fig:arc_process_fr}
+\end{figure}
+
+\subsection*{Transformations de Composants Data}
+Tout composants de type data qui sont rencontr\'es doivent \^etres
+transform\'e aux types Ada. Le traducteur peuvent les rencontrer
+directement comme sous-composant d'un autre composant ou ils peuvent
+\^etre les types de ``data ports''. Un type ``primitif'' est celui que
+l'on peut traduire directement \`a un type natif d'Ada (Integer,
+Character ou Boolean). Par contre, un type compos\'e est celui qui
+contient des sous-composants en niveau de d\'efinition en AADL, ce
+type de composant doit \^etre transform\'e en Ada comme un type
+\texttt{record}, soit un type structur\'e. Finalement, les composants
+data peuvent \^etre scalaires ou vecteurs.
+
+La d\'etermination qu'un type soit primitif ou compos\'e est fait en
+analysant ses impl\'ementations, s'ils en existent. Si une
+impl\'ementation existe, et elle a de sous-composants, le type en
+question est compos\'e, sinon, il est primitif. Si la propri\'et\'e
+\texttt{Length} est d\'efini sur le type, et si elle as une valeur
+diff\'erente que 1, le type est un vecteur, sinon scalaire. Pour les
+types primitifs, leurs propri\'et\'e \texttt{Data\_Type} est
+l'\'enum\'eration de \texttt{\{Integer, Boolean, Character\}} et donne
+le type Ada correspondant. Listing~\ref{lst:primitive_type_ada_fr}
+montre les \'exemples de types primitifs en AADL et leurs
+transformations en Ada faitent par ARC.
+
+\begin{minipage}{0.45\linewidth}
+\lstset{language=aadl}
+\begin{lstlisting}[label=lst:primitive_type_aadl_fr, caption=Les types primitifs en AADL]
+data Int_Type
+properties
+  Ravenscar::Data_Type => Integer;
+end Int_Type;
+
+data Int_Vector
+properties
+  Ravenscar::Data_Type => Integer;
+  Ravenscar::Length => 10;
+end Int_Vector;
+
+data Bool_Type
+end Bool_Type;
+
+data implementation Bool_Type.Impl
+properties
+  Ravenscar::Data_Type => Boolean;
+end Bool_Type.Impl;
+
+data Bool_Vector
+end Bool_Vector;
+
+data implementation Bool_Vector.Impl
+properties
+  Ravenscar::Element_Type 
+    => data Bool_Type.Impl;
+  Ravenscar::Length => 10;
+end Bool_Vector.Impl;
+\end{lstlisting}
+\end{minipage}
+\hspace{5mm}
+\begin{minipage}{0.45\linewidth}
+\lstset{language=ada}
+\begin{lstlisting}[label=lst:primitive_type_ada_fr, caption=Les types transform\'es en Ada]
+-- Int_Type data component --
+type Int_Type is new Integer;
+
+
+
+
+
+
+-- Int_Vector data component --
+type Int_Vector is array (1 .. 10)
+  of Integer;
+
+
+
+
+
+
+-- Bool_Type.Impl data component --
+type Bool_Type_Impl is new Boolean;
+
+
+
+
+
+
+-- Bool_Vector.Impl data component --
+type Bool_Vector_Impl is array (1 .. 10) 
+                      of Bool_Type_Impl;
+\end{lstlisting}
+\end{minipage}
+
+\subsection*{Transformations de Composants Thread}
+Un thread p\'eriodique en AADL est tout simplement un sous-composant
+thread d'un processus avec la propr\'et\'e \texttt{Dispatch\_Protocol
+  => Periodic}. Les propr\'et\'es auxiliares comme
+\texttt{Stack\_Size} and \texttt{Period} sont aussi necessaires \`a
+dimensionner correctement un thread p\'eriodique. La propri\'et\'e
+\texttt{Deadline} est optionnelle et est utilis\'ee en calcul de
+``deadline monotonic analysis'' pour affectuer les priorit\'es. Au cas
+ou \texttt{Deadline} n'est pas fournis, le g\'en\'erateur du code
+attribue la priorit\'e en fonction de p\'eriode, selon le protocole
+RMS. Le code fonctionnel \`a \'ex\'ecuter est donn\'e comme
+propri\'et\'e \texttt{Compute\_Entrypoint}, ce qui est le nom du
+proc\'edure que la t\^ache Ada doit appeller \`a chaque invocation.
+
+Nous avons d\'evelopper une biblioth\`eque de paquetage Ada
+g\'en\'erique pour reduire le code g\'en\'er\'e nommé
+\texttt{ravenscar\_lib}. Cette biblioth\'eque est disponible en
+ligne\footnote{Disponible \`a \url{http://aadl.enst.fr/arc/}}. L'un de
+paquetages g\'en\'erics fournis s'appelle
+\texttt{Ravenscar\_Periodic}, qui contient la squelette d'une t\^ache
+p\'eriodique en Ada, dont le code source est montr\'ee en
+Listing~\ref{lst:ravenscar_periodic_fr}. Veuillez noter que les
+discriminants du paquetages Ada correspondent fortement aux
+propri\'et\'es AADL du thread, tel que \texttt{Period\_P},
+\texttt{Deadline\_P} et \texttt{Stack\_Size\_P}. La façon dont c'est
+utilisé par le générateur du code se trouve parmis les
+Listings~\ref{lst:aadl_periodic_fr} et~\ref{lst:ada_periodic_fr}.
+
+\begin{minipage}{\listingwidth}
+\flushleft
+\lstset{language=ada}
+\begin{lstlisting}[label=lst:ravenscar_periodic_fr, caption=La sp\'ecification de type g\'en\'erique de la t\^ache p\'eriodique \texttt{Ravenscar\_Periodic}]
+generic
+  Period_P : Ada.Real_Time.Time_Span;
+  Deadline_P : Ada.Real_Time.Time_Span;
+  Priority_P : System.Any_Priority;
+  Stack_Size_P : Natural;
+  with procedure Dispatch;
+package Ravenscar_Periodic is
+  task Task_Instance is
+    pragma Priority (Priority_P);
+    pragma Storage_Size (Stack_Size_P);
+  end Task_Instance;
+end Ravenscar_Periodic;
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{0.45\linewidth}
+\lstset{language=aadl}
+\begin{lstlisting}[label=lst:aadl_periodic_fr, caption=Un thread p\'eriodique d\'ecrit en AADL]
+thread implementation Sensor_Sim_T.RS
+properties
+  Period => 20 Ms;
+  Source_Stack_Size => 4096 B;
+  Compute_Entrypoint => "On_Sensor_Sim";
+  Dispatch_Protocol => Periodic;
+  Deadline => 15 Ms;
+end Sensor_Sim_T.RS;
+
+
+
+
+
+process implementation Partition.Impl
+subcomponents
+  Sensor_Sim : thread Sensor_Sim_T.RS;
+end Partition.Impl;
+\end{lstlisting}
+\end{minipage}
+\hspace{5mm}
+\begin{minipage}{0.45\linewidth}
+\lstset{language=ada}
+\begin{lstlisting}[label=lst:ada_periodic_fr, caption=Un thread p\'eriodique transform\'e en t\^ache Ada Ravenscar]
+-- The following code instantiates the
+-- generic package that will result
+-- in a periodic task
+
+package Sensor_Sim is new 
+  Ravenscar_Periodic (
+    Period_P
+      => Ada.Real_Time.Milliseconds(20),
+    Deadline_P
+      => Ada.Real_Time.Milliseconds(15),
+    Priority_P
+      => 239,  
+    Stack_Size_P
+      => 4096, 
+    Dispatch
+      => Dispatcher.Sensor_Sim_Dispatcher
+);
+\end{lstlisting}
+\end{minipage}
+
+Un thread sporadique en AADL est un sous-composant thread d'un
+processus avec la propri\'et\'e \texttt{Dispatch\_Protocol =>
+  Sporadic}. Les propri\'et\'es \texttt{Stack\_Size} et
+\texttt{Period} sont utilis\'e \`a le dimensionner aussi, ou la
+p\'eriode est consid\'er\'e le temps de s\'eparation minimale entre
+évennements déclenchant de la tàche. Au contraire à un thread
+périodique, un thread sporadique n'a pas un seul comportement. En
+fait, sa comportement dépend complètement du type d'évennement qui
+vient de le lancer. Alors, pour un thread sporadique, la propriété
+\texttt{Compute\_Entrypoint} n'a pas de la valeur sémantique, à sa
+place, chaque event port entrant doit définir sa propre
+\texttt{Compute\_Entrypoint}, qui est appellé par le framework en
+réception de son évennement.
+
+Comme pour le thread p\'eriodique, nous avons d\'efinis un paquetage
+pour les threads sporadiques dans la biblioth\`eque
+\texttt{ravenscar\_lib}. Le paquetage \texttt{Ravenscar\_Sporadic}
+reduit l'effort de cr\'eer des t\^aches sporadiques. La mani\`ere dont
+c'est utilis\'e par le g\'en\'erateur du code se trouve dans les
+Listings~\ref{lst:sporadic_aadl_fr}
+et~\ref{lst:sporadic_instantiation_fr}.
+
+\begin{minipage}{0.45\linewidth}
+\lstset{language=aadl}
+\begin{lstlisting}[label=lst:sporadic_aadl_fr, caption=Thread sporadique en AADL]
+thread Sporadic_Thread
+properties
+  Dispatch_Protocol => Sporadic;
+  Period => 40 ms;
+  Stack_Size => 16384b;
+end Sporadic_Thread;
+
+...
+
+process implementation P.Impl
+subcomponents
+  Thr_Name : thread Sporadic_Thread;
+end P.Impl;
+\end{lstlisting}
+\end{minipage}
+\hspace{5mm}
+\begin{minipage}{0.45\linewidth}
+\lstset{language=ada}
+\begin{lstlisting}[label=lst:sporadic_instantiation_fr, caption=Thread transform\'e en t\^ache Ada]
+
+
+-- Instantiates the generic --
+-- package that will result --
+-- in a sporadic task       --
+
+package Thr_Name is new
+  Ravenscar_Sporadic (
+    Priority_P => 240, 
+    Stack_Size_P => 16384,
+    Dispatch
+      => Dispatchers.Thr_Name_Dispatcher
+  );
+\end{lstlisting}
+\end{minipage}
+
+Correspondant \`a chaque \emph{type} de composant thread est généré de
+nombreuse entités à fin de garantir la séparation minimale d'arrivées
+d'évennements, les fonctions squelettes de le déclencher ainsi qu'un
+objet protégé de type synchr\^oniseur sur lequelle ce thread se bloque
+en attendant son déclenchement. Le générateur produit aussi une type
+d'énumération, qui est utilisé à déterminer le type d'évennement
+déclenchant, ce type énumére chaque \texttt{in event port}, \texttt{in
+  out event port}, \texttt{in event data port} et \texttt{in out event
+  data port} attaché aux features du thread.
+
+Aussi généré est pour chaque type de thread est un type d'objet
+protégé que l'on a appellé synchr\^oniseur et auquel nous avons déjà
+fait référence. Cet objet protégé à une entrée (déclencheur à variable
+conditionnel) et autant de procédures que les event port de la tàche
+pour laquelle est généré. Il compris aussi de plusieurs files
+d'attentes encapsulé, une file d'attente corréspondant chaque type
+d'évennement que la tàche peut recévoir. Les procédures servent à
+déposer les évennements dans leurs files d'attentes. La tàche est
+déclenché par l'éxécutif d'Ada s'il y a au moins un évennement dans
+une des files d'attente de l'objet, et ça car la conditionne de
+déclenchement est écrit comme telle par le générateur du code.
+
+Correspondant à chaque instantiation du thread, un instance du type
+synchroniseur décrit ci-dessus est généré, avec sa priorité de plafond
+met au maximum des priorités de tous les threads qui peuvent y faire
+accès, l'information qui est très evident en fonction de topologie de
+connexions AADL dans le modèle. Un procédure globale est généré pour
+chaque instanciation du thread qui attend sur l'entrée de son
+synchroniseur et qui est appellé par le boucle infini du thread.
+
+Un éxemple de type synchr\^oniseur et le procédure de dispatch dont
+nous venons de parler se trouve dans la
+Figure~\ref{fig:synchronizer_fr} is given in
+Fig.~\ref{fig:dispatcher_fr}.
+
+\begin{figure}
+\centering
+\includegraphics{figs/eventports}
+\caption{Spécification de synchr\^oniseur, son instanciation et la
+  fonction de déclenchement pour un thread sporadique}
+\label{fig:dispatcher_fr}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.4]{figs/synchronizer}
+\caption{Synchroniseur d'un thread sporadique nommé \texttt{Thr1} du type \texttt{TType}}
+\label{fig:synchronizer_fr}
+\end{figure}
+
+The generated code contains an enumeration that lists the names of all
+incoming event ports and event data ports for the thread type,
+\texttt{TType\_Event\_Type} for the example. A queue type of this
+enumeration is also generated, which serves as the main event queue
+for the synchronizer. Inside the synchronizer, there is one main queue
+that holds types of events that have been received (the entries of
+type \texttt{TType\_Event\_Type}). There is also one queue for each
+type of incoming event data port, these queues---\texttt{Evt2\_Queue}
+and \texttt{Evt3\_Queue} in the example---hold the associated data
+that comes in together with the event. Head and tail indices for each
+internal queue are also generated to handle the circular
+buffering. The API of the synchronizer includes one
+entry---\texttt{Await\_Event}---upon which the sporadic task will wait
+and which returns the type of the event and the instance of time the
+entry started execution. Also provided are procedures to send
+\emph{all} the events and event data corresponding to the incoming
+event and event data ports. Procedures for reading the values of all
+incoming \emph{event data ports} are also generated, which return the
+data at the head of the respective data queue. There are no procedures
+to read incoming event ports because an incoming event on them can be
+signified simply via the enumeration returned by
+\texttt{Await\_Entry}. An instance of the synchronizer corresponding
+to the thread subcomponent's name is generated in the
+\texttt{Local\_Comm} package.
+
+The dispatch procedure for the example contains local variables for
+all the incoming event data ports---\texttt{Evt2} and \texttt{Evt3}
+here---that are defined in the features of the thread type. Also
+declared is a variable \texttt{Port} of the event enumeration
+type. After a call to \texttt{Await\_Entry} and the calculation of the
+next earliest dispatch time, it is this \texttt{Port} variable that is
+used to decide which port's \texttt{Compute\_Entrypoint} to invoke. If
+the port is an event port, the entrypoint is invoked directly. If it
+is an event data port, first the corresponding \texttt{Get\_*}
+procedure is called to obtain the appropriate data, and the
+\texttt{Compute\_Entrypoint} is called with the accompanying data. The
+dispatch procedure ends with the \kw{delay until} directive to enforce
+minimum inter-arrival separation for the sporadic task.
+
+ The \texttt{Await\_Event} entry implementation of the synchronizer
+ for this example is given in Listing~\ref{lst:await_event}.
+
+\begin{minipage}{\listingwidth}
+\begin{lstlisting}[language=ada,label=lst:await_event, caption=Await\_Event entry
+    of the TType thread type's synchronizer]
+protected body TType_Synchronizer is
+...
+  entry Await_Event (The_Event    : out TType_Event_Type; 
+                     Release_Time : out Ada.Real_Time.Time) when Event_Present is
+  begin
+    Release_Time := Ada.Real_Time.Clock;  -- Store release time --
+    The_Event := Event_Type_Queue (Head); -- Take event from head of event queue --
+    Head := (Head+1) mod 9;               -- Update queue --
+    Event_Present := Head /= Tail;        -- True if queue not empty --
+  end Await_Event;
+end TType_Synchronizer;
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.4]{figs/synchronizer}
+\caption{Synchronizer for a sporadic thread subcomponent named
+  \texttt{Thr1} of type \texttt{TType}}
+\label{fig:synchronizer}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% COMMENT %%%%%%%%%%%%%%%%
+\begin{comment}
+\subsection*{Exemple d'\'etude}
+Nous allons \'etudier une transformation de l'AADL envers Ada
+Ravenscar en d\'etail. Le source AADL pour l'\'exemple se trouve en
+ligne\footnote{\url{http://aadl.enst.fr/arc/doc/}} en tant que l'un
+d'\'etudes de cas de la documentation d'ARC. Le mod\`ele que l'on
+utilisera est montr\'e en Figure~\ref{fig:example_fr}. Le mod\`ele
+consiste \`a trois t\^aches. La t\^ache \texttt{Data\_Fusion} lit les
+donn\'ees de la part d'un capteur et les fusionne avec
+(potentiellement) d'autres capteurs. La t\^ache \texttt{Alrm\_1}
+recois un \'evennement au cas d'\'echec du capteur. La t\^ache
+\texttt{Sensor\_A} simule le capteur en tant que ``mat\'eriel dans le
+boucle'' pour tester. Une fois transformer par ARC, ce mod\`ele se
+traduit en un instance du Ravenscar M\'eta-Mod\`ele comme dans la
+Figure~\ref{fig:rmm_inst_fr}. Notons que c'est un mod\`ele d'instance
+ou le syntaxe \texttt{xxx:YYY} signifie un objet \texttt{xxx} de la
+classe \texttt{YYY}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.60]{figs/example}
+\caption{Le mod\`ele du syst\`eme en AADL}
+\label{fig:example_fr}
+\end{figure}
+
+Les propri\'et\'es d'ordonnancement sont traduits dir\'ectemment du
+mod\`ele AADL \`a l'instance de RMM. Les threads AADL sont
+transform\'e en t\^aches Ada du types \texttt{Periodic} et
+\texttt{Sporadic}, chacune desquelles est d\'efinis comme un type de
+t\^ache g\'en\'erique, dont un \'exemple se trouve dans
+Listing~\ref{lst:periodic_template_ex_fr}. Le port de donn\'ees entre
+\texttt{Sensor\_A} et \texttt{Data\_Fusion} se trouve transform\'e \`a
+un echangeur \texttt{Data\_Fusion\_inpA} avec le lien aux objets des
+t\^aches pertinentes.
+
+The data port connection between \texttt{Sensor\_A}
+and \texttt{Data\_Fusion} is transformed to an exchanger
+(\texttt{Data\_Fusion\_inpA}) with the appropriate links to the two
+task objects. Since \texttt{Alrm\_1} is a sporadic thread therefore
+its own synchronizer is instantiated
+(\texttt{Alrm\_1\_Synchronizer}). The \texttt{priority} attribute of
+both the exchanger and the synchronizer reflect their PCP
+priorities. This RMM instance model is not observable by the user. As
+stated it is an internal model of the code generation tool
+corresponding to the intermediate representation. The model given in
+Fig.~\ref{fig:rmm_inst} is an approximation of the actual RMM instance
+generated by ARC.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.70]{figs/rmm_inst}
+\caption{Le mod\`ele AADL transform\'e en instance du RMM par ARC}
+\label{fig:rmm_inst_fr}
+\end{figure}
+
+\begin{minipage}{\listingwidth}
+\lstset{language=ada}
+\begin{lstlisting}[firstnumber=1, label=lst:periodic_template_ex_fr,
+    caption=Deux t\^aches Ada Ravenscar instanci\'ee de la part d'un template]
+task type Periodic_Task (Priority_P : System.Priority; Period_P : Positive) is
+  pragma Priority (Priority_P);
+end Periodic_Task;
+
+task body Periodic_Task is
+  Next_Dispatch : Ada.Real_Time.Time;
+  Period : Ada.Real_Time.Time_Span := Ada.Real_Time.Microseconds (Period_P);
+begin
+  Next_Dispatch := Ada.Real_Time.Clock;
+  loop
+    -- ...Periodic response code for Task...
+    Next_Dispatched := Next_Dispatch + Period;
+    delay until Next_Dispatch
+  end loop;
+end Periodic_Task;
+
+-- Instantiation of task with Period_P => 20, Priority_P => 240
+Task_A : Periodic_Task (20, 240);
+-- Instantiation of task with Period_P => 40, Priority_P => 239
+Task_B : Periodic_Task (40, 239);
+\end{lstlisting}
+\end{minipage}
+\end{comment}
+%%%%%%%%%%%%%%%%%%% COMMENT %%%%%%%%%%%%%%%%%%%%
+
+\section*{Communication D\'eterministe}
+Les syst\`emes d'automatiques pour les v\'ehicules sont parmis les
+plus critiques m\^eme dans le domaine du temps-r\'eel. Il y a des
+standards tr\`es stricts de certification comme le DO-178B pour les
+syst\`emes avioniques. Ces syst\`emes d'automatique sont
+impl\'ement\'es en forme de ``loi du contr\^ole'', qui sont les
+fonctions de r\'eponse aux donn\'ees fournis par les capteurs. Les
+lois du contr\^ole sont \'ex\'ecut\'es a chaque invocation de la
+t\^ache qui contient son code, un concept que l'on appel le ``boucle
+du contr\^ole''. Pour garder stable le plate-forme dont le syst\`eme
+s'occupe, il faut \'ex\'ecuter le boucle tr\`es fr\'equemment. De
+plus, il faut avoir le d\'eterminisme dans les r\'esultats produits
+par les composants du syst\'emes.
+
+La contrainte de r\'esultat d\'eterministe, ç-à-d, deux \'ex\'ecutions
+avec les m\^emes donn\'ees d'entr\'ees doivent produire exactement les
+m\^emes r\'eponses, peut \^etre respecter en utilisant un langage
+synchr\^one comme Lustre~\cite{halbwachs@ieee91} ou
+Simulink~\cite{simulink}. Dans ce paradigme, comme il n'y a qu'une
+t\^ache, la fonctionnalit\'e totale du syst\`eme est impl\'ement\'e
+dedans. Gr\^ace au fait que toute est \'ex\'ecut\'e en intercalage, le
+d\'eterminisme est garanti. Hors, avec un \'ex\'ecutif asynchr\^one
+comme un RTOS, une application multi-t\^ache peut \^etre cr\'eer. Dans
+ce cas les t\^aches peuvent \^etres pr\'eempt\'ees et r\'esumer au
+moments al\'eatoires en fonction d'arriv\'es d'\'evennements, ce qui
+introduiras de l'ind\'eterminisme dans le syst\`eme. L'avantage
+d'approche asynchr\^one est l'utilisation plus efficace du processeur,
+ainsi que la capacit\'e de r\'eagir quasi-imm\'ediatement aux
+\'evennements environnementale avec des t\^aches sporadiques.
+
+Une instance de l'ind\'eterminisme dont nous avons parl\'e se
+pr\'esente dans la partie gauche de la
+Figure~\ref{fig:det_non_det_fr}. La ``t\^ache rapide'', \ts, a trois
+invocations pour chacune de la ``t\^ache lente'', \tl. Si les
+donn\'ees les plus frais sont utilis\'ees, comme \`a gauche, il risque
+d'arriver la situation ou deux invocations des t\^aches auront des
+donn\'ees originaires de diff\'erentes invocations de t\^ache
+producteur. D\'efinissons l'hyperp\'eriode de deux t\^aches comme le
+plus petit d\'enominateur de leurs p\'eriodes: dans la premi\`ere
+hyperp\'eriode, $\beta_1$ consomme les donn\'ees de $\alpha_1$; hors
+dans la deuxi\`eme hyperp\'eriode, $\beta_2$ consomme celle de
+$\alpha_5$, au lieu de celle d'$\alpha_4$. \'Egalement, on vois que
+les donn\'ees consomm\'e par les instances de t\^ache \ts d\'ependent
+fortement sur l'intercalage et la pr\'eemption de la t\^ache \tl, avec
+les deux hyperp\'eriodes ayant de differentes instances de donn\'ees
+fournis aux instances $\alpha_i$.
+
+La solution \`a ce probl\`eme que nous avons propos\'e s'inspire du
+monde automatique~\cite{tripakis@emsoft05}, ce qui consiste \`a
+garantir qu'une instance de t\^ache producteur ne transmettra ses
+donn\'ees qu'aux instances des t\^aches consommateurs \emph{de la
+  prochaine hyperp\'eriode}. L'hypoth\`ese d'ordonnancabilit\'e d'un
+ensemble faisable de t\^aches p\'eriodiques et sporadiques garantit
+que toutes les instances de toutes les t\^aches finiront dans chaque
+hyperp\'eriode du syst\`eme, ce qui donnera la situation comme celle
+montr\'ee \`a droite dans la Figure~\ref{fig:det_non_det_fr}. Le
+g\'en\'erateur du code ARC fournit ce protocole en forme de connecteur
+impl\'ement\'e avec d'objets prot\'eg\'es. Nous avons nomm\'e un
+connecteur qui transmet les donn\'ees d'une t\^ache lente \`a une
+t\^ache rapide \emph{stagger deterministic bridge exchanger}, et
+celui dans la dir\'ection oppos\'ee \emph{stepper deterministic
+  bridge exchanger}. \`A fin de les d\'ecrire au niveau mod\`ele AADL,
+nous avons aussi d\'efinit des propri\'et\'es sur les connexions AADL,
+ce qui nous a muni \`a \'ecrire des syst\`eme d'automatique
+asynchr\^ones.
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.25]{figs/det_breach_nobreach}
+\caption{Gauche: Non-d\'eterminisme dans le flux de donn\'ees. Droite:
+  Protocole d\'eterministe}
+\label{fig:det_non_det_fr}
+\end{figure}
+
+Le logiciel \`a haute int\'egrit\'e comme l'automatique des
+v\'ehicules---par \'exemple le ``fly-by-wire'' des avions---a des
+contraintes de certification tr\`es strictes. Le nouveau standard pour
+le logiciel avionique, DO-178C, admet la possibilit\'e d'utiliser de
+la v\'erification au lieu d'audit du code dans certains cas. C'est
+dans ce contexte que nous avons fourni la g\'en\'eration du code LOTOS
+(Language of Temporal Order Specification)~\cite{bolognesi@cnis87}
+corr\'espondant \`a un syst\`eme AADL. LOTOS est un alg\`ebre de
+processus bas\'e sur CCS~\cite{milner-cc} et CSP~\cite{hoare@cacm78}
+qui a les concepts de processus qui s'interagissent sur les canaux de
+communications, ce qui fait l'analogue assez fiable du Profil
+Ravenscar. Il faut remarquer que LOTOS n'est pas un langage de
+programmation, mais l'un de mod\`elisation formelle qui g\'en\'ere un
+syst\`eme de transitions \'etiquett\'e (STE). Une fois ARC a
+g\'en\'er\'e du LOTOS correpondant au syst\`eme AADL---en vue de sa
+transformation vers Ada Ravenscar---nous pouvons utiliser la bo\^ite
+\`a outils CADP~\cite{garavel@cav07} pour faire l'exploration d'espace
+d'\'etats du STE. Les propri\'et\'es que l'on v\'erifie sur ce STE
+sont celles d'exactitude des connecteurs d\'eterministe en pr\'esence
+des t\^aches sporadique---s'il y'en a dans la sp\'ecification
+AADL---quelque soit leurs intercalages de pr\'eemption et resumption.
+
+\section*{Conclusions}
+L'ing\'enierie dirig\'e par des mod\`eles (IDM) est un m\'ecanisme
+puissant pour r\'eduire l'effort et la probabilit\'e de bugs dans le
+d\'eveloppement de logiciels. Dans le contexte de cette th\`ese, nous
+avons pr\'esent\'e les approches existants d'IDM, cibl\'e au domaine
+de haute int\'egrit\'e et temps-r\'eel d\^ur. Il f\^ut apparent que
+m\^eme s'il y'en a plusieurs qui sont utilis\'es dans l'industrie,
+comme SCADE/Lustre, Simulink et UML, il y a des probl\`emes qui
+existent avec chacun de ces approches par rapport aux syst\'emes
+temps-r\'eels complexes. Soit ils sont tr\^op proche du domaine
+g\'enie logiciel et manquent les primitifs et la capacit\'e de
+d\'ecrire les syt\`emes temps-r\'eel efficacement (voir UML et ses
+profils). Soit ils sont tr\^op proches du domaine temps-r\'eel et
+n'ont pas l'\'expressivit\'e requise par la g\'enie logiciel (voir
+Lustre/SCADE et Simulink) \`a fin de concevoir les syst\`emes
+complexes temps-r\'eel qui peuvent m\'elanger les t\^aches
+d'automatique avec d'autres.
+
+Nous avons choisi un approche de g\'en\'eration du code \`a partir
+d'un langage d'architecture conçu spécifiquement pour le domaine du
+temps-réel. Ainsi, nous avons démontrer la faisabilité et l'efficacité
+de générer du code Ada Ravenscar à partir des modèles en AADL. Le
+Profil Ravenscar nous donnant plusieurs garantis sur la sécurité, la
+fiabilité et l'ordonnancabilité du système construit avec son
+framework.
+
+De plus, nous avons proposé un noveau primitif de communication
+inter-t\^ache à fin d'assurer le déterminisme, qui est d'une importance
+centrale dans les systèmes automatique. L'integration dans le
+générateur du code de ces primitifs de communication---les connecteurs
+déterministes---ainsi que l'automatisation de leurs vérification de
+comportement avec l'algèbre de processus LOTOS, fait une b\^oite \`a
+outils pertinent aux syst\`emes temps-r\'eel asynchr\^ones
+g\'en\'eralistes.
+
+Finalement, nous avons présenté une sémantique formelle d'Ada
+Ravenscar généré par ARC dans le formalisme de sémantique
+operationnelle structurée~\cite{plotkin-sos} (SOS). SOS décrit la
+sémantique en transitions d'états d'un système
+hypothètique. L'objectif étant de formaliser le comportement totale du
+code généré par ARC à fin de pouvoir faire des vérifications plus
+systèmiques que seules les connecteurs déterministes.
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-dictionary: "fr"
+%%% TeX-master: t
+%%% End:
+
+% LocalWords:  courriél aperiodique ordinateurisation criticité ciblé préemptif
+% LocalWords:  quand-même

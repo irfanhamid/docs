@@ -1,0 +1,59 @@
+A Transformation Framework for the Generation and Verification of Hard
+Real-time Systems
+
+Modern real-time software is becoming progressively more complex due
+to the increasing exigency of modern embedded systems; also, times to
+market are dropping. This, coupled with the fact that more and more
+software is now controlling safety-critical aspects of systems---where
+loss of human life can occur in case of failure---is contributing to
+the complexity and difficulty of writing correct real-time
+software. Given this state of affairs, a number of approaches have
+been put forth that expedite different aspects of real-time systems
+development; these include the use of general design languages such as
+UML to design the application automatically, or domain-specific
+languages such as Lustre or Matlab Simulink to generate code for
+control systems.
+
+In this thesis, we explore a new approach for the automatic generation
+of real-time systems from an architecture description language (ADL)
+geared specifically toward the real-time domain. The target language
+and runtime are chosen for their robustness and suitability for
+high-integrity systems as well as for schedulability analysis. The
+generation encompasses a verified solution for the system control
+problem of deterministic inter-task communication.  A formal semantics
+of the target language is provided thus allowing for the verification
+of target code. A tool is developped that implements the approach.  A
+major avionics based case study is also reported.
+
+The considered source language is the Architecture Analysis and Design
+Language (AADL), which is geared to the real-time domain. The target
+language is the Ravenscar Profile for Ada 95 and Ada 2005---a subset
+of Ada for high-integrity real-time systems. Strategies and patterns
+for the automatic generation of tasking and inter-task communication
+constructs from the architectural description in AADL are given. Also
+provided are details of the Model Driven Engineering (MDE) based code
+generators.
+
+Deterministic inter-task communication connectors are straighforward
+in synchronous approaches such as Lustre and Simulink, but need to be
+carefully implemented in a process based executive. In this thesis the
+extension of the code generators to build such connectors in a process
+based executive is presented. Also shown is the process algebraic
+verification of the correctness for the solution proposed using the
+CADP LOTOS toolset. A methodology for the automatic generation of
+verification code is given and an argument made for its inclusion as a
+certification artifact for on-board software in the context of the
+DO-178B certification guidelines.
+
+The formal semantics of the generated code are given in the structured
+operational form, this formalizes the behaviour of the resulting
+system as it shows the evolution of the system over time using the
+simple mathematical tools of set notation and transition systems.
+
+A detailed case study is carried out to validate the approach by
+re-engineering a famous aircraft mission control computer case study
+originally carried out by hand using the Ada 83 language. It is
+re-architected using AADL and its framework code generated
+automatically to demonstrate the viability of the tools developed as
+well as the theoretical soundness of the approach proposed from an
+industrial standpoint.

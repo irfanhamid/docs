@@ -1,0 +1,263 @@
+\chapter{Conclusions and future work}{``Even if you're on the right
+  track,\\you'll get run over if you just sit there.''}{Will Rogers}
+\label{chap:conclusions}
+Model driven engineering and automatic code generation is a powerful
+mechanism for reducing the workload for software development. It is
+even more attractive as a methodology when the target domain is
+safety-critical and real-time systems. In a nutshell, MDE proposes that
+the architecture and/or design of a system be given in a high-level
+language which can then be automatically transformed to source code in
+a suitable programming language. For safety-critical systems, MDE is
+specially attractive for a number of reasons; automatic transformation
+to code from a high-level model ensures the preservation of
+properties, it reduces effort which has an impact on the cost,
+complexity and time needed to develop a system and having a high-level
+system model gives the ability to carry out analyses on the system
+before it is built.
+
+There are a large number of existing MDE approaches, a few of
+which---those specifically targeted to real-time systems---were
+presented in Chapter~\ref{chap:biblio}. These include a large class of
+formalisms based on UML or an extension thereof, as well as some
+proprietary ones such as Lustre/SCADE Suite and Matlab \simu. Each of
+these high-level languages provides a certain level of abstraction. 
+
+It was observed that for some, like Simulink and Lustre, the
+abstraction level is very high. The design or architecture is very
+close to the ``problem space''. In these languages---which seek to
+address the problem of developing computer-controlled control
+systems---the constructs of the language mirror the methods in which
+control algorithms themselves are expressed. The design artifacts are
+blocks that perform a transformation on their inputs and provide the
+results as outputs. These blocks are connected together via links that
+denote the data flows, and which become the inputs upon which the
+transformations are carried out and the outputs that result from
+them. This is very close to the control loops that are designed using
+mathematical functional notations of $y_n = f(x_{n-1}, x_{n-2},
+\dots)$. This high level of abstraction, while beneficial for the
+specific problem domain within real-time systems, is quite far removed
+from the ``solution space''. The solution space in this case being the
+runtime entities that actually execute on a physical computer to
+approximate the behavior of the system as described in the
+model. These runtime entities are the processes and threads, the
+message buffers and mutexes, the procedures and their parameters etc.;
+in essence, the computing portion of the big picture. Because of this
+vertical distance between the architecture and the final source code,
+it can be difficult for the designer to realize the implications,
+impacts and consequences of design decisions. Also, these approaches
+remain quite constrictive as far as the implementation of
+general-purpose real-time systems is concerned. It would be a very
+tortuous exercise indeed, to build a C$^4$I (Command, Control,
+Computers, Communication and Intelligence) system using Simulink or
+SCADE Suite.
+
+On the other end of the spectrum are UML based approaches. UML in its
+basic vision is for designing software, i.e., it is tightly coupled
+with the object oriented method of software engineering. Its main
+entities are classes and relations among those classes. With the newer
+versions of UML, there has been a push towards including execution
+level artifacts such as threads into the language. This is done by
+overloading the basic semantics of the class entity of the
+language. This semantic overload leads to considerable confusion and
+to counter-intuitive code generation: is an ``active class'' a class
+or a thread? Why isn't the code generated for an active class actually
+a class? The profiles of UML specifically targeted to the real-time
+domain such as HRT-UML and MARTE engage in further semantic overload
+by stipulating that stereotypes can specify that a class is not just a
+thread, but a periodic thread, or even a shared message buffer, or a
+complete executable component.
+
+It was argued in Chapter~\ref{chap:code_gen} that the Architecture
+Analysis \& Design Language provides a better level of abstraction. It
+is a domain specific language so there is no question of overload. It
+allows block structured modeling but uses execution level constructs
+at model level such as processes, threads and subprograms. This,
+coupled with the ability to use data ports and event (data) ports
+provides an attractive level and style of abstraction for real-time
+systems.
+
+The Ada programming language, with its strong typing, modularization,
+robust runtime with safety features and the inclusion of tasking and
+communication primitives at the level of the language makes it an
+attractive choice for real-time systems. This, together with the
+definition of the Ravenscar Profile for High-integrity systems---as
+outlined in Chapter~\ref{chap:aadlrs}---and its implementation in the
+form of the free ORK kernel and the commercial RAVEN kernel from
+Aonix, makes for a compelling case for its use in modern systems. In
+fact, Pratt \& Whitney have used the RAVEN kernel for the FADEC
+(Full-Authority Digital Engine Control) of their new PW6000 jet
+engine~\cite{raven-fadec}.
+
+The major thrust of this research work has been the elaboration of
+code generation rules from AADL toward Ravenscar-compliant Ada source
+code. The main part of this work, as presented in
+Chapter~\ref{chap:code_gen}, obviates a lot of the tedious and
+error-prone work of coding a framework in Ada that provides the basis
+for solving the functional part of the real-time problem at hand. The
+automatic code generation saves time and difficult-to-identify errors
+in the construction of the framework. The AADL itself is eminently
+suited to this kind of development by providing---as stated---direct
+representations for processes, threads and subprograms; and also some
+indirect abstractions such as ports and connections between
+threads. This brings the best of both worlds together and allows
+architecture modeling where the designer can see the consequences of
+his decisions on the execution entities generated as well as providing
+abstractions for conceptual design of applications.
+
+A major issue in writing control systems that have different
+functionalities running at different periods is that all communication
+between various jobs must be deterministic. While this is easy to
+achieve in a synchronous system running on a cyclic executive---case
+in point Lustre/SCADE Suite and Simulink---it can be tricky in case a
+full process-based executive is used. Chapter~\ref{chap:adv_code}
+presented a mechanism to produce deterministic communication
+constructs automatically from an AADL description. This, coupled with
+the automatic verification code generated in LOTOS, is a step in the
+direction for creating AADL and Ada Ravenscar based certifiable
+control systems.
+
+A formal semantics for the generated Ada code running on a
+Ravenscar-compliant executive was given in
+Chapter~\ref{chap:formal_sem}. The static semantics were given in set
+theory notation and the dynamic semantics in the form of Structural
+Operational Semantics rules, which manipulate and modify the system
+data structures depending on the transitions taken to model the
+system's evolution over time.
+
+\section{Criticism}
+In any scientific endeavor, it is easy---and dangerous---to overlook
+or ignore the potential disadvantages of what is being
+proposed. Therefore, in this section a few criticisms are leveled at
+the work that has been presented. The most important facility yet
+lacking in the presented approach is that of distribution. There is no
+restriction in the Ravenscar computation model that would preclude the
+possibility of having different tasks executing on different physical
+processors connected via a communication medium. There is also the
+possibility of having a partitioned Ravenscar system in the manner of
+the ARINC 653 specification~\cite{arinc}. In fact, some work towards
+this end has already been done~\cite{tokar@adalett03} using such
+partitioned systems with Ada application-level programs.
+
+Distributed Ravenscar application development is already being
+explored via the development of a lightweight distribution middleware
+called PolyORB~\cite{zalila@ae07}. This middleware, which is
+completely Ravenscar-compliant, can be used to write distributed, hard
+real-time systems that conform to the Ravenscar Profile's
+computational model. Distributed communication is only done via
+message passing, never with synchronous RPC in order to preserve the
+semantics of the profile.
+
+Another area that is lacking is that of the capability to specify
+``real-time transactions''~\cite{cornwell@ae96}. A real-time
+transaction is a conceptual notion of the response of a system to an
+event, whether that response is completely provided by one thread
+within the system, or by a number of cooperating and communicating
+threads. In case the response to an event is to be computed by a
+number of threads, the transaction is considered to be the entire
+control and/or data flow between the reception of the event, and
+action taken by the system till the event is treated and an output at
+the final thread is available. Modeling of transactions is important
+because it allows the calculation of a response time that is more
+holistic and systemic than that of a single thread, since now the
+entire path of the treatment of the event through the system can be
+analyzed, including the attendant computation times, up until the end
+of treatment. This notion is specially useful in the case of control
+systems, where the ``event'' would be the dispatching of the periodic
+thread that starts the control loop's function by reading sensors, and
+the final thread is the one(s) that writes commands to the
+actuator(s).
+
+There are certain restrictions that are inherent to the Ravenscar
+Profile itself, such as the absence of RPC communication between
+threads, the inability to signal multiple threads simultaneously (this
+is a consequence of having at most one entry per protected object and
+at most one task waiting on that entry), and no dynamic creation or
+destruction of tasks. These restrictions, however, are more of an
+advantage than a disadvantage as they ensure safe and robust operation
+of the system.
+
+The verification mechanism implemented, as described in
+Chapter~\ref{chap:adv_code} could be improved. At the moment, the
+scheduler is not explicitly modeled in the LOTOS code generated,
+instead, its functionality is \emph{subsumed} by the LOTOS processes
+that model the threads. A cleaner and more easy to understand approach
+would be to generate a separate LOTOS process for the scheduler that
+sends events to the various threads at the correct points to enable
+them for execution.
+
+The formal semantics as described in Chapter~\ref{chap:formal_sem}
+have not been implemented in a suitable language such as AsmL, or
+indeed any other convenient formalism. For the provided semantics to
+be of engineering use---rather than a documentation aid or a purely
+academic exercise---they need to be implemented. The uses and
+advantages to having an implemented semantics are manifold, and have
+already been discussed.
+
+A minor point is that the transformation rules from AADL to RMM within
+the ARC code generator have been written in Java. Although this is a
+valid method of implementation, currently there are specialized model
+transformation languages available that greatly ease the specification
+and implementation of such transformation. One such language, which is
+implemented for the EMF framework provided with Eclipse, is the Atlas
+Transformation Language (ATL)~\cite{jouault@oopsla06}. It was not used
+since at the time ARC was started, ATL was still in its alpha phase
+and was not very usable.
+
+\section{Future work}
+There are a few axes of research and/or engineering activity that are
+a logical sequel to the work under discussion. Among these activities,
+some are purely engineering endeavours, others are purely research,
+and some activities share an overlap. In this section a few of these
+open questions are addressed and possible future avenues of work are
+enumerated.
+
+It is patently obvious that those issues which were mentioned in the
+previous section as criticisms of the work presented, are open to
+improvement via future effort. Of these, code generation for
+distributed Ravenscar systems is already being pursued (in fact, at
+the author's own research department). In addition, an ARINC 653
+compliant real-time operating system is also being developed at the
+author's department, with code generation tool support as well.
+
+A major axis of exploration will be opened up via the implementation
+of the formal semantics of generated Ravenscar systems as
+described. This semantics, once implemented in a formal description
+language, could potentially be used for verification via model
+checking as well as simulation to aid in the analysis of systems while
+still at the design stage.
+
+A separate plugin is also envisaged that can provide code reporting and
+documentation information for the generated code. The code generation
+rules as presented allow for the direct identification of the source
+artifact(s) to which a piece of code corresponds, and vice versa. A
+hypertext report generator that can provide a concise traceability
+graph between the architecture model artifacts and their resulting
+code can be very useful for certification purposes, specially in the
+context of the aerospace industry since the DO-178B standard does
+stipulate strict traceability requirements.
+
+A major research avenue is the study of whether and how a synchronous
+paradigm such as Lustre could be used in conjunction with AADL. It is
+possible to envisage that the response code for each thread be written
+not in Ada or C, but in the form of a Lustre program. Each time the
+thread is dispatched, it would in fact run the main Lustre node that
+corresponds to its response code. The input flows to the main node
+would be the \texttt{in data port} features and the output flows would
+be the \texttt{out data port} features as defined by the thread. This
+could lead to a fusion of the architecture description language
+approach with the synchronous approach.
+
+The---approximately---inverse of the previous proposal can also be
+considered. Compiling a functional model such as that provided by
+Simulink towards the Ada programming language to run on top of a
+Ravenscar-compliant RTOS can be useful. Collapsing Simulink blocks at
+the same ``rate'' into one Ada task of the same period with Simulink
+data connections being represented by AADL data ports is feasible. The
+thread callbacks in this case would be automatically generated via an
+analysis of the blocks that have been collapsed into it.
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% TeX-master: t
+%%% End:

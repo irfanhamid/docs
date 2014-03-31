@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docbase="/home/hamid/mortimer/svn/scratchpad/figs"
+   sodipodi:docname="stepper_code.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="483.39334"
+     inkscape:cy="761.31457"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1920"
+     inkscape:window-height="1134"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Courier 10 Pitch"
+       x="-90.714279"
+       y="99.505043"
+       id="text2160"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="99.505043"
+         id="tspan2170"><tspan
+   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Courier 10 Pitch"
+   id="tspan2202">process</tspan> STEPPER_Data_Fusion_inpA[READ_Data_Fusion_inpA, WRITE_Data_Fusion_inpA] (Inv, Factor, Store_0, Store_1 : <tspan
+   style="font-weight:bold"
+   id="tspan2224">NAT</tspan>) : <tspan
+   style="font-weight:bold"
+   id="tspan2226">noexit</tspan> :=</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="114.63004"
+         id="tspan2174">  WRITE_Data_Fusion_inpA?x:NAT;</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="129.63004"
+         id="tspan2176">  (</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="144.84254"
+         id="tspan2178">    [Inv <tspan
+   style="font-weight:bold"
+   id="tspan2228">eq</tspan> 1] -&gt; STEPPER_Data_Fusion_inpA[READ_Data_Fusion_inpA, WRITE_Data_Fusion_inpA] (Inv+1, Factor, 100, Store_0)</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="159.96754"
+         id="tspan2180">      []</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="175.18004"
+         id="tspan2182">    [Inv <tspan
+   style="font-weight:bold"
+   id="tspan2230">eq</tspan> Factor] -&gt; STEPPER_Data_Fusion_inpA[READ_Data_Fusion_inpA, WRITE_Data_Fusion_inpA] (1, Factor, x, Store_1)</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="190.30504"
+         id="tspan2184">      []</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="205.51754"
+         id="tspan2186">    [(Inv <tspan
+   style="font-weight:bold"
+   id="tspan2232">ne</tspan> 1) <tspan
+   style="font-weight:bold"
+   id="tspan2234">and</tspan> (Inv <tspan
+   style="font-weight:bold"
+   id="tspan2236">ne</tspan> Factor)] -&gt; STEPPER_Data_Fusion_inpA[READ_Data_Fusion_inpA, WRITE_Data_Fusion_inpA] (Inv+1, Factor, Store_0, Store_1)</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="220.64254"
+         id="tspan2188">  )</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="235.64254"
+         id="tspan2190">    []</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="250.64254"
+         id="tspan2192">  (</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="265.64254"
+         id="tspan2194">    READ_Data_Fusion_inpA!Store_1; STEPPER_Data_Fusion_inpA[READ_Data_Fusion_inpA, WRITE_Data_Fusion_inpA] (Inv, Factor, Store_0, 100)</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="280.64254"
+         id="tspan2196">  )</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="295.85504"
+         id="tspan2198"
+         style="font-weight:bold">endproc</tspan><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="310.85504"
+         id="tspan2200" /><tspan
+         sodipodi:role="line"
+         x="-90.714279"
+         y="325.85504"
+         id="tspan2166" /></text>
+  </g>
+</svg>

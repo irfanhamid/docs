@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{fullpage}
+
+\title{Proposed changes to manuscript}
+\author{Irfan Hamid}
+
+\begin{document}
+\maketitle
+
+\section{Overall picture}
+There are three main changes to the big picture that need to be
+effected.
+
+\subsection{Placement of approach in the process}
+Clarify that the approach given is a proposal to change the style of
+engineering real-time systems.
+
+There is no mention of the ``process'', put the proposed approach
+\emph{somewhere} within the SDLC, is it requirements capture? Is it
+specification? Is it design? Is it coding? Is it testing?
+
+What other areas of the SDLC other than design can be potentially
+impacted by this technique?
+
+Also, explicitly state where in the process does AADL fit in?
+
+\subsection{Bibliographic improvements}
+Give better justification for use of AADL. Compare the different
+methodologies with AADL directly. Industrial acceptance can be
+considered an important factor.
+
+\subsection{Justification for formal semantics}
+The formal semantics chapter is without context. Present its context
+in the introductory chapter. State that it \emph{may} be used as the
+basis of a systemic verification engine, even though the semantics
+have not been implemented yet.
+
+\section{Nomenclature changes}
+
+\begin{itemize}
+\item{Change ``inter-dispatch'' to ``inter-arrival'' in the entire
+  document, emphasizing that the \emph{arrival} is that of tasks, not
+  that of dispatching events, which can arrive at any frequency;}
+\item{Correct the MC/DC explanation to align it to that found in
+  literature;}
+\item{Correct the mixed use of ``model'' and ``design'' in the
+  introduction. The ``model'' is one consequence of the \emph{design
+    activity};}
+\item{In chapter 2, correct the usage of ``dispatch'', align it to the
+  definition given in the ARM95 and ARM2005.}
+\end{itemize}
+
+\section{Introduction and Bibliography chapters}
+In the introductory part, explain in detail what is meant by ``some
+real-time systems can be implemented simply by a high resolution
+timer''. Improve the section on DO-178B, it is not an SDLC, but rather
+a set of constraints leveraged on each part of the SDLC. Improve the
+description of the PIM $\to$ PSM $\to$ source code.
+
+First thing to do is extend the bibliography to make it a more
+thorough and plausible account of exploratory activity; rather than a
+\emph{post-facto} overview of what came before. Also, make a stronger
+case for the selection of AADL as the design vehicle. Some minor
+points to change include:
+
+\begin{itemize}
+\item{Correct parse error in Lustre example;}
+\item{SCADE is not a methodology, it is a tool;}
+\item{Remove extraneous paragraphing in scheduling subsection;}
+\item{State that PCP has nothing to do with preventing livelock;}
+\item{Correct statement to say that active priority is the max of base
+  priority and ceiling priority, it is actually a max of the active
+  priority and the ceiling priority. A corollary is to explain that
+  Ravenscar does not preclude a PO procedure calling another PO
+  procedure;}
+\item{Correct meta-model notation to make it M0-M3 rather than M1-M4;}
+\item{Explain the concept of ``vertical distance'' the first time it
+  occurs;}
+\item{In HRT-URM, explain in detail that the port construct allows
+  embedding of protocol information which is its main advantage;}
+\item{Extend the section on MARTE, as it is a major industrial
+  concern.}
+\end{itemize}
+
+\section{Ada Ravenscar and AADL chapter}
+\begin{itemize}
+\item{Use Ada instead of Ada 95 and Ada 2005 when it is general
+  language issue;}
+\item{Stop insulting the rendezvous, as it is a basis of theoretical
+  study of concurrency;}
+\item{Discuss implications of Ravenscar restrictions, rather than just
+  restating what has been published in the guide;}
+\item{Correct reference to round robin scheduling, it is FIFO within
+  priorities, which is not round robin;}
+\item{Discuss use of sporadic tasks to implement precedence relations
+  between jobs;}
+\item{Specify that my approach is meta-model based, so that extra
+  restrictions on constructs can be leveraged.}
+\end{itemize}
+
+\section{Model to code generation transforms chapter}
+Before going on to actual code generation, explain two extra things:
+
+\begin{enumerate}
+\item{Place of the approach of code generation in the larger SDLC;}
+\item{Analyses that can be leveraged on the model before actual code
+  generation can occur;}
+\item{At every code generation pattern's presentation, explicitly
+  state what the consequences to the runtime's behavior might be
+  because of that particular pattern's selection.}
+\end{enumerate}
+
+Other changes that are to be made:
+
+\begin{itemize}
+\item{Code generation does not reduce errors per se, will make errors
+  more systematic;}
+\item{Update history of ORK, it has been given to Ada-Core for
+  commercialization;}
+\item{Section on ``Response-critical tasks'' needs a more critical
+  look, what exactly is it good for?}
+\end{itemize}
+
+\section{Deterministic communication chapter}
+\begin{itemize}
+\item{Explain in detail what is meant by ``a sporadic thread may
+  change order of execution''. Specifically state that this chapter
+  presents the implementation of a data-flow paradigm on top of an
+  asynchronous system;}
+\item{State that using the DBX connectors imply inclusion of system
+  hypotheses in the model. It also implies that non-functional
+  properties are assured by the connectors, and it separates the
+  concern from functional properties cleanly. Also that the meta-model
+  is where assumptions on the system are to be expressed;}
+\item{Clarify that MC/DC testing does not apply to temporal aspects.}
+\end{itemize}
+
+\section{Formal semantics chapter}
+\begin{itemize}
+\item{Clarify that Ravenscar is not a set of patterns, rather a set of
+  constraints, to meet which an infinite number of patterns may be
+  envisaged;}
+\item{Explain why the meta-model diagram in this chapter is different
+  from the one in Chapter 4;}
+\item{In the section on conformant programs, clarify that the ``D'' is
+  not the same in the different productions;}
+\item{Don't say that ``protected objects do not make calls to other
+  protected objects'';}
+\item{Clarify how interrupts send events to tasks.}
+\end{itemize}
+
+\end{document}
