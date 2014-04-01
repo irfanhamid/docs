@@ -174,7 +174,6 @@ PDFFIGS = ../figs/hard_vs_soft.pdf \
 all: $(BASENAME).dvi
 
 pdf: $(BASENAME).pdf
-	acroread $(BASENAME).pdf &
 
 ps: $(BASENAME).ps
 
