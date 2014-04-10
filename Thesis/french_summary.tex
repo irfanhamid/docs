@@ -1014,13 +1014,13 @@ traduit d'abord envers un mod\`ele intermediare bas\'e sur le
 Ravenscar M\'eta-Mod\`ele (RMM), que l'on a d\'evelopp\'e. Les
 avantages de cette approche sont: premi\`erement, la facilit\'e de
 traduction, car AADL est un langage complexe, le traverser et le
-traduire directement en Ada aurait \'et\'e tr\`es complexe; et
+traduire directement à Ada aurait \'et\'e tr\`es complexe; et
 deuxi\`emement, ecrire un g\'en\'erateur du code envers un autre
 langage conforme au Ravenscar est beaucoup plus façile, il s'agit
 simplement d'écrire un traversale et traduction du RMM vers le nouveau
 langage. Ici, il faut noter que l'AADL est beaucoup plus expressif
 qu'Ada Ravenscar, ç-à-d, il est possible de décrire des systèmes en
-AADL que l'on ne pourrait jamais traduire en Ada Ravenscar
+AADL que l'on ne pourrait jamais traduire à Ada Ravenscar
 correctement. Pour réspecter les contraintes du Profil Ravenscar, ARC
 fait d'abord une vérification du modèle AADL selon un ensemble de
 contraintes défini en Object Constraint Language (OCL)~\cite{ocl}. Les
@@ -1047,28 +1047,37 @@ avec le plugin ARC.
 \end{figure}
 
 \subsection*{Transformations de Composants Data}
-Tout composants de type data qui sont rencontr\'es doivent \^etres
-transform\'e aux types Ada. Le traducteur peuvent les rencontrer
+Tous les composants de type data qui sont rencontr\'es doivent \^etres
+transform\'e aux types Ada. Le traducteur peut les rencontrer
 directement comme sous-composant d'un autre composant ou ils peuvent
 \^etre les types de ``data ports''. Un type ``primitif'' est celui que
 l'on peut traduire directement \`a un type natif d'Ada (Integer,
-Character ou Boolean). Par contre, un type compos\'e est celui qui
-contient des sous-composants en niveau de d\'efinition en AADL, ce
-type de composant doit \^etre transform\'e en Ada comme un type
-\texttt{record}, soit un type structur\'e. Finalement, les composants
-data peuvent \^etre scalaires ou vecteurs.
+Boolean ou Character). Par contre, un type composé est celui qui
+contient des sous-composants au niveau de d\'efinition en AADL, ce
+type de composant doit \^etre transform\'e à Ada comme un type
+\texttt{record}, soit un type structuré, dont les champs correspondent
+aux sous)composants du composant AADL. Finalement, les composants data
+peuvent \^etre scalaires ou vecteurs.
 
 La d\'etermination qu'un type soit primitif ou compos\'e est fait en
 analysant ses impl\'ementations, s'ils en existent. Si une
 impl\'ementation existe, et elle a de sous-composants, le type en
 question est compos\'e, sinon, il est primitif. Si la propri\'et\'e
 \texttt{Length} est d\'efini sur le type, et si elle as une valeur
-diff\'erente que 1, le type est un vecteur, sinon scalaire. Pour les
-types primitifs, leurs propri\'et\'e \texttt{Data\_Type} est
-l'\'enum\'eration de \texttt{\{Integer, Boolean, Character\}} et donne
-le type Ada correspondant. Listing~\ref{lst:primitive_type_ada_fr}
-montre les \'exemples de types primitifs en AADL et leurs
-transformations en Ada faitent par ARC.
+diff\'erente que 1, le type est un vecteur, sinon il est
+scalaire. Pour les types primitifs, leurs propri\'et\'e
+\texttt{Data\_Type} est l'énumération de \texttt{\{Integer,
+  Boolean, Character\}} et donne le type Ada
+correspondant. Listing~\ref{lst:primitive_type_ada_fr} montre les
+\'exemples de types primitifs en AADL et leurs transformations à Ada
+faitent par ARC.
+
+Dans la spécification AADL, le \emph{type} de composant donné
+\texttt{Int\_Type} et \texttt{Int\_Vector} n'ont pas
+d'implémentation. Hors ces types se trouvent \^etre suffisants gr\^ace
+à propriété \texttt{Data\_Type} au cas de \texttt{Int\_Type} et
+gr\^ace aux propriétés \texttt{Data\_Type} et \texttt{Length} au cas
+de \texttt{Int\_Vector}.
 
 \begin{minipage}{0.45\linewidth}
 \lstset{language=aadl}
@@ -1106,7 +1115,7 @@ end Bool_Vector.Impl;
 \hspace{5mm}
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
-\begin{lstlisting}[label=lst:primitive_type_ada_fr, caption=Les types transform\'es en Ada]
+\begin{lstlisting}[label=lst:primitive_type_ada_fr, caption=Les types transform\'es à Ada]
 -- Int_Type data component --
 type Int_Type is new Integer;
 
