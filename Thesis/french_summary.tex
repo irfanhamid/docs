@@ -315,7 +315,7 @@ teste extrêmement simple pour déterminer si ledit ensemble est
 ordonnançable. Cependant il ne faut pas oublier que---la version
 basique de---ce teste est applicable seulement aux tâches
 indépendantes; c-à-d celles qui ne se communiquent ou ne se
-synchronisent pas entre elles.
+synchr\^onisent pas entre elles.
 
 \subsection*{Les approches d'Ingénierie Dirigé par les Modèles}
 Comme déjà indiqué, il y a plusieurs techniques de développement de
@@ -740,7 +740,7 @@ précédemment, le profil Ravenscar prévoit l'utilisation d'un
 ordonnanceur de priorité fixe avec tournoi à la ronde sous la même
 bande de priorité, ç-à-d, ``Fixed Priority Preemptive Scheduler'' ou
 FPPS. En supposant que toutes les tâches sont périodiques, indépendant
-(pas de communication inter-tâches ou de synchr\^onisation) et d\^ures
+(pas de communication inter-tâches ou de synchronisation) et d\^ures
 (pas de délais non respectés), puis l'affectation de priorit\'es selon
 l'affectation monotone \`a p\'eriode, ou ``Rate Monotonic
 Assignment'', resultera \`a un ordonnancement faisable si l'un est
@@ -907,7 +907,7 @@ L'ing\'enierie dirig\'e par des mod\`eles, et la g\'en\'eration du
 code automatique est avantageux quelconque soit le langage de
 programmation choisi comme cible, mais devient encore plus attirant au
 cas d'Ada, si ses primitifs sont utilis\'es pour cr\'eer les t\^aches
-et les objets prot\'eg\'es pour la synchr\^onisation. La raison
+et les objets prot\'eg\'es pour la synchronisation. La raison
 principale \'etant que---par \'exemple---cr\'eer une t\^ache en Ada
 necessite sa d\'eclaration comme artefact du code, en comparaison d'un
 appel \`a l'RTOS en dessous en cas du C/C++. Nous avons d\'ej\^a vu
@@ -1079,6 +1079,12 @@ d'implémentation. Hors ces types se trouvent \^etre suffisants gr\^ace
 gr\^ace aux propriétés \texttt{Data\_Type} et \texttt{Length} au cas
 de \texttt{Int\_Vector}.
 
+Un type AADL qui n'a qu'un \emph{type} est nommé comme tel en Ada;
+ç-à-d, le type AADL \texttt{Int\_Type} devient \texttt{Int\_Type} en
+Ada. Pour les composants AADL qui ont d'implémentations, le type en
+Ada devient \texttt{<type>\_<implementation>}, ç-à-d, le type AADL
+\texttt{Bool\_Type.Impl} devient \texttt{Bool\_Type\_Impl} en Ada.
+
 \begin{minipage}{0.45\linewidth}
 \lstset{language=aadl}
 \begin{lstlisting}[label=lst:primitive_type_aadl_fr, caption=Les types primitifs en AADL]
@@ -1162,17 +1168,18 @@ propri\'et\'e \texttt{Compute\_Entrypoint}, ce qui est le nom du
 proc\'edure que la t\^ache Ada doit appeller \`a chaque invocation.
 
 Nous avons d\'evelopper une biblioth\`eque de paquetage Ada
-g\'en\'erique pour reduire le code g\'en\'er\'e nommé
-\texttt{ravenscar\_lib}. Cette biblioth\'eque est disponible en
-ligne\footnote{Disponible \`a \url{http://aadl.enst.fr/arc/}}. L'un de
-paquetages g\'en\'erics fournis s'appelle
-\texttt{Ravenscar\_Periodic}, qui contient la squelette d'une t\^ache
-p\'eriodique en Ada, dont le code source est montr\'ee en
-Listing~\ref{lst:ravenscar_periodic_fr}. Veuillez noter que les
-discriminants du paquetages Ada correspondent fortement aux
+g\'en\'erique\footnote{Un paquetage générique en Ada corréspond
+  fortement aux classes templatisée du C++} à fin de réduire le code
+g\'en\'er\'e, nommé \texttt{ravenscar\_lib}. Cette biblioth\'eque est
+disponible en ligne\footnote{Disponible \`a
+  \url{http://aadl.enst.fr/arc/}}. L'un de paquetages g\'en\'erics
+fournis s'appelle \texttt{Ravenscar\_Periodic}, qui contient la
+squelette d'une t\^ache p\'eriodique en Ada, dont le code source est
+montré en Listing~\ref{lst:ravenscar_periodic_fr}. Veuillez noter que
+les discriminants du paquetages Ada correspondent fortement aux
 propri\'et\'es AADL du thread, tel que \texttt{Period\_P},
 \texttt{Deadline\_P} et \texttt{Stack\_Size\_P}. La façon dont c'est
-utilisé par le générateur du code se trouve parmis les
+utilisé par le générateur du code se trouve dans les
 Listings~\ref{lst:aadl_periodic_fr} et~\ref{lst:ada_periodic_fr}.
 
 \begin{minipage}{\listingwidth}
@@ -1243,18 +1250,18 @@ package Sensor_Sim is new
 Un thread sporadique en AADL est un sous-composant thread d'un
 processus avec la propri\'et\'e \texttt{Dispatch\_Protocol =>
   Sporadic}. Les propri\'et\'es \texttt{Stack\_Size} et
-\texttt{Period} sont utilis\'e \`a le dimensionner aussi, ou la
-p\'eriode est consid\'er\'e le temps de s\'eparation minimale entre
-évennements déclenchant de la tàche. Au contraire à un thread
-périodique, un thread sporadique n'a pas un seul comportement. En
-fait, sa comportement dépend complètement du type d'évennement qui
-vient de le lancer. Alors, pour un thread sporadique, la propriété
-\texttt{Compute\_Entrypoint} n'a pas de la valeur sémantique, à sa
-place, chaque event port entrant doit définir sa propre
-\texttt{Compute\_Entrypoint}, qui est appellé par le framework en
-réception de son évennement.
+\texttt{Period} sont utilis\'e \`a le dimensionner comme pour les
+threads périodiques, où la période est considéré le temps de
+séparation minimale entre les évennements déclenchant de la tàche. Au
+contraire à un thread périodique, un thread sporadique n'a pas un seul
+comportement. En fait, sa comportement dépend complètement du type
+d'évennement qui vient de le lancer. Alors, pour un thread sporadique,
+la propriété \texttt{Compute\_Entrypoint} n'a pas de la valeur
+sémantique, à sa place, chaque event port entrant doit définir sa
+propre \texttt{Compute\_Entrypoint}, qui est appellé par le framework
+en réception de l'évennement approprié.
 
-Comme pour le thread p\'eriodique, nous avons d\'efinis un paquetage
+Comme pour le thread périodique, nous avons d\'efinis un paquetage
 pour les threads sporadiques dans la biblioth\`eque
 \texttt{ravenscar\_lib}. Le paquetage \texttt{Ravenscar\_Sporadic}
 reduit l'effort de cr\'eer des t\^aches sporadiques. La mani\`ere dont
@@ -1300,101 +1307,54 @@ package Thr_Name is new
 \end{lstlisting}
 \end{minipage}
 
-Correspondant \`a chaque \emph{type} de composant thread est généré de
-nombreuse entités à fin de garantir la séparation minimale d'arrivées
-d'évennements, les fonctions squelettes de le déclencher ainsi qu'un
-objet protégé de type synchr\^oniseur sur lequelle ce thread se bloque
-en attendant son déclenchement. Le générateur produit aussi une type
-d'énumération, qui est utilisé à déterminer le type d'évennement
-déclenchant, ce type énumére chaque \texttt{in event port}, \texttt{in
-  out event port}, \texttt{in event data port} et \texttt{in out event
-  data port} attaché aux features du thread.
+Correspondant \`a chaque \emph{type} de composant thread sporadique
+est généré de nombreuse entités à fin de garantir la séparation
+minimale d'arrivées d'évennements, les fonctions squelettes de le
+déclencher ainsi qu'un objet protégé de type synchr\^oniseur sur
+lequelle ce thread se bloque en attendant son déclenchement. Le
+générateur produit aussi une type d'énumération, qui est utilisé à
+déterminer le type d'évennement déclenchant, ce type énumére chaque
+\texttt{in event port}, \texttt{in out event port}, \texttt{in event
+  data port} et \texttt{in out event data port} attaché aux features
+du thread.
 
-Aussi généré est pour chaque type de thread est un type d'objet
-protégé que l'on a appellé synchr\^oniseur et auquel nous avons déjà
-fait référence. Cet objet protégé à une entrée (déclencheur à variable
+Aussi généré pour chaque type de thread est un type d'objet protégé
+que l'on a appellé synchr\^oniseur et auquel nous avons déjà fait
+référence. Cet objet protégé à une entrée (déclencheur à variable
 conditionnel) et autant de procédures que les event port de la tàche
-pour laquelle est généré. Il compris aussi de plusieurs files
-d'attentes encapsulé, une file d'attente corréspondant chaque type
-d'évennement que la tàche peut recévoir. Les procédures servent à
-déposer les évennements dans leurs files d'attentes. La tàche est
-déclenché par l'éxécutif d'Ada s'il y a au moins un évennement dans
-une des files d'attente de l'objet, et ça car la conditionne de
-déclenchement est écrit comme telle par le générateur du code.
+pour laquelle est généré. \`A fin de discriminer entres événements
+déclenchants, le générateur émet une énumération avec une étiquette
+nommé à chaque event et event data port entrant (\texttt{in} ou
+\texttt{in out}) ainsi qu'une file d'attente de cette énumération qui
+représente les événements reçus. Si l'interface du thread contient un
+\texttt{in event data port} ou un \texttt{in out event data port}, il
+faudra aussi entreposer les données associés; pour ce stockage, ARC
+génére une file d'attente corréspondant à chaqu'un de ses ports
+entrants.
 
-Correspondant à chaque instantiation du thread, un instance du type
-synchroniseur décrit ci-dessus est généré, avec sa priorité de plafond
-met au maximum des priorités de tous les threads qui peuvent y faire
-accès, l'information qui est très evident en fonction de topologie de
-connexions AADL dans le modèle. Un procédure globale est généré pour
-chaque instanciation du thread qui attend sur l'entrée de son
-synchroniseur et qui est appellé par le boucle infini du thread.
-
-Un éxemple de type synchr\^oniseur et le procédure de dispatch dont
-nous venons de parler se trouve dans la
-Figure~\ref{fig:synchronizer_fr} is given in
-Fig.~\ref{fig:dispatcher_fr}.
-
-\begin{figure}
-\centering
-\includegraphics{figs/eventports}
-\caption{Spécification de synchr\^oniseur, son instanciation et la
-  fonction de déclenchement pour un thread sporadique}
-\label{fig:dispatcher_fr}
-\end{figure}
+La t\^ache est déclenchée par l'éxécutif d'Ada s'il y a au moins un
+évennement dans une des files d'attente de l'objet, et ça car la
+conditionne de déclenchement est écrit comme telle par le générateur
+du code. Un éxemple d'un thread sporadique avec un \texttt{in event
+  port} et deux \texttt{in event data port} est montré dans la
+Figure~\ref{fig:synchronizer_fr}. Pour cet éxemple, l'énumeration
+\texttt{TType\_Event\_Type} est générée. La conception visuelle du
+synchroniseur se trouve à droite dans la figure, dans laquelle nous
+constatons la file d'attente globale d'événements, ainsi que les files
+d'attentes \texttt{Evt2\_Queue} et \texttt{Evt3\_Queue} pour
+l'entrep\^ot des données de ces deux data ports. Le code source généré
+pour \texttt{Await\_Event} du synchroniseur de ce type de thread se
+trouve dans Listing~\ref{lst:await_event_fr}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=1.4]{figs/synchronizer}
-\caption{Synchroniseur d'un thread sporadique nommé \texttt{Thr1} du type \texttt{TType}}
+\caption{Synchr\^oniseur d'un thread sporadique nommé \texttt{Thr1} du type \texttt{TType}}
 \label{fig:synchronizer_fr}
 \end{figure}
 
-The generated code contains an enumeration that lists the names of all
-incoming event ports and event data ports for the thread type,
-\texttt{TType\_Event\_Type} for the example. A queue type of this
-enumeration is also generated, which serves as the main event queue
-for the synchronizer. Inside the synchronizer, there is one main queue
-that holds types of events that have been received (the entries of
-type \texttt{TType\_Event\_Type}). There is also one queue for each
-type of incoming event data port, these queues---\texttt{Evt2\_Queue}
-and \texttt{Evt3\_Queue} in the example---hold the associated data
-that comes in together with the event. Head and tail indices for each
-internal queue are also generated to handle the circular
-buffering. The API of the synchronizer includes one
-entry---\texttt{Await\_Event}---upon which the sporadic task will wait
-and which returns the type of the event and the instance of time the
-entry started execution. Also provided are procedures to send
-\emph{all} the events and event data corresponding to the incoming
-event and event data ports. Procedures for reading the values of all
-incoming \emph{event data ports} are also generated, which return the
-data at the head of the respective data queue. There are no procedures
-to read incoming event ports because an incoming event on them can be
-signified simply via the enumeration returned by
-\texttt{Await\_Entry}. An instance of the synchronizer corresponding
-to the thread subcomponent's name is generated in the
-\texttt{Local\_Comm} package.
-
-The dispatch procedure for the example contains local variables for
-all the incoming event data ports---\texttt{Evt2} and \texttt{Evt3}
-here---that are defined in the features of the thread type. Also
-declared is a variable \texttt{Port} of the event enumeration
-type. After a call to \texttt{Await\_Entry} and the calculation of the
-next earliest dispatch time, it is this \texttt{Port} variable that is
-used to decide which port's \texttt{Compute\_Entrypoint} to invoke. If
-the port is an event port, the entrypoint is invoked directly. If it
-is an event data port, first the corresponding \texttt{Get\_*}
-procedure is called to obtain the appropriate data, and the
-\texttt{Compute\_Entrypoint} is called with the accompanying data. The
-dispatch procedure ends with the \kw{delay until} directive to enforce
-minimum inter-arrival separation for the sporadic task.
-
- The \texttt{Await\_Event} entry implementation of the synchronizer
- for this example is given in Listing~\ref{lst:await_event}.
-
 \begin{minipage}{\listingwidth}
-\begin{lstlisting}[language=ada,label=lst:await_event, caption=Await\_Event entry
-    of the TType thread type's synchronizer]
+\begin{lstlisting}[language=ada,label=lst:await_event_fr, caption=L'entrée Await\_Event du synchroniseur TType]
 protected body TType_Synchronizer is
 ...
   entry Await_Event (The_Event    : out TType_Event_Type; 
@@ -1409,14 +1369,25 @@ end TType_Synchronizer;
 \end{lstlisting}
 \end{minipage}
 
+Correspondant à chaque instantiation du thread, un instance du type
+synchr\^oniseur décrit ci-dessus est généré, dont la priorité de
+plafond est met au maximum des priorités de tous les threads qui
+peuvent y faire accès---tous les threads du système qui peuvent y
+envoyer des événements---selon l'information très evident en fonction
+de topologie de connexions AADL dans le modèle. Un procédure globale
+est généré correspondant à chaque instanciation du thread sporadique,
+nommé \texttt{<Thread\_Name>\_Dispatcher}, celui qui est appellé en
+boucle infini par ce thread en attente d'événement déclenchants. Ce
+procédure assure aussi la séparation temporelle minimale entre
+arrivées d'événements.
+
 \begin{figure}
 \centering
-\includegraphics[scale=1.4]{figs/synchronizer}
-\caption{Synchronizer for a sporadic thread subcomponent named
-  \texttt{Thr1} of type \texttt{TType}}
-\label{fig:synchronizer}
+\includegraphics{figs/eventports}
+\caption{Spécification de synchr\^oniseur, son instanciation et la
+  fonction de déclenchement pour un thread sporadique}
+\label{fig:dispatcher_fr}
 \end{figure}
-
 
 %%%%%%%%%%%%%%%% COMMENT %%%%%%%%%%%%%%%%
 \begin{comment}
