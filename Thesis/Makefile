@@ -101,6 +101,7 @@ PDFFIGS = figs/det_breach_nobreach.pdf \
 	figs/block_diag.pdf \
 	figs/caseStudy.pdf \
 	figs/composed.pdf \
+	figs/dataflow.pdf \
 	figs/dataports.pdf \
 	figs/det_breach1.pdf \
 	figs/det_breach.pdf \
