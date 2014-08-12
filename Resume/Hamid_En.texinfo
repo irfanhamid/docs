@@ -8,11 +8,20 @@
 @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @uref{mailto:irfan.hamid@@gmail.com,,irfan.hamid@@gmail.com}
 
 @noindent
-Developer with an interest in scalability, erformance optimization, real-time systems and functional programming. Performed doctoral research in model-driven code generation for real-time systems and formal verification of the inter-process communication aspect of the generated code using process algebrae.
+Developer with an interest in scalability, performance optimization,
+real-time systems and functional programming. Doctorate in real-time systems and work experience in the web and enterprise search domains.
 
 @unnumberedsec Professional Experience
+@multitable @columnfractions 0.32 0.48 0.2
+@item @strong{Salesforce.com} @tab @strong{Lead Member of Technical Staff} @tab @strong{2014-Present}
+@end multitable
+@noindent
+@itemize @bullet
+@item @strong{Search ranking infrastructure:} Developing linear regression and decision tree execution engines for Salesforce.com search infrastructure. Optimizing these with Intel SSE and AVX vectorizing instruction sets, giving 8x improvements over pure C++ and Java.
+@item @strong{Search replication infrastructure:} Developing the replication component for the search infrastructure, both the high-availability and disaster recovery subsystems. The Salesforce.com search engine is built on top of the open source Solr search engine.
+@end itemize
 @multitable @columnfractions 0.6 0.2 0.2
-@item @strong{Microsoft Corp.} @tab @strong{SDE 2} @tab @strong{2008-Present}
+@item @strong{Microsoft Corp.} @tab @strong{SDE 2} @tab @strong{2008-2014}
 @end multitable
 @noindent
 @itemize @bullet
@@ -29,16 +38,20 @@ Developer with an interest in scalability, erformance optimization, real-time sy
 @end multitable
 @noindent
 @itemize @bullet
-@item @strong{Radar Display Processor:} Designed and implemented a radar data acquisition and display system in Linux. Wrote both the analog data aquisition as well as the raw video display systems. Currently in use by the Civil Aviation Authority of Pakistan.
-@item @strong{C@math{^4}I Technology Demonstrator:} Designed and implemented self-forming WAN over heterogeneous media to act as the communication subsystem of a C@math{^4}I (Command, Control, Communication, Computers and Intelligence) system.
+@item @strong{Radar Display Processor:} Developed a radar data acquisition and display system in Linux. Currently in use by the Civil Aviation Authority of Pakistan.
+@item @strong{C@math{^4}I Comm. System:} Developed a self-forming WAN over heterogeneous media for a C@math{^4}I (Command, Control, Communication, Computers and Intelligence) system.
 @end itemize
 
 @unnumberedsec Education
 @multitable @columnfractions 0.08 0.72 0.2
 @item @strong{PhD} @tab @strong{@'Ecole Nationale Sup@'erieure des T@'el@'ecommunications, Paris} @tab @strong{2005-2008}
 @end multitable
-@noindent
-Conducted research on automatic generation of both application code, as well as formal verification code, of real-time systems from their architecture descriptions. Principal author of the @uref{http://aadl.enst.fr/arc/,,ARC} tool, an Eclipse plugin that generates @uref{http://www.acm.org/sigada/ada_letters/jun2004/ravenscar_article.pdf,,Ada Ravenscar} executable and LOTOS verification code from architectural descriptions given in @uref{http://www.aadl.info,,AADL} (an architecture description language for real-time systems).
+
+@itemize @bullet
+@item @strong{Thesis:} Automatic code generation and verification of hard real-time systems
+@item @strong{Jury remarks:} Mention tr@`es honorable (with high honors)
+@end itemize
+
 @multitable @columnfractions 0.08 0.72 0.2
 @item @strong{MSc} @tab @strong{@'Ecole Nationale Sup@'erieure des
 T@'el@'ecommunications, Paris} @tab @strong{2003-2004}
