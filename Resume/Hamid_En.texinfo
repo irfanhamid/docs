@@ -9,7 +9,8 @@
 
 @noindent
 Developer with an interest in scalability, performance optimization,
-real-time systems and functional programming. Doctorate in real-time systems and work experience in the web and enterprise search domains.
+real-time systems and functional programming. Doctorate in real-time
+systems and work experience in the web and enterprise search domains.
 
 @unnumberedsec Professional Experience
 @multitable @columnfractions 0.32 0.48 0.2

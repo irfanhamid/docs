@@ -11,7 +11,7 @@ fiables; des avancées qui ont donné naissance aux utilisations
 d'ordinateurs qui était inimaginable il y a même quelques
 décennées. L'ordinateur, qui, à l'origine a été conçu et construit en
 tant qu'un résolutionneur d'équations, se trouve aujourd'hui faire des
-tâches très divers et variées. La socité elle-même est devenue plus
+tâches très divers et variées. La soci\'eté elle-même est devenue plus
 exigeante au niveau téchnologique, au point que
 ``l'ordinateurisation'' est un moyen nécessaire pour répondre à ses
 attentes. Les exemples de cette omnipresence d'ordinateurs incluent
@@ -42,10 +42,10 @@ Parmi d'autres usages d'ordinateur à nos jours, il y a aussi celle des
 systèmes temps-réels. Qu'est-ce un système temps-réel? Brièvement,
 c'est un système ou un paradigme ou une situation où la validité du
 résultat d'un calcul dépend aussi fortement sur le \emph{moment où ce
-  résultat est disponible} ainsi que sur le valeur du résultat. Le
+  résultat soit disponible} ainsi que sur le valeur du résultat. Le
 moment dans le temps jusqu'où les résultats doivent êtres disponibles
-est appelé le ``deadline'' pour ce calcul. Les utilisations
-importantes des systèmes temps-réels sont:\\
+est appelé le ``deadline''--soit le d\'elai---pour ce calcul. Les
+utilisations importantes des systèmes temps-réels sont:\\
 
 \begin{itemize}
 \item{Contrôle de processus industriel;}
@@ -1484,6 +1484,62 @@ d'\'etats du STE. Les propri\'et\'es que l'on v\'erifie sur ce STE
 sont celles d'exactitude des connecteurs d\'eterministe en pr\'esence
 des t\^aches sporadique---s'il y'en a dans la sp\'ecification
 AADL---quelque soit leurs intercalages de pr\'eemption et resumption.
+
+\section*{Vers la s\'emantique formelle}
+Dans cette section, nous pr\'esenterons une s\'emantique formelle qui
+d\'ecrit le comportement du code g\'en\'er\'e. L'exercise de
+formalisation de s\'emantique pour un langage de programmation a
+plusieurs objectifs, parmis lesquels la documentation pr\'ecise, la
+construction des syst\'emes de preuves et de la v\'erification, et
+l'aide \`a la programmation gr\^ace \`a la capacit\'e de raisonnement
+que nous est fournit par la d\'escription math\'ematique du
+comportement de code.
+
+Certes qu'il y a d'utilit\'e et du pragmatisme dans cette entreprise
+de formalisation du langage, hors, il nous faut avouer que la plus
+grande valeur de cela reste la joi de d\'ecouvrir les grands aperçus
+de la nature de computation elle-m\^eme. Qu'est-ce qu'une computation?
+Quelle est sa granularit\'e? Pourrions-nous envisager une unit\'e
+atomique de la computation? Peut-\^etre l'introduction de la
+s\'emantique operationnelle du code Ada Ravenscar pourra r\'epondre \`a
+une partie miniscule de ces questions profondes.
+
+Les s\'emantiques formelles d'un syst\`eme quelconque d\'ecrirons son
+comportement d'une mani\`ere pr\'ecise. Au niveau de langages de
+programmation, nous avons trois grands th\`emes ou paradigms \'a
+donner ces s\'emantiques formelles :\\
+\begin{description}
+\item[Denotationelle :]{Chaque expression ou instruction dans le langage de programmation est traduit envers une domaine math\'ematique, ce domaine d\'ecrit 
+
+Each statement or instruction in the language
+  being considered is translated to a formal mathematical domain, this
+  mathematical domain describes the meaning of each statement or
+  expression~\cite{tennent@cacm76};}
+\item[Operationelle :]{An operational semantics provides the meaning of
+  programs via a state transition formalism~\cite{plotkin-sos}. Each
+  transition corresponding to one ``step'' of the program being
+  modeled;}
+\item[Axiomatique :]{The semantics of a program are given via assertions
+  pertaining to the state of the system before and after execution of
+  instructions. Axiomatic semantics was introduced
+  in~\cite{floyd@macs67, hoare@cacm69}.}
+\end{description}
+
+The semantics given are in the form of Structured Operational
+Semantics (SOS). SOS allows for the definition of system behavior in
+the form of a state transition system, whereby the behavior of the
+system is given by the composition of the elementary entities and the
+way they are composed together. The system state gives the
+configuration of the system at any given point in time. The
+configuration or state of a single-processor system might include,
+among others, as an example:
+
+\begin{itemize}
+\item{The time since the system has been running;}
+\item{The currently running task;}
+\item{The queues of ready tasks;}
+\item{The sets or bags or queues of blocked or preempted tasks.}
+\end{itemize}
 
 \section*{Conclusions}
 L'ing\'enierie dirig\'e par des mod\`eles (IDM) est un m\'ecanisme
