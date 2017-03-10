@@ -8,28 +8,34 @@
 @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @uref{mailto:irfan.hamid@@gmail.com,,irfan.hamid@@gmail.com}
 
 @noindent
-Developer with an interest in scalability, performance optimization,
-real-time systems and functional programming. Doctorate in real-time
-systems and work experience in the web and enterprise search domains.
+Engineer with an interest in scalability, performance optimization, real-time systems and functional programming. Experienced in the web and enterprise search domains.
 
 @unnumberedsec Professional Experience
 @multitable @columnfractions 0.32 0.48 0.2
-@item @strong{Salesforce.com} @tab @strong{Lead Member of Technical Staff} @tab @strong{2014-Present}
+@item @strong{Salesforce.com} @tab @strong{Principal Member of Technical Staff} @tab @strong{2016-Present}
 @end multitable
 @noindent
 @itemize @bullet
-@item @strong{Search ranking infrastructure:} Developing linear regression and decision tree execution engines for Salesforce.com search infrastructure. Optimizing these with Intel SSE and AVX vectorizing instruction sets, giving 8x improvements over pure C++ and Java.
-@item @strong{Search replication infrastructure:} Developing the replication component for the search infrastructure, both the high-availability and disaster recovery subsystems. The Salesforce.com search engine is built on top of the open source Solr search engine.
+@item @strong{Infrastructure ownership:} Own the search infrastructure. Coordinate the build out of search infrastructure in new datacenters and aid search teams in new search features that require infrastructure changes.
+@item @strong{Dynamic ranking optimization:} Prototyping a dynamic ranking runtime that uses Intel SSEx and AVX vectorizing instruction sets to improve performance at query time.
 @end itemize
-@multitable @columnfractions 0.6 0.2 0.2
-@item @strong{Microsoft Corp.} @tab @strong{SDE 2} @tab @strong{2008-2014}
+@multitable
+@item @strong{Salesforce.com} @tab @strong{Lead Member of Technical Staff} @tab @strong{2014-2016}
 @end multitable
 @noindent
 @itemize @bullet
-@item @strong{Volatility improvements:} Developed the metric and associated tooling for quantifying differences in search results for the same query. Now being tracked across Bing as both a key metric and for identifying infrastructure problems. 
-@item @strong{Lossy key-value compression:} Implemented a key-value lookup system akin to a map but using minimum perfect hashing. This technique has enabled significant space and performance improvements and is being adopted across Bing.
+@item @strong{Search distributed systems functionality:} Developed the replication and ditributed management subsystem. Conducted a complete redesign of the existing in-house to use Apache ZooKeeper; principal for the design and development of the new subsystem and closely involved in the deployment and monitoring aspects.
+@item @strong{Search migration to Apache Solr:} Migrated away from a Lucene based indexer running on top of a SAN to a horizontally scaleable search infrastructure based on Apache Solr.
+@end itemize
+@multitable @columnfractions 0.32 0.48 0.2
+@item @strong{Microsoft Corp.} @tab @strong{SDE and SDE 2} @tab @strong{2008-2014}
+@end multitable
+@noindent
+@itemize @bullet
+@item @strong{Volatility improvements:} Developed the metric and tooling for quantifying differences in search results for the same query. 
+@item @strong{Lossy key-value compression:} Implemented a key-value lookup system based on a Bloom filter using minimum perfect hashing.
 @item @strong{Bing Instant Answers:} Wrote service code on the query critical path--invoked on every query--that carries out arbitration of rich content like images and videos on the page.
-@item @strong{Suggested Sites:} Wrote offline code to calculate correlations between URLs in Bing's index; used in IE8 to provide users with relevant URLs.
+@item @strong{Suggested Sites:} Wrote offline code to calculate correlations between pairs of URLs in Bing's index for relevancy improvements.
 @end itemize
 
 @multitable @columnfractions 0.6 0.2 0.2
@@ -113,12 +119,13 @@ Systems.} @emph{Embedded Real-time Systems 2006 (ERTS'06).} January 2006
 @unnumberedsec Skillset
 @multitable @columnfractions 0.15 0.15 0.7
 @item @strong{Technology} @tab @strong{Experience} @tab @strong{Major output}
-@item C/C++ @tab 8 years @tab Multiple projects during undergraduate studies and jobs
-@item C#/F# @tab 5 years @tab Various relevance, measurement and analysis tools at Bing 
-@item Java @tab 3 years @tab AADL to Ada code generator 
+@item C/C++ @tab 10 years @tab Multiple projects, academic and professional
+@item C#/F# @tab 5 years @tab Multiple relevance, measurement and analysis tools at Bing 
+@item Java @tab 4 years @tab AADL to Ada code generator, Salesforce search
+@item Puppet @tab 2 years @tab Search infrastructure and ZooKeeper buildouts
 @item Ada 95/2005 @tab 2 years @tab AADL to Ada code generator
-@item Win32 @tab 6 years @tab End of studies project (3D simulation and instrumentation)
-@item Linux @tab 8 years @tab Radar Display Processor, Radar Data Acquisition
+@item Win32 @tab 6 years @tab Undergrad senior project (flight sim and instrumentation)
+@item Linux @tab 10 years @tab Radar Display Processor, Salesforce search
 @item UML  @tab 3 years @tab Meta-models and transformations in code
 @end multitable
 @noindent
