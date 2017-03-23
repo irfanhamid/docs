@@ -1535,151 +1535,48 @@ Le travail d\'etaill\'e dans~\cite{fowler@rtss97} est peut-\^etre le plus proche
 
 Finalement,~\cite{vardanega@rts05} fournis une description d\'etaill\'ee---quoi-qu'informelle---du comportement d'un noyeau Ravenscar. Vour que les auteurs de ceci sont aussi les d\'eveloppeurs de l'implementation Open Ravenscar Kernel~\cite{puente@ae00}, ils sont particulierement bien plac\'es \`a donner la description complet des construction de t\^achage et communication inter-t\^ache. Ils y ont d\'etaill\'e le comportement de \kw{delay until}, un appel \`a un proc\'edure, fonction ou entr\'ee sur un objet prot\'eg\'e etc.
 
-La s\'emantique formelle que nous presenterons ici est compos\'e de deux grands th\`emes : les s\'emantiques statiques et les s\'emantiques dynamiques du syst\`eme. La partie statique fournis les r\`egles des formes correctes, c'est-\`a-dire qu'elle sp\'ecifie dans le langage de theorie d'ensemble l'arbre de syntaxe abstraite de tous les syst`emes bien-form\'es doivent suivre. Un exemple simple d'une telle r\`egle pourrais \^etre celle qui dit ``\`a chaque t\^ache sporadique il doit correspondre strictement un synchroniseur~\footnote{Un synchroniseur, comme sp\'ecifier dans Section~\ref{sec:fr_transformations}, est un objet prot\'eg\'e avec une entr\'ee} dont l'entr\'ee prot\'eg\'ee la d\'eclenchera''. L'outil ARC convertis le mod\`ele AADL en consid\'eration \`a une instance de Ravenscar Meta-Mod\`ele, voir RMM. Le RMM est une repr\'esentation interne du syst\`eme qui contient seul les \'el\'ements n\'ecessaires \`a la g\'en\'eration du code Ada conformant \`a Ravenscar. Donc la s\'emantique statique devient les relations entre les meta-classes de RMM.
+La s\'emantique formelle que nous presenterons ici est compos\'e de deux grands th\`emes : les s\'emantiques statiques et les s\'emantiques dynamiques du syst\`eme. La partie statique fournis les r\`egles des formes correctes, c'est-\`a-dire qu'elle sp\'ecifie dans le langage de theorie d'ensemble l'arbre de syntaxe abstraite de tous les syst`emes bien-form\'es doivent suivre. Un exemple simple d'une telle r\`egle pourrais \^etre celle qui dit ``\`a chaque t\^ache sporadique il doit correspondre strictement un synchroniseur~\footnote{Un synchroniseur, comme spécifié avant, est un objet prot\'eg\'e avec une entr\'ee} dont l'entr\'ee prot\'eg\'ee la d\'eclenchera''. L'outil ARC convertis le mod\`ele AADL en consid\'eration \`a une instance de Ravenscar Meta-Mod\`ele, voir RMM. Le RMM est une repr\'esentation interne du syst\`eme qui contient seul les \'el\'ements n\'ecessaires \`a la g\'en\'eration du code Ada conformant \`a Ravenscar. Donc la s\'emantique statique devient les relations entre les meta-classes de RMM.
 
 Les s\'emantiques dynamiques sont la deuxi\`eme partie que nous pr\'esenteros ici. Celles-l\`a d\'ecrivent l'\'evolution du syst\`eme avec le passage du temps en fonction des \'evennements reçus de l'environnement. Les structures de donn\'ees du noyau sont repr\'esent\'ees en objets math\'ematiques comme des ensembles, des sacs et des files d'attentes qui peut \^etres manipul\'ees en cons\'equences de transitions \'effectu\'ee par le mod\`ele. Ces structures de donn\'ees pourrait \^etre utilis\'ees comme des pr\'econditions aux certaines transitions, comme la s\'emantique operationelle structur\'ee propos\'ee par Plotkin~\cite{plotkin-sos}.
 
 \subsection*{La s\'emantique statique de Ravenscar Meta-mod\`ele}
-
-
-
-In the following subsections, a detailed description of the Ravenscar
-Meta-Model is provided, as it is the basis of the static semantics
-itself. Figure~\ref{fig:rmm} is a class-diagram representation of the
-RMM (it shows certain different aspects as compared to that in
-Fig~\ref{fig:tasking_config}). According to this diagram, a Ravenscar
-system, i.e., an instance of RMM, is made of a set of tasks (that can
-be periodic or sporadic), a set of protected objects (that can be
-synchronisers or exchangers) and a set of interrupts.
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.75]{figs/rmm}
-\caption{A class diagram representation of RMM}
-\label{fig:rmm}
-\end{figure}
-
-These five sets form the computational units of a Ravenscar system
-(the classes with dashed edges are abstract). These computational
-units are provided by the programmer. Each computational unit has to
-be provided with its required information (the attributes of the
-classes). The associations among the various classes provide the basic
-well-formedness rules of the system. These rules are formalized in set
-notation in the following subsections and are explained in greater
-detail.
-
-%The sets  define the computational units present in a Ravenscar system. The functions
-%correspond to the properties that the programmer associates to these
-%entities.finite and pairwise disjoint sets and five
-%functions defined on these sets. The sets  define the
-%computational units present in a Ravenscar system. The functions
-%correspond to the properties that the programmer associates to these
-%entities.
-%
-%\subsection{Relation to Meta-model}
-%In the RMM, the 5 sets become meta-classes, their properties become
-%meta-attributes of those meta-classes and the topological relations
-%become links among the meta-classes. A small excerpt of the tasking
-%configuration portion of the meta-model is shown in
-%figure~\ref{fig:tasking_config}.
-
-
-\subsection{Ravenscar Computational Units}
-A Ravenscar system is given by five \emph{finite} and \emph{pairwise
-  disjoint} sets. Each of these sets is represented by a meta-class in
-the RMM, thus there is one set each for periodic tasks, sporadic
-tasks, synchronizers, exchangers and interrupts. Formally, the five
-sets are:
+Dans cette séction nous ferons une éxposition détaillée du RMM, car c'est la base de la sémantique statique d'applications Ravenscar générées par l'outil ARC. Une instance du RMM représente le modèle d'une application Ravenscar, ce qui est intuitif quand nous constatons qu'une instanciation d'un méta-modèle doit forcémment être un modèle. Nous définissons un système Ravenscar d'être composé de cinque ensembles finis et disjoints des ``composant de computation'', chaqu'un duquels corréspondent à une classe dans l'instanciation du RMM qui représente ce système. Formellement, les ensembles dont nous parlons sont les suivants:
 
 \begin{eqnarray}
   \nonumber
-  \text{\textbf{Periodic tasks}} \ {\cal T}_p \!& \!= \!&\! \{P_1 \ldots P_n\}\\
+  \text{\textbf{T\^aches périodiques}} \ {\cal T}_p \!& \!= \!&\! \{P_1 \ldots P_n\}\\
   \nonumber
-  \text{\textbf{Sporadic tasks}} \  {\cal T}_s  \! & \!= \! & \!  \{S_1  \ldots S_m\} \\
+  \text{\textbf{T\^aches sporadique}} \  {\cal T}_s  \! & \!= \! & \!  \{S_1  \ldots S_m\} \\
   \nonumber
-  \text{\textbf{Interrupts}} \   {\cal U} \! & \!= \! & \! \{U_1  \ldots U_k\}  \\ 
+  \text{\textbf{Interruptes}} \   {\cal U} \! & \!= \! & \! \{U_1  \ldots U_k\}  \\ 
   \nonumber
-  \text{\textbf{Synchronisers}} \    {\cal D} \! & \!= \! & \! \{D_1 \ldots D_l\} \\  
+  \text{\textbf{Synchroniseurs}} \    {\cal D} \! & \!= \! & \! \{D_1 \ldots D_l\} \\  
   \nonumber
-  \text{\textbf{Exchangers}} \  {\cal E} \! & \!= \! & \! \{E_1  \ldots E_r\} 
+  \text{\textbf{Echangeurs}} \  {\cal E} \! & \!= \! & \! \{E_1  \ldots E_r\} 
 \end{eqnarray}
 
-Each one of these is a set of all the objects of the respective RMM
-meta-class, e.g., ${\cal T}_p$ is the set of all objects of meta-class
-\texttt{Periodic}, which were instantiated as a result of traversal
-and analysis of the source AADL model. In discussion, these sets will
-be ranged over---i.e., iterated over---by symbols such as $P_i$ for
-the set ${\cal T}_p$, $S_i$ for the set ${\cal T}_s$, $U_i$ for the
-set ${\cal U}$, $D_i$ for the set ${\cal D}$ and $E_i$ for the set
-${\cal E}$. Some informal comments on Ravenscar computational units:
+Chaqu'un entre ceux-ci sont compris de tous les objets instanciés de la part de méta-classe appropriée du RMM, par exemple, ${\cal T}_p$ a comme membres tous les objets du type \texttt{Periodic} qui se trouve dans le modèle AADL et qui ont été instanciés en le traversant. Dans nos discussions nous allons traverser ces ensembles---c'est-à-dire qu'ils seront iteré dessus---par des symboles comme $P_i$ pour l'ensemble ${\cal T}_p$, $S_i$ pour l'ensemble ${\cal T}_s$, $U_i$ pour l'ensemble ${\cal U}$, $D_i$ pour l'ensemble ${\cal D}$ et $E_i$ pour l'ensemble ${\cal E}$.
 
-\begin{itemize}
-  \item{\emph{Sporadic tasks} are dispatched upon the reception of an
-    event. A minimum time---characteristic to each task---between
-    successive dispatches is enforced by the system;}
-  \item{\emph{Periodic tasks} are dispatched at regular time intervals
-    called their \emph{period};}
-  \item{\emph{Interrupts} can be raised at any time except if a
-    previous occurence is already being executed. Thus, at any time,
-    there can be at most ${k=|\cal U|}$ interrupts present in the
-    system;}
-  \item{\emph{Exchangers} are protected objects with an internal data
-    buffer and \texttt{Get} and \texttt{Set} procedures. They are used
-    for simple data exchange among tasks. In our approach they are used
-    to implement AADL data ports;}
-  \item{\emph{Synchronisers} are protected objects with an internal
-    queue of events that expose a \texttt{Send\_Event} procedure for
-    depositing events. A \texttt{Await\_Event} \emph{entry} is also
-    exposed. This is the service on which the associated sporadic task
-    waits for dispatch. These are used to implement AADL event/event data
-    ports.}
-\end{itemize}
-
-Also defined are four derived sets to aid in the succinct expression
-of rules. These sets are $\text{\textbf{Tasks}}$ (denoted ${\cal T}$),
-$\text{\textbf{Activities}}$ (denoted ${\cal A}$),
-$\text{\textbf{Protected objects}}$ (denoted ${\cal P\!O}$), and
-$\text{\textbf{Computational units}}$ (denoted ${\cal C}$); as
-follows:
+Aussi défini afin d'aider l'expression briève des règles sont les quatre ensembles auxiliares: $\text{\textbf{Tasks}}$ noté ${\cal T}$, $\text{\textbf{Activities}}$ noté ${\cal A}$, $\text{\textbf{Protected objects}}$ noté ${\cal P\!O}$, et finalement
+$\text{\textbf{Computational units}}$ noté ${\cal C}$). Leurs définitions formelles sont à la suite:
 \begin{eqnarray}
   {\cal T} & = & {\cal T}_p\cup {\cal T}_s
-  \ \ \ \ \ \ \ \ \ \ \: \text{(ranged over by} \ T, T', T_i \text{)} \nonumber \\
+  \ \ \ \ \ \ \ \ \ \ \: \text{(itéré dessus par} \ T, T', T_i \text{)} \nonumber \\
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   {\cal A}  & =  & \, {\cal T}_p\cup {\cal T}_s \cup
-  {\cal U} \ \ \ \text{(ranged over by} \ \alpha, \alpha',
+  {\cal U} \ \ \ \ \ \text{(itéré dessus par} \ \alpha, \alpha',
   \alpha_i \text{)} \nonumber \\
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   {\cal P\!O} & = & \ \, 
-  {\cal E} \cup {\cal D} \ \ \ \ \ \: \ \ \ \ \ \text{(ranged over by} \ \pi, \pi',
+  {\cal E} \cup {\cal D} \ \ \ \ \ \: \ \ \ \ \ \text{(itéré dessus par} \ \pi, \pi',
   \pi_i \nonumber \text{)} \\
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\cal C} & = & {\cal A}
-  \cup {\cal P\!O} \ \ \ \ \ \: \ \ \ \ \ \text{(ranged over by} \ \gamma, \gamma',
+  \cup {\cal P\!O} \ \ \ \ \ \: \ \ \ \ \ \text{(itéré dessus par} \ \gamma, \gamma',
   \gamma_i \text{)} \nonumber
 \end{eqnarray}
 
-%\begin{eqnarray}
-%  \text{\textbf{Tasks} } \,{\cal T} & = & {\cal T}_p\cup {\cal T}_s
-%  \ \ \ \ \ \ \ \ \: \text{ranged over by} \ T, T', T_i \\
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \text{\textbf{Activities}} \,\ {\cal A}  & =  & \, {\cal T}_p\cup {\cal T}_s \cup
-%  {\cal U} \ \ \ \text{ranged over by} \ \alpha, \alpha',
-%  \alpha_i \\
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \text{\textbf{Protected objects}} \ \,   {\cal P\!O} & = & \ \, 
-%  {\cal E} \cup {\cal D} \ \ \ \ \ \: \ \ \ \text{ranged over by} \ \pi, \pi',
-%  \pi_i \\
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \text{\textbf{Computational units}} \ \,  {\cal C} & = & {\cal A}
-%  \cup {\cal P\!O} \ \ \ \ \ \: \ \ \ \text{ranged over by} \ \gamma, \gamma',
-%  \gamma_i
-%\end{eqnarray}
-
-\subsection{Functions on computational units}
-Five functions are defined on every computational unit. These
-functions mirror the meta-attributes of each meta-class from the
-tasking portion of the RMM, as given in Fig.~\ref{fig:rmm}. These
-functions have the following signatures:
+Nous définissons cinque fonctions sur des différentes composants de computation de Ravenscar et qui reflètent directemment les méta-attributs de la méta-class qui y corrésponds. Ces fonctions ont les types suivants:
 \begin{eqnarray}
   \label{eq:anypriority}
   \text{\scshape priority}: &{\cal C} & \to \ \ 
@@ -1698,26 +1595,24 @@ functions have the following signatures:
     {\scriptstyle \mathbb{PROGS}} 
 \end{eqnarray}
 
-$\scriptstyle \mathbb{TIME}$ is a discrete time domain and is the
-domain for the functions $\text{\scshape holdingtime}$,
-$\text{\scshape wcet}$ and $\text{\scshape deadline}$. $\text{\scshape
-  WCET}$ gives the worst case execution time of a task or an
-interrupt, if that task or interrupt were to be given sole possession
-of the CPU. $\text{\scshape holdingtime}$ can have one of two
-significations depending on the type of object it is applied to, for
-periodic tasks---members of the set ${\cal T}_p$---it gives the
-period, for sporadic tasks---members of the set ${\cal T}_s$---it
-gives the minimum inter-arrival time for two successive
-jobs. $\scriptstyle \mathbb{PROGS}$ is the subset of Ada that the code
-of computational units (tasks, interrupts or protected objects) must
-conform to. The code of a computational unit $\gamma$ is given by
-$\text{\scshape prog}(\gamma)$, and is defined via a number of
-different grammars for each of the computational units. Finally,
-$\scriptstyle \mathbb{ANYPRIORITY}$ is a bounded subset of the set
-$\mathbb{N}$ of natural numbers and gives valid priorities for the
-system, and the function $\text{\scshape priority}$ when applied to a
-task gives its base priority, and when applied to a protected object,
-gives its ceiling priority.
+$\scriptstyle \mathbb{TIME}$ est un temps discrèt et il est la domaine
+des fonctions $\text{\scshape holdingtime}$, $\text{\scshape wcet}$ et
+$\text{\scshape deadline}$. $\text{\scshape WCET}$ donne la durée
+d'exécution au pire cas d'une t\^ache ou d'une interrupt en absence de
+concurrence pour le CPU et le memoire. $\text{\scshape holdingtime}$
+est soit la période (au cas de t\^ache périodique) ou l'intervale du
+temps minimale entre deux déclenchements consécutives (au cas de
+t\^aches sporadique). $\scriptstyle \mathbb{PROGS}$ est le
+sous-ensemble du code Ada auquel les unites compoutationel (t\^aches,
+interrupts ou objets protégés) doivent conformés. Le code d'une unité
+fonctionelle $\gamma$ est $\text{\scshape prog}(\gamma)$ et sa
+définition est fournis par un grammaire différent pour chaque type
+d'unité computationelle. Finalement $\scriptstyle
+\mathbb{ANYPRIORITY}$ est une intervale d'entiers non-negatifs
+$\mathbb{N}$ qui donne les prioritées possibles du système, et la
+fonction $\text{\scshape priority}$ appliquée à une t\^ache donne sa
+priorité de base et appliquée à un objet protégé donne sa priorité de
+plafond.
 
 \subsection{Conformant ${\scriptstyle \mathbb{PROGS}}$ programs}
 An abstraction of the execution steps allowed for each of the five
