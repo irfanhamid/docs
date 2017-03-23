@@ -105,7 +105,60 @@
 \newcommand{\simu}{Simulink$^\circledR$}
 \newcommand{\susp}{{\tiny$\ldots$}\xspace}
 \newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}
-\cleardoublepage}}
+    \cleardoublepage}}
+\newcommand{\MM}[1]{\ensuremath{#1}}
+\newcommand{\REGLE}[3]{
+%  \box{
+    \MM{
+      \dfrac{\begin{array}{l} #1 \end{array}}
+	    {\begin{array}{l} #2 \end{array}}
+    }
+%  }
+  %\vspace{1mm}
+    \begin{left}
+      \hbox{#3}
+    \end{left}
+}               
+\newcommand{\regle}[2]{
+  \MM{
+    \frac{\begin{array}{c} #1 \end{array}}
+         {\begin{array}{l} #2 \end{array}}
+  }
+}
+\newcommand{\formatreg}[1]{
+  \begin{center}
+%  \begin{tabular}{|c}
+%    \hline
+    \vspace{0.5mm}
+    \fbox{#1}\\
+%    \hline
+%  \end{tabular}
+  \end{center}
+}
+\newcommand{\Fait}[1]{\MM{\ \ \xrightarrow{#1}}}
+\newcommand{\fait}[1]{\MM{\xrightarrow{\ \ #1}}}
+\newcommand{\Faitv}[1]{\MM{\ \xrightarrow{#1}\ }}
+\newcommand{\RL}[1]{\,\frac{}{\,^{{#1}}\,}\,}
+\newcommand{\RS}[1]{\,\frac{}{^{{#1}}}\,}
+\newcommand{\sqplus}{\ {\scriptstyle {\widehat{+}}}\ }
+\newcommand{\smplus}{\ {\scriptstyle {\dot{+}}}\ }
+\newcommand{\intrupt}{\,{\scriptstyle\leadsto}\,}
+\newcommand{\rget}{\frac{}{\text{\ttfamily\ Get\ }}}
+\newcommand{\rset}{\frac{}{\text{\ttfamily\ Set\ }}}
+\newcommand{\rgvt}{\MM{ \frac{}{\text{\ttfamily\  Await\_Event\ }} }}
+\newcommand{\rsvt}{\frac{}{\text{\ttfamily\ Send\_Event\ }}}
+%\newcommand{\mget}{\frac{}{{\scriptsize{\text{\ttfamily\ Get\ }}}}
+%\newcommand{\mset}{\frac{}{\text{\ttfamily\ Set\ }}}
+\newcommand{\mgvt}{\frac{}{\text{\ttfamily\ \ Await\_Event\ }}}
+\newcommand{\msvt}{\frac{}{{\text{\ttfamily\ \tiny Send\_Event\ }}}}
+\newcommand{\rx}{\frac{}{\large \ x \ }}
+\newcommand{\smcirc}{{\scriptscriptstyle \circ}}
+\newcommand{\smodot}{{\scriptscriptstyle \odot}}
+\newcommand{\smoplus}{\,{\scriptstyle \oplus}\,}
+\newcommand{\SFT}[1]{\text{\sffamily #1}}
+\newcommand{\FNT}[1]{\text{\footnotesize #1}}
+\newcommand{\SC}[1]{$\text{\scshape{#1}}$}
+
 
 \restylealgo{algoruled}
 
