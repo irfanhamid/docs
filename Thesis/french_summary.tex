@@ -1510,12 +1510,30 @@ comportement d'une mani\`ere pr\'ecise. Au niveau de langages de
 programmation, nous avons trois grands th\`emes ou paradigms \'a
 donner ces s\'emantiques formelles :\\
 \begin{description}
-\item[Denotationelle :]{Chaque expression ou instruction dans le langage de programmation est traduit envers une domaine math\'ematique formelle. Ce domaine d\'ecrit le sens ou la signification de chaqu'une de ces expressions~\cite{tennent@cacm76};}
-\item[Operationelle :]{La s\'emantique operationelle fournis la signification des programs en tant qu'un syst\`eme de transitions \'etiquett\'em~\cite{plotkin-sos}. Chaque transition correspond a une ``\'etape'' du program qui s'\'execute;}
-\item[Axiomatique :]{La s\'emantique d'un program est donn\'e comme des assertions qui se tiennent sur le syst\`eme avant et apr\`es l'ex\'ecution d'instructions, sois-disant un ensemble de pr\'e-conditions et post-conditions pour envelopper les instructions. La s\'emantique axiomatique \'etait introduit par~\cite{floyd@macs67, hoare@cacm69}.}
+\item[Denotationelle :]{Chaque expression ou instruction dans le
+  langage de programmation est traduit envers une domaine
+  math\'ematique formelle. Ce domaine d\'ecrit le sens ou la
+  signification de chaqu'une de ces
+  expressions~\cite{tennent@cacm76};}
+\item[Operationelle :]{La s\'emantique operationelle fournis la
+  signification des programs en tant qu'un syst\`eme de transitions
+  \'etiquett\'em~\cite{plotkin-sos}. Chaque transition correspond a
+  une ``\'etape'' du program qui s'\'execute;}
+\item[Axiomatique :]{La s\'emantique d'un program est donn\'e comme
+  des assertions qui se tiennent sur le syst\`eme avant et apr\`es
+  l'ex\'ecution d'instructions, sois-disant un ensemble de
+  pr\'e-conditions et post-conditions pour envelopper les
+  instructions. La s\'emantique axiomatique \'etait introduit
+  par~\cite{floyd@macs67, hoare@cacm69}.}
 \end{description}
 
-Nous donnons la s\'emantique formelle dans la forme de s\'emantique op\'erationnelle structur\'ee, ou SOS. SOS fournis la possibilit\'e de d\'efinir le comportement du program avec un syst\`eme de transitions \'etiquet\'e. L'\'etat du syst\`eme entier \`a un moment donn\'e est le produit Cart\'esien de l'\'etat de chaque composant. La configuration d'un syst\`eme pourrais inclure, entres autres, par exemple: 
+Nous donnons la s\'emantique formelle dans la forme de s\'emantique
+op\'erationnelle structur\'ee, ou SOS. SOS fournis la possibilit\'e de
+d\'efinir le comportement du program avec un syst\`eme de transitions
+\'etiquet\'e. L'\'etat du syst\`eme entier \`a un moment donn\'e est
+le produit Cart\'esien de l'\'etat de chaque composant. La
+configuration d'un syst\`eme pourrais inclure, entres autres, par
+exemple:
 
 \begin{itemize}
 \item{La dur\'ee du temps depuis le demarrage du syst\`eme;}
@@ -1524,23 +1542,104 @@ Nous donnons la s\'emantique formelle dans la forme de s\'emantique op\'erationn
 \item{L'ensemble de t\^aches bloqu\'ees ou pr\'eempt\'ees.}
 \end{itemize}
 
-Les transitions diff\'erentes correpondants \`a un syst\`eme instanti\'e et en train de s'ex\'ecuter modifiera l\'etat des param\`etres qui d\'ecrit celui-ci selon les r\`egles exprim\'es par les contraintes du profil Ravenscar. Il nous faut bien noter que ces s\'emantiques n'encadre pas toutes les syst\`emes qu'on pourrait concevoir avec ce profil d'Ada, mais juste ceux qu'on peut g\'en\'erer avec le g\'en\'erateur du code ARC. Afin d'\^etre le plus rigoreux et r\'estrictif possible il nous faut aussi d\'eclarer que cette g\'en\'eration du code, en produisant seul le cadre des t\^aches temps-r\'eelle et leurs machinerie de la communication, ne peut pas mod\'eliser math\'ematiquement le comportement fonctionnelle du code.
+Les transitions diff\'erentes correpondants \`a un syst\`eme
+instanti\'e et en train de s'ex\'ecuter modifiera l\'etat des
+param\`etres qui d\'ecrit celui-ci selon les r\`egles exprim\'es par
+les contraintes du profil Ravenscar. Il nous faut bien noter que ces
+s\'emantiques n'encadre pas toutes les syst\`emes qu'on pourrait
+concevoir avec ce profil d'Ada, mais juste ceux qu'on peut g\'en\'erer
+avec le g\'en\'erateur du code ARC. Afin d'\^etre le plus rigoreux et
+r\'estrictif possible il nous faut aussi d\'eclarer que cette
+g\'en\'eration du code, en produisant seul le cadre des t\^aches
+temps-r\'eelle et leurs machinerie de la communication, ne peut pas
+mod\'eliser math\'ematiquement le comportement fonctionnelle du code.
 
 \subsection*{L'\'etat de l'art de la s\'emantique des langages de programmation}
-Le travail pertinent et courant dans ce domaine, sp\'ecifiquement en relation avec du temps-r\'eel ainsi que sa liaison avec les langages de conception des syt\`emes inclue principalement le standard AADL soi-m\^eme~\cite{AS5506}, celui-ci qui donne la s\'emantique des t\^aches en forme d'automates hybrides \`a la Henzinger~\cite{henzinger@slcs96}. Toutefois il est clair que ces s\'emantiques ne s'addressent qu'au comportement temporelle de chaque t\^ache, et ça aussi en isolation par rapport \`a l'ensemble des t\^aches, sans sp\'ecifi\'e son interaction m\^eme avec le syst\`eme d'exploitation. Les auteurs de~\cite{halbwachs@emsoft07} proposent une m\'ethodologie de simulation d'un mod\`ele AADL qui le traduit \`a une repr\'esentation d'ex\'ecution synchrone dans le langage Lustre.
+Le travail pertinent et courant dans ce domaine, sp\'ecifiquement en
+relation avec du temps-r\'eel ainsi que sa liaison avec les langages
+de conception des syt\`emes inclue principalement le standard AADL
+soi-m\^eme~\cite{AS5506}, celui-ci qui donne la s\'emantique des
+t\^aches en forme d'automates hybrides \`a la
+Henzinger~\cite{henzinger@slcs96}. Toutefois il est clair que ces
+s\'emantiques ne s'addressent qu'au comportement temporelle de chaque
+t\^ache, et ça aussi en isolation par rapport \`a l'ensemble des
+t\^aches, sans sp\'ecifi\'e son interaction m\^eme avec le syst\`eme
+d'exploitation. Les auteurs de~\cite{halbwachs@emsoft07} proposent une
+m\'ethodologie de simulation d'un mod\`ele AADL qui le traduit \`a une
+repr\'esentation d'ex\'ecution synchrone dans le langage Lustre.
 
-Il existe aussi un assortiment de recherche autour l'effort de formaliser les s\'emantiques des noyaux temps-r\'eel en g\'en\'erale et des ex\'ecutifs comme Ravenscar en particulier~\cite{fowler@rtss97, lundqvist@rtcsa99, vardanega@rts05, fidge@amast00}.~\cite{fidge@amast00} d\'efinit une extension temporelle et causale de CCS de Milner~\cite{milner-cc}, mais il ne permis pas la d\'efinition explicite des fonctions syst\`eme comme changement de contexte et des interrupts, ce qui limite son utilit\'e. Par contre \cite{peyre@ae07} adopte une approche inverse en pr\'esentant la s\'emantique d'un sous-ensemble de primitifs de concurrence dans le langage Ada. Dans ce cas Ada sert plutot comme un langage de mod\'elisation que celle de l'impl\'ementation.
+Il existe aussi un assortiment de recherche autour l'effort de
+formaliser les s\'emantiques des noyaux temps-r\'eel en g\'en\'erale
+et des ex\'ecutifs comme Ravenscar en particulier~\cite{fowler@rtss97,
+  lundqvist@rtcsa99, vardanega@rts05,
+  fidge@amast00}.~\cite{fidge@amast00} d\'efinit une extension
+temporelle et causale de CCS de Milner~\cite{milner-cc}, mais il ne
+permis pas la d\'efinition explicite des fonctions syst\`eme comme
+changement de contexte et des interrupts, ce qui limite son
+utilit\'e. Par contre \cite{peyre@ae07} adopte une approche inverse en
+pr\'esentant la s\'emantique d'un sous-ensemble de primitifs de
+concurrence dans le langage Ada. Dans ce cas Ada sert plutot comme un
+langage de mod\'elisation que celle de l'impl\'ementation.
 
-Le travail d\'etaill\'e dans~\cite{fowler@rtss97} est peut-\^etre le plus proche de celui present\'e dans cette th\`ese. La-dedans les auteurs s'appuisent sur le syst\`eme de preuve PVS~\cite{owre@cade11} afin de d\'evelopper un noyeau comme Ravenscar ainsi que la preuve de certaines de ses propriet\'es. Au contraire~\cite{lundqvist@rtcsa99} mod\'elise un syst\`eme comme Ravenscar en utilisant les automates temporis\'ees impl\'ement\'ees dans la bo\^ite a outil UPPAAL~\cite{larsen@jsttt97}, ce qui donne un mod\`ele formel d'une t\^ache Ada et les preuves des propriet\'es de s\^uret\'e sur l'automate g\'en\'er\'e.
+Le travail d\'etaill\'e dans~\cite{fowler@rtss97} est peut-\^etre le
+plus proche de celui present\'e dans cette th\`ese. La-dedans les
+auteurs s'appuisent sur le syst\`eme de preuve PVS~\cite{owre@cade11}
+afin de d\'evelopper un noyeau comme Ravenscar ainsi que la preuve de
+certaines de ses propriet\'es. Au contraire~\cite{lundqvist@rtcsa99}
+mod\'elise un syst\`eme comme Ravenscar en utilisant les automates
+temporis\'ees impl\'ement\'ees dans la bo\^ite a outil
+UPPAAL~\cite{larsen@jsttt97}, ce qui donne un mod\`ele formel d'une
+t\^ache Ada et les preuves des propriet\'es de s\^uret\'e sur
+l'automate g\'en\'er\'e.
 
-Finalement,~\cite{vardanega@rts05} fournis une description d\'etaill\'ee---quoi-qu'informelle---du comportement d'un noyeau Ravenscar. Vour que les auteurs de ceci sont aussi les d\'eveloppeurs de l'implementation Open Ravenscar Kernel~\cite{puente@ae00}, ils sont particulierement bien plac\'es \`a donner la description complet des construction de t\^achage et communication inter-t\^ache. Ils y ont d\'etaill\'e le comportement de \kw{delay until}, un appel \`a un proc\'edure, fonction ou entr\'ee sur un objet prot\'eg\'e etc.
+Finalement,~\cite{vardanega@rts05} fournis une description
+d\'etaill\'ee---quoi-qu'informelle---du comportement d'un noyeau
+Ravenscar. Vour que les auteurs de ceci sont aussi les d\'eveloppeurs
+de l'implementation Open Ravenscar Kernel~\cite{puente@ae00}, ils sont
+particulierement bien plac\'es \`a donner la description complet des
+construction de t\^achage et communication inter-t\^ache. Ils y ont
+d\'etaill\'e le comportement de \kw{delay until}, un appel \`a un
+proc\'edure, fonction ou entr\'ee sur un objet prot\'eg\'e etc.
 
-La s\'emantique formelle que nous presenterons ici est compos\'e de deux grands th\`emes : les s\'emantiques statiques et les s\'emantiques dynamiques du syst\`eme. La partie statique fournis les r\`egles des formes correctes, c'est-\`a-dire qu'elle sp\'ecifie dans le langage de theorie d'ensemble l'arbre de syntaxe abstraite de tous les syst`emes bien-form\'es doivent suivre. Un exemple simple d'une telle r\`egle pourrais \^etre celle qui dit ``\`a chaque t\^ache sporadique il doit correspondre strictement un synchroniseur~\footnote{Un synchroniseur, comme spécifié avant, est un objet prot\'eg\'e avec une entr\'ee} dont l'entr\'ee prot\'eg\'ee la d\'eclenchera''. L'outil ARC convertis le mod\`ele AADL en consid\'eration \`a une instance de Ravenscar Meta-Mod\`ele, voir RMM. Le RMM est une repr\'esentation interne du syst\`eme qui contient seul les \'el\'ements n\'ecessaires \`a la g\'en\'eration du code Ada conformant \`a Ravenscar. Donc la s\'emantique statique devient les relations entre les meta-classes de RMM.
+La s\'emantique formelle que nous presenterons ici est compos\'e de
+deux grands th\`emes : les s\'emantiques statiques et les
+s\'emantiques dynamiques du syst\`eme. La partie statique fournis les
+r\`egles des formes correctes, c'est-\`a-dire qu'elle sp\'ecifie dans
+le langage de theorie d'ensemble l'arbre de syntaxe abstraite de tous
+les syst`emes bien-form\'es doivent suivre. Un exemple simple d'une
+telle r\`egle pourrais \^etre celle qui dit ``\`a chaque t\^ache
+sporadique il doit correspondre strictement un
+synchroniseur~\footnote{Un synchroniseur, comme spécifié avant, est un
+  objet prot\'eg\'e avec une entr\'ee} dont l'entr\'ee prot\'eg\'ee la
+d\'eclenchera''. L'outil ARC convertis le mod\`ele AADL en
+consid\'eration \`a une instance de Ravenscar Meta-Mod\`ele, voir
+RMM. Le RMM est une repr\'esentation interne du syst\`eme qui contient
+seul les \'el\'ements n\'ecessaires \`a la g\'en\'eration du code Ada
+conformant \`a Ravenscar. Donc la s\'emantique statique devient les
+relations entre les meta-classes de RMM.
 
-Les s\'emantiques dynamiques sont la deuxi\`eme partie que nous pr\'esenteros ici. Celles-l\`a d\'ecrivent l'\'evolution du syst\`eme avec le passage du temps en fonction des \'evennements reçus de l'environnement. Les structures de donn\'ees du noyau sont repr\'esent\'ees en objets math\'ematiques comme des ensembles, des sacs et des files d'attentes qui peut \^etres manipul\'ees en cons\'equences de transitions \'effectu\'ee par le mod\`ele. Ces structures de donn\'ees pourrait \^etre utilis\'ees comme des pr\'econditions aux certaines transitions, comme la s\'emantique operationelle structur\'ee propos\'ee par Plotkin~\cite{plotkin-sos}.
+Les s\'emantiques dynamiques sont la deuxi\`eme partie que nous
+pr\'esenteros ici. Celles-l\`a d\'ecrivent l'\'evolution du syst\`eme
+avec le passage du temps en fonction des \'evennements reçus de
+l'environnement. Les structures de donn\'ees du noyau sont
+repr\'esent\'ees en objets math\'ematiques comme des ensembles, des
+sacs et des files d'attentes qui peut \^etres manipul\'ees en
+cons\'equences de transitions \'effectu\'ee par le mod\`ele. Ces
+structures de donn\'ees pourrait \^etre utilis\'ees comme des
+pr\'econditions aux certaines transitions, comme la s\'emantique
+operationelle structur\'ee propos\'ee par Plotkin~\cite{plotkin-sos}.
 
 \subsection*{La s\'emantique statique de Ravenscar Meta-mod\`ele}
-Dans cette séction nous ferons une éxposition détaillée du RMM, car c'est la base de la sémantique statique d'applications Ravenscar générées par l'outil ARC. Une instance du RMM représente le modèle d'une application Ravenscar, ce qui est intuitif quand nous constatons qu'une instanciation d'un méta-modèle doit forcémment être un modèle. Nous définissons un système Ravenscar d'être composé de cinque ensembles finis et disjoints des ``composant de computation'', chaqu'un duquels corréspondent à une classe dans l'instanciation du RMM qui représente ce système. Formellement, les ensembles dont nous parlons sont les suivants:
+Dans cette séction nous ferons une éxposition détaillée du RMM, car
+c'est la base de la sémantique statique d'applications Ravenscar
+générées par l'outil ARC. Une instance du RMM représente le modèle
+d'une application Ravenscar, ce qui est intuitif quand nous constatons
+qu'une instanciation d'un méta-modèle doit forcémment être un
+modèle. Nous définissons un système Ravenscar d'être composé de cinque
+ensembles finis et disjoints des ``composant de computation'',
+chaqu'un duquels corréspondent à une classe dans l'instanciation du
+RMM qui représente ce système. Formellement, les ensembles dont nous
+parlons sont les suivants:
 
 \begin{eqnarray}
   \nonumber
@@ -1555,10 +1654,23 @@ Dans cette séction nous ferons une éxposition détaillée du RMM, car c'est la bas
   \text{\textbf{Echangeurs}} \  {\cal E} \! & \!= \! & \! \{E_1  \ldots E_r\} 
 \end{eqnarray}
 
-Chaqu'un entre ceux-ci sont compris de tous les objets instanciés de la part de méta-classe appropriée du RMM, par exemple, ${\cal T}_p$ a comme membres tous les objets du type \texttt{Periodic} qui se trouve dans le modèle AADL et qui ont été instanciés en le traversant. Dans nos discussions nous allons traverser ces ensembles---c'est-à-dire qu'ils seront iteré dessus---par des symboles comme $P_i$ pour l'ensemble ${\cal T}_p$, $S_i$ pour l'ensemble ${\cal T}_s$, $U_i$ pour l'ensemble ${\cal U}$, $D_i$ pour l'ensemble ${\cal D}$ et $E_i$ pour l'ensemble ${\cal E}$.
+Chaqu'un entre ceux-ci sont compris de tous les objets instanciés de
+la part de méta-classe appropriée du RMM, par exemple, ${\cal T}_p$ a
+comme membres tous les objets du type \texttt{Periodic} qui se trouve
+dans le modèle AADL et qui ont été instanciés en le traversant. Dans
+nos discussions nous allons traverser ces ensembles---c'est-à-dire
+qu'ils seront iteré dessus---par des symboles comme $P_i$ pour
+l'ensemble ${\cal T}_p$, $S_i$ pour l'ensemble ${\cal T}_s$, $U_i$
+pour l'ensemble ${\cal U}$, $D_i$ pour l'ensemble ${\cal D}$ et $E_i$
+pour l'ensemble ${\cal E}$.
 
-Aussi défini afin d'aider l'expression briève des règles sont les quatre ensembles auxiliares: $\text{\textbf{Tasks}}$ noté ${\cal T}$, $\text{\textbf{Activities}}$ noté ${\cal A}$, $\text{\textbf{Protected objects}}$ noté ${\cal P\!O}$, et finalement
-$\text{\textbf{Computational units}}$ noté ${\cal C}$). Leurs définitions formelles sont à la suite:
+Aussi défini afin d'aider l'expression briève des règles sont les
+quatre ensembles auxiliares: $\text{\textbf{Tasks}}$ noté ${\cal T}$,
+$\text{\textbf{Activities}}$ noté ${\cal A}$, $\text{\textbf{Protected
+    objects}}$ noté ${\cal P\!O}$, et finalement
+$\text{\textbf{Computational units}}$ noté ${\cal C}$). Leurs
+définitions formelles sont à la suite:
+
 \begin{eqnarray}
   {\cal T} & = & {\cal T}_p\cup {\cal T}_s
   \ \ \ \ \ \ \ \ \ \ \: \text{(itéré dessus par} \ T, T', T_i \text{)} \nonumber \\
@@ -1576,7 +1688,10 @@ $\text{\textbf{Computational units}}$ noté ${\cal C}$). Leurs définitions formel
   \gamma_i \text{)} \nonumber
 \end{eqnarray}
 
-Nous définissons cinque fonctions sur des différentes composants de computation de Ravenscar et qui reflètent directemment les méta-attributs de la méta-class qui y corrésponds. Ces fonctions ont les types suivants:
+Nous définissons cinque fonctions sur des différentes composants de
+computation de Ravenscar et qui reflètent directemment les
+méta-attributs de la méta-class qui y corrésponds. Ces fonctions ont
+les types suivants:\\
 \begin{eqnarray}
   \label{eq:anypriority}
   \text{\scshape priority}: &{\cal C} & \to \ \ 
@@ -1614,92 +1729,52 @@ fonction $\text{\scshape priority}$ appliquée à une t\^ache donne sa
 priorité de base et appliquée à un objet protégé donne sa priorité de
 plafond.
 
-\subsection{Conformant ${\scriptstyle \mathbb{PROGS}}$ programs}
-An abstraction of the execution steps allowed for each of the five
-computational units is used in order to simplify the expression of the
-semantics. The legal sequences of execution for each of the different
-functional units are defined via a grammar, the terminals of which
-are the actual execution steps, these steps are:
-
-\begin{itemize} 
-  \item ${\text{\ttfamily comp}}$: A sequential execution step;
-  \item ${\text{\ttfamily Set}}(E)$: A \texttt{Set} call to exchanger
-    $E$;
-  \item ${\text{\ttfamily Get}}(E)$: A \texttt{Get} call to exchanger
-    $E$; 
-  \item ${\text{\ttfamily Send\_Event}}(D)$: A \texttt{Send\_Event}
-    call to synchroniser $D$, includes the data if it is an
-    \texttt{event data port}; 
-  \item ${\text{\ttfamily Await\_Event}}(D, CT)$: An Await\_Event call
-    to synchroniser $D$, returns the event type \emph{and} the time of
-    dispatch;
-  \item ${\text{\ttfamily delay until}}$: Request by a task to be
-    suspended until a future instant;
-  \item ${\text{\ttfamily ret}}$: The \texttt{return} statement.
-\end{itemize}
-
-The \texttt{comp} instruction is what allows an abstraction of the
-functional code. Any type of sequential code such as arithmetic
-operations, logical operations and control structures such as
-\texttt{if}, \texttt{case} etc. are all collapsed into this
-category. \texttt{Set(E)} and \texttt{Get(E)} are the interfaces of an
-exchanger. \texttt{Send\_Event(D)} is the set of procedures of a
-synchronizer that can be used to send events to
-it. \texttt{Await\_Event} is the protected entry of a synchronizer on
-which the associated sporadic task will wait for events, it returns
-the type of event and associated data (if any) as well as the instance
-of time the entry started execution. The \kw{delay until} and
-\kw{return} instructions are rather self explanatory.
-
-The legal execution sequences of these steps depend on the type 
-of the computational unit. They are defined using grammars for each
-category of functional unit. The code of each functional unit must
-respect its prescribed grammar. These grammars are:\\
+${\scriptstyle \mathbb{PROGS}}$ pourrais \^etre définit en tant que
+grammaire dont les partis terminales sont \texttt{comp}, une
+instruction séquentielle n'ayant pas d'éffet sur direct sur
+l'environnement ainsi que tous les API des constructions Ravenscar
+générées comme \texttt{Set(E)} et \texttt{Get(E)} d'échangeurs,
+\texttt{Send\_Event(D)} et \texttt{Await\_Event(D, CT)} de
+synchroniseurs et \texttt{delay until} et finalement
+\texttt{return}. Le terminale \texttt{comp} sert à abstraire du code
+fonctionnel. La grammaire des constructions Ravenscar est la suivante:\\
 
 \begin{tabular}{llll}
-\emph{Periodic tasks}: 
+\emph{T\^aches périodiques}: 
 & BP & := & ${\text{\ttfamily comp}}$ ; BP \\
    & & \ \ \ \ $|$ & ${\text{\ttfamily Set}}(E)$ ; BP  \\
    & & \ \ \ \ $|$ & ${\text{\ttfamily Get}}(E)$ ; BP \\
    & & \ \ \ \ $|$ & ${\text{\ttfamily Send\_Event}}(D)$ ; BP \\
    & & \ \ \ \ $|$ & ${\text{\ttfamily delay until}}$ \\
 \\
-\emph{Sporadic tasks}: & BS &  := & ${\text{\ttfamily Await\_Event}}(D,
+\emph{T\^aches sporadiques}: & BS &  := & ${\text{\ttfamily Await\_Event}}(D,
 CT)$ ; BP\\ 
 \\
 \emph{Interrupts}: & BU & := & ${\text{\ttfamily Send\_Event}}(D)$
 $|$ ${\text{\ttfamily Set}}(E)$\\
 \\
-\emph{Exchangers}: & BE &  := & [{\ttfamily Set}$\to$CC, {\ttfamily
+\emph{Echangeurs}: & BE &  := & [{\ttfamily Set}$\to$CC, {\ttfamily
   Get}$\to$CC]\\
 \\
-\emph{Synchronisers}: & BD & := & [{\ttfamily Send\_Event}$\to$CC, {\ttfamily Await\_Event} \{CT:=Clock\}$\to$CC] \\ 
+\emph{Synchroniseurs}: & BD & := & [{\ttfamily Send\_Event}$\to$CC, {\ttfamily Await\_Event} \{CT:=Clock\}$\to$CC] \\ 
 \\
 &CC &  := & ${\text{\ttfamily comp}}$; CC $|$ ${\text{\ttfamily ret}}$ \\
 \end{tabular}\\
 
-The code of each Ravenscar computational unit must conform to the
-grammar associated with its category. For instance, the program,
-\text{\scshape prog}($P$), of a given periodic task $P$, should comply
-with the grammar defining the non-terminal BP. Note that a program of
-a periodic task can only terminate with ``${\text{\ttfamily delay
-    until}}$'', after which it is blocked until its redispatch upon
-its next cycle. A sporadic task always starts with a call to its
-synchroniser and then behaves like a periodic program. Exchangers and
-synchronisers have the execution behaviours of their calls conformant
-to non terminal CC, which can only perform a sequence of
-${\text{\ttfamily comp}}$ steps ended by a ${\text{\ttfamily
-    ret}}$. Note here that an auxiliary restriction in addition to the
-basic Ravenscar Profile is adapted, i.e., protected objects do not
-make calls to other protected objects.
+Donc selon cette grammaire nous constatons que le program d'une
+t\^ache périodique \text{\scshape prog}($P$) doit conformer au
+non-terminale BP, ce qui veux dire qu'elle peut faire de computation,
+ecrire et lire des données par le conduit des échangeurs et m\^eme
+transmettre d'événements, mais qu'elle doit à tout prix finit par
+\texttt{delay until} ce qui la fera s'endormir jusqu'à sa prochaine
+déclenchement. Egalement, une t\^ache sporadique doit commencer avec
+un appel a son synchroniseur pour attendre son événement de
+déclenchement et de suite se comporte d'une t\^ache périodique.
 
-\subsection{Topological relations on computational units}
-By an analysis of the set of programs \text{\scshape prog}, the
-communication topology between the various computational units can be
-constructed. Four topological relations, \ $\emph{sets}$,
-$\emph{gets}$, $\emph{sends\_event}$, and $\emph{awaits\_event}$ \ are
-induced by {\scshape prog}. They have the following notations and
-signatures:
+Une analyse du program \text{\scshape prog} fourniras clairement la
+  topologie de communication entre les unités de computation du
+  système. Nous définissons quatre relations topologique induisent par
+  \text{\scshape prog} qui ont les types:\\
 
 \begin{eqnarray}
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
