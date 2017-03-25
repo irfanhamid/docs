@@ -1792,14 +1792,14 @@ Une analyse du program \text{\scshape prog} fourniras clairement la
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{eqnarray}
 
-The $sets$ relation holds for a task and exchanger tuple if and only
-if said task writes data to said exchanger, i.e., $T_i \rset E$
-implies that $T_i$ calls the $E.Set$ procedure. Similarly, the $get$
-relation signifies that the task reads from the
-exchanger. $sends\_event$ implies that a task sends an event to the
-synchronizer and $awaits\_event$ means that the sporadic task waits
-for an event on the synchronizer. Formally, they are defined according
-to the following conditions:
+La relation $sets$ est valable pour un tuple de t\^ache et échangeur
+si et seulement si la t\^ache écrit à l'échangeur, c'est-à-dire $T_i
+\rset E$ implique que $T_i \rset E$ appel $E.Set$. Egalement $get$
+signifie une lecteur depuis l'échangeur, $send\_event$ veux dire que
+la t\^ache envoi un événement au synchroniseur et finalement
+$awaits\_event$ implique que la t\^ache sporadique attends sur
+l'entrée protégée du synchroniseur qui fait parti du tuple. Nous
+pouvons les définir rigoureusement:
 
 \begin{eqnarray}
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1817,44 +1817,11 @@ to the following conditions:
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{eqnarray}
 
-%\begin{eqnarray}
-%	\text{\emph{sets}} &  &   \RL{s} \ \subset\  \ {\cal A} \times {\cal E} \\
-%	\text{\emph{gets}} &  &   \RL{g} \ \subset \ \ {\cal T} \times {\cal E}  \\
-%	\text{\emph{sends\_event}} &  &  \RS{se} \  \subset \ \ {\cal A} \times {\cal D} \\
-%	\text{\emph{gets\_event}} &  &  \RS{ge} \ \subset \	\ {\cal T}_s \times {\cal D} 
-%\end{eqnarray}
-
-%\begin{eqnarray}
-%	\text{\emph{sets}} &  & \xrightarrow[s]{} \  \subset \ {\cal A} \times {\cal E} \\
-%	\text{\emph{gets}} &  & \xrightarrow[g]{} \  \subset \  {\cal T} \times {\cal E}  \\
-%	\text{\emph{sends\_event}} &  & \xrightarrow[se]{} \  \subset \ {\cal A} \times {\cal D} \\
-%	\text{\emph{gets\_event}} &  & \xrightarrow[ge]{} \ \subset \	{\cal T}_s \times {\cal D}  
-%\end{eqnarray}
-
-
-%\begin{eqnarray}
-%  \hspace{-40mm}
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \text{\emph{dispatches}} &  & \RL{DIS} \  \subset \
-%       {\cal D} \times {\cal T}_s \\
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \text{\emph{writes}} &  & \RL{WTO} \  \subset \ {\cal A} \times
-%       {\cal P} \\
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  %\text{\emph{visits}} &  & \RL{v} \  \subset \ {\cal A} \times
-%  %{\cal P} \\
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-%  \text{\emph{accesses}} &  & \RL{ACC} \  \subset \ {\cal A} \times
-%       {\cal P} \\
-%\end{eqnarray}
-
-Three derived topological relations are also needed, to ease the
-writing of rules for the dynamic semantics. These relations are:
-\emph{dispatches}, \emph{writes\_to} and
-\emph{accesses}. \emph{dispatches} is the inverse of
-\emph{awaits\_event}, \emph{writes\_to} is the union of \emph{gets} and
-\text{\emph{sends\_event}}, and \emph{accesses} is the union of the
-four primitive relations. Formally:
+Trois relations dérivées qui nous aidera à écrire les symantiques
+dynamiques sont \emph{dispatches}, l'inverse de \emph{awaits\_event};
+\emph{writes\_to}, l'union de \emph{sets} and
+\text{\emph{sends\_event}} et finalement \emph{accesses} est l'union
+de quatres relations primitives. Formellement:
 
 \begin{eqnarray}
   D \RL{DIS} S & \Leftrightarrow & S \rgvt D \label{geinvd}\\
@@ -1868,7 +1835,7 @@ four primitive relations. Formally:
   & \text{or} & \pi \in {\cal D} \ \wedge \ \alpha \rsvt \pi\\
   \nonumber \\
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \label{eq:accdef}
+  \label{eq:accdef_fr}
   \alpha \RL{ACC} \pi & \Leftrightarrow & 
   \pi \in {\cal E} \ \wedge \ \alpha \rset \pi\\
   \nonumber
@@ -1881,43 +1848,44 @@ four primitive relations. Formally:
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{eqnarray}
  
-\subsection{Priority Ceiling Protocol:}
-Scheduling in a Ravenscar-compliant executive is priority based and
-priorities must comply with the priority ceiling protocol. Thus,
-function {\scshape priority} must satisfy the following property
-(where $\RL{ACC}$ is the \emph{accesses} relation defined in
-equation~\ref{eq:accdef}):
+Comme exemple d'utilisation de la sémantique statique nous décrivons
+le protocole de priorité plafond de verrouillage~\cite{sha@toc90} qui
+est utilisé par l'éxécutif Ravenscar à assurer l'éxclusion
+mutuelle. Alors la fonction {\scshape priority} doit satisfier la
+proprieté suivante (ou $\RL{ACC}$ est la relation \emph{accesses}
+definie en equation~\ref{eq:accdef_fr}):
+
 \begin{eqnarray}
-  \text{For any activity} \  \alpha \ \text{and any protected object} \ \pi: 
+  \forall \alpha \in {\cal A} \wedge \forall \pi \in {\cal D}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
   \nonumber \\
   (\alpha \RL{ACC} \pi) \ \ 
   \Rightarrow \ \  \text{\scshape priority}(\pi) \geq \text{\scshape priority}(\alpha)
 \end{eqnarray}
 
-For a Ravenscar system to be well-defined, the topological relations
-must satisfy the following constraints:
+Et finalement nous donnons les contraintes de la sémantique statique
+d'un système Ravenscar bien-formé doit satisfaire les quatre relations
+suivantes:
 
 \begin{eqnarray}
-\label{totd} \forall \ D, \ \exists  \ S \  \text{unique satisfying:} \ D \RL{DIS} S  \\
-\label{injd} \forall \ S, \ \exists  \ D \  \text{unique satisfying:} \ S \rgvt D \\
-\label{totw}\ \forall \ U, \ \exists \ \pi \  \text{unique satisfying:} \ U \RL{WTO} \pi \\
-\label{injw} \ U \RL{WTO} \pi \ \ \text{and} \  \ U' \RL{WTO} \pi \ \Rightarrow \  \ U=U'
+\label{totd_fr} \forall \ D, \ \exists  \ S \  \text{unique satisfying:} \ D \RL{DIS} S  \\
+\label{injd_fr} \forall \ S, \ \exists  \ D \  \text{unique satisfying:} \ S \rgvt D \\
+\label{totw_fr}\ \forall \ U, \ \exists \ \pi \  \text{unique satisfying:} \ U \RL{WTO} \pi \\
+\label{injw_fr} \ U \RL{WTO} \pi \ \ \text{and} \  \ U' \RL{WTO} \pi \ \Rightarrow \  \ U=U'
 \end{eqnarray}
 
-At most one task is dispatched by a synchronizer (\ref{totd}). For
-every sporadic task, there exists one and only one synchronizer that
-dispatches it (\ref{injd}). Each interrupt writes on one and
-only one protected object (\ref{totw}). At most one interrupt
-may write to a protected object (\ref{injw}). The
-interpretation of constraints (\ref{totd}) and (\ref{injd}) above is
-simply that relations $\RL{DIS}$ and \rgvt are bijective and mutually
-inverse functions. It is, however, convenient to denote them as
-relations since this provides a homogenous notation  for the sequel of
-the document. Furthermore, from (\ref{totw}) and (\ref{injw}) it
-follows that relation $\RL{WTO}$, when restricted to ${\cal U}$, is an
-injective function with co-domain in ${\cal P\!O}$.
+Un synchroniseur peut déclencher un maximum d'une t\^ache
+(\ref{totd_fr}). Correspondant à chaque t\^ache sporadique, il existe
+un et un seul synchroniseur qui peut la déclencher
+(\ref{injd_fr}). Chaque interrupte ecrit à un seul objet protégé
+(\ref{totw_fr}). Au maximum un interrupte peut ecrire à un objet
+protége (\ref{injw_fr}). L'interpretation de contraints
+(\ref{totd_fr}) et (\ref{injd_fr}) signifie que les relations
+$\RL{DIS}$ and \rgvt sont bijectives et mutuellement inverses. De
+plus, (\ref{totw_fr}) et (\ref{injw_fr}) disent que la relation
+$\RL{WTO}$, quand limitée à ${\cal U}$ est une fonction injective avec
+co-domaine en ${\cal P\!O}$.
 
-\section{Dynamic Semantics}
+\subsection*{La sémantique dynamique des systèmes Ravenscar}
 \label{sec:dynamic_semantics}
 The section provides the detailed dynamic semantics of the generated
 Ravenscar system. The system state will be represented as a vector,
