@@ -1886,89 +1886,27 @@ $\RL{WTO}$, quand limitée à ${\cal U}$ est une fonction injective avec
 co-domaine en ${\cal P\!O}$.
 
 \subsection*{La sémantique dynamique des systèmes Ravenscar}
-\label{sec:dynamic_semantics}
-The section provides the detailed dynamic semantics of the generated
-Ravenscar system. The system state will be represented as a vector,
-the structure of which will be given in the following subsection. The
-evolution of the system as a function of both time and external
-stimuli will be presented in the form of a labelled transition system
-that updates the system vector, the approach described as
-\emph{structured operational semantics} according to
-Plotkin~\cite{plotkin-sos}.
+\label{sec:dynamic_semantics_fr}
+La sémantique dynamique du système est représentée dans la forme d'un
+tuple, dont l'évolution en fonction du temps et de stimuli externe est
+modelisé avec des transitions étiquettées comme les \emph{sémantique
+  operationelle structurée} de Plotkin~\cite{plotkin-sos}.
 
-\subsection{Execution context}
-The execution context represents the entity that possesses the
-processor at any given time. During execution, three different
-entities may possess the CPU of a system, namely, the scheduler,
-represented by either $\sigma$ or $\sigma_s$; the system idle task,
-represented by $\iota$; or an activity $a$. Hence, the execution
-context, $c$, is given by the following:
-
-\begin{displaymath} 
-\centering
-\textit{Execution context} \ \ c = 
-  \left\{ \begin{array}{cl}
-    \sigma,\sigma_s & \textit{Scheduler}\\
-    \iota & \textit{Idle task}\\
-    a & \textit{An active context}
-  \end{array}
-  \right.
-\end{displaymath}
-
-The scheduler can be in one of possible two states, $\sigma$ and
-$\sigma_s$: $\sigma$ is the state when the scheduler has seized
-control, and $\sigma_s$ is the state when the scheduler is ready to
-grant control. Thus, $\sigma$ and $\sigma_s$ represent two steps in
-the excuction of the scheduler functions, allowing the assignment of
-different execution times to both in order to accurately model context
-switches and scheduling overload. An active context, $a$, may have one
-of the following forms:\\
-
-\begin{center}
-\emph{Active contexts of sporadic tasks}:\\
-    \hspace*{2mm} $S$,  
-	\  $S \rset E$, 
-	\ $S \rsvt D$, 
-	\ $S \rget E$, 
-	\ $S \rgvt D$ \vspace{1mm} \\
-\emph{Active contexts of periodic tasks}: \\
-     \hspace*{2mm} $P$, 
-	\  $P \rset E$, 
-	\  $P \rsvt D$,  
-	\  $P \rget E$ 	\vspace{2mm} \\
-\emph{Active contexts of interrupts}: \\
-     \hspace*{2mm} $\ U$, 
-	\  $U \rset E$, 
-	\  $U \rsvt D$  \\
-\end{center}
-%
-%\begin{eqnarray}
-%  \label{sporadic_ac}a&:=&S|S \rset E|S \rsvt D|S \rget E|S \rgvt D\\
-%  \label{periodic_ac} & &P|P \rset E|P \rsvt D|S \rget E\\
-%  \label{interrupt_ac} & &U|U \rset E|U \rsvt D
-%\end{eqnarray}
-%
-where the form $\alpha \rx \pi$ corresponds  to the context of a protected
-object $\pi$ executing a call $x$ issued by activity
-$\alpha$. The {\scshape priority} function is extended to active
-contexts and in conformance with the priority ceiling protocol, as follows:
-
-\begin{equation}
-\label{eq:pcp_rule}
-  \text{{\scshape priority}}(\alpha\RL{x}\pi) = 
-  \text{{\scshape priority}}(\pi)
-\end{equation}
-
-A record notation---as defined in~\cite{cardelli@mfps90}---is used to
-maintain the state information of computational units. The fields used
-in these records and the corresponding computational units are given
-in Table~\ref{tab:fields}. The standard dot notation is used to
-extract fields from records. For instance, $T\!\cdot\!\text{\sffamily
-  Beh}$ is the value of field $\text{\sffamily Beh}$ in the record
-associated to task $T$. Moreover, the update of a field in a record is
-performed as in the following example where $D'$ is the record
-resulting of the update of fields $\SFT{Bar}$ and $\SFT{Queue}$ in
-record $D$:
+Le contexte d'exécution $c$ est l'entité qui possède le CPU à un
+moment donné. Ici ça peut \^etre l'ordonnanceur denoté $\sigma$ ou
+$\sigma_s$, la t\^ache idle $\iota$ ou une activité $a$. L'état
+$\sigma$ d'ordonnanceur est quand il a pris contr\^ole, et $\sigma_s$
+quand il est pr\^et à renoncer contr\^ole. Par exemple les contextes
+actifs d'une t\^ache sporadique sont $S$, $S \rset E$, $S \rsvt D$, $S
+\rget E$ et $S \rgvt D$. Ici $\alpha \rx \pi$ correpond au contexte
+d'exécution de l'objet protégé $\pi$ en train d'exécuter $x$ appellé
+par $\alpha$. Nous utilisons une notation de record à
+la~\cite{cardelli@mfps90} afin de maintenir l'information d'état
+d'unités computationelle. Les champs de chaque unité computationelle
+sont dénombrés en Table~\ref{tab:fields_fr}. En tant qu'exemple de
+mise à jour, constatez que la suivante signifie que le record $D'$ est
+le m\^eme que $D$ avec le champ $Bar$ égal à $true$ et $Queue$ égal à
+$\epsilon$:
 
 \begin{center}
 $D'=
@@ -1977,35 +1915,30 @@ $D'=
   \rangle$
 \end{center}
 
-Thus, record $D'$ is equal to record $D$ except for the field
-$\SFT{Bar}$ which holds the value $\SFT{true}$ and the field
-$\SFT{Queue}$ which has the value $\epsilon$.
-
-
 \begin{table}
 \centering
 \begin{tabular}{|l|l|c|c|c|c|c|c|}
 \hline
-Description of field & Name & Type 
+Description de champ & Nom & Type 
 & ${\cal D}$ & ${\cal E}$ & ${\cal T}_s$ & ${\cal T}_p$ & ${\cal U}$ \\ 
 \hline
-Current program state & 
+Etat courant du program & 
 $\SFT{Beh}$ & ${\scriptstyle \mathbb{PROGS}}$
 & $\surd$ & $\surd$ & $\surd$ & $\surd$ & $\surd$ \\
 \hline
-Current time & 
+Temps actuelle & 
 $\SFT{CT}$ & ${\scriptstyle \mathbb{TIME}}$
 & $\surd$ &  &  &  &  \\
 \hline
-Next dispatching time &
+Temps de déclenchement prochaine &
 $\SFT{Nd}$ & ${\scriptstyle \mathbb{TIME}}$
 &  &  & $\surd$ & $\surd$ &  \\
 \hline
-Elapsed time & 
+Temps écoulé & 
 $\SFT{Et}$ & ${\scriptstyle \mathbb{TIME}}$
 &  &  & $\surd$ & $\surd$ & $\surd$ \\
 \hline
-Processing time & 
+Temps d'exécution & 
 $\SFT{Pt}$ & ${\scriptstyle \mathbb{TIME}}$
 &  &  & $\surd$ & $\surd$ & $\surd$ \\
 \hline
@@ -2017,299 +1950,91 @@ $\SFT{Pt}$ & ${\scriptstyle \mathbb{TIME}}$
 %$\SFT{Ebl}$ & ${\scriptstyle \mathbb{TIME}}$
 %&  &  & $\surd$ &  &  \\
 %\hline
-Queue on entry & 
+File d'attente d'entrée & 
 $\SFT{Queue}$ & ${\cal T}_s \cup \{\epsilon\}$
 & $\surd$ &  &  &  &  \\
 \hline
-Barrier state & 
+Etat de barriere & 
 $\SFT{Bar}$ & ${\scriptstyle \mathbb{BOOL}}$
 & $\surd$ &  &  &  &  \\
 \hline
-Event count & 
+Nombre d'événements & 
 $\SFT{Ec}$ & $\mathbb{N}$
 & $\surd$ &  &  &  &  \\
 \hline
 \end{tabular}
-\caption{Fields present in state records of Ravenscar Computational Units}
-\label{tab:fields}
+\caption{Champs d'unités d'exécutions}
+\label{tab:fields_fr}
 \end{table}
 
-\subsection{Ready queue}
-A ready queue, $R$, is made of a (possibly empty) sequence of active
-execution contexts. The symbol $\smcirc$ is used as a sequence
-operator, hence, if $a$ is an execution context and $R$ is a ready
-queue then ($a \, \smcirc \, R$) is a ready queue whose head is $a$
-and whose tail is $R$. The empty ready queue will be denoted by the
-symbol $\epsilon$. Ready queues satisfy the \emph{priority-ordered}
-property, which is inductively defined as follows:
-
-\begin{eqnarray}
-  & (i) &  \epsilon \ \text{is \emph{priority-ordered}}\\
-  & (ii) & a \smcirc R \ \  \text{ is \emph{priority-ordered} iff:} \\
-  & \nonumber & \quad -\ R \text{ is \emph{priority-ordered} and}  \\
-  & \nonumber & \quad -\ \forall a' \in R:\ 
-  \text{\scshape priority}(a') \leq \text{\scshape priority}(a)
-\end{eqnarray}
-
-This property, stated informally, is that the ready queue contains
-active contexts that are sorted with respect to their priorities, and
-so the active context at the head of the ready queue is the highest
-priority task that can be executed.  The satisfaction by a queue $R$
-of the \emph{priority-ordered} property implies that $R$ is itself an
-ordered list of queues having the following form: $R= r_{p_1} \smcirc
-\ldots \smcirc r_{p_n}$ where each $r_{p_i}$ is a subqueue satisfying:
-
-\begin{eqnarray}
- \forall i,j &:&  i<j \ \Rightarrow \ p_i > p_j	\ \ \ \ \ \ \  \text{and}	  
- \label{priorityorder}\\ 
- \forall i, \ \forall a \in r_{p_i} & : & \text{\scshape priority}(a) = p_i 
- \label{samepriority}
-\end{eqnarray}
-
-Proposition (\ref{samepriority}) enforces that all active context
-members of the same subqueue have the same priority, and proposition
-(\ref{priorityorder}) enforces that subqueues are ordered according to
-their priorities. Two ways of inserting an active context into a ready
-queue are defined, priority head insertion and priority tail insertion:\\
-
-\noindent
-$\text{Let }p_k = \text{\scshape priority}(a) $\\
-\\
-\hspace{-7mm} \emph{Priority Head Insertion} \\
-\begin{equation}
-\label{pri_hd_ins}
-  a \smodot R = \left \{
-    \begin{array}{l}
-      r_{p_1}\smcirc\ldots\smcirc\,a\,\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n} 
-      \ \ \ \ \ \ \text{when}\ \ \ \ 
-      R=r_{p_1}\smcirc\ldots\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}  \\ 
-      r_{p_1}\smcirc\ldots\smcirc\,r_{p_i}\smcirc\,a\,\smcirc\,r_{p_j}\,\ldots\,r_{p_n}
-      \ \ \text{when} \  \ \ \ 
-      R = r_{p_1}\smcirc\ldots\smcirc r_{p_i}\smcirc
-      r_{p_j}\smcirc\ldots\smcirc r_{p_n} \wedge \  p_i < p_k < p_j 
-    \end{array} 
-  \right.
-\end{equation}
-
-%\begin{equation}
-%\label{pri_hd_ins}
-%  a \smodot R = \left \{
-%    \begin{array}{lll}
-%      r_{p_1}\smcirc\ldots\smcirc\,a\,\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}
-%      & \quad if &
-%      R=r_{p_1}\smcirc\ldots\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}\\
-%      r_{p_1}\smcirc\ldots\smcirc\,r_{p_i}\smcirc\,a\,\smcirc\,r_{p_j}\,\ldots\,r_{p_n}
-%      & \quad if &
-%      R = r_{p_1}\smcirc\ldots\smcirc r_{p_i}\smcirc
-%      r_{p_j}\smcirc\ldots\smcirc r_{p_n}\\
-%      & & \wedge\quad p_i < p_k < p_j
-%    \end{array} 
-%  \right.
-%\end{equation}
-
-%\hspace{-7mm} \emph{Priority Tail Insertion}
-%\begin{equation}
-%\label{pri_tl_ins} 
-%  R \smodot a  = \left \{
-%    \begin{array}{lll}
-%      r_{p_1}\smcirc\ldots\smcirc r_{p_k}\smcirc a\smcirc\ldots\smcirc\,r_{p_n}
-%      & \quad if &
-%      R=r_{p_1}\smcirc\ldots\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}\\
-%      r_{p_1}\smcirc\ldots\smcirc\,r_{p_i}\smcirc\,a\,\smcirc\,r_{p_j}\,\ldots\,r_{p_n}
-%      & \quad if &
-%      R = r_{p_1}\smcirc\ldots\smcirc r_{p_i}\smcirc
-%      r_{p_j}\smcirc\ldots\smcirc r_{p_n}\\
-%      & & \wedge\quad p_i < p_k < p_j
-%    \end{array} 
-%  \right.
-%\end{equation}
-
-\hspace{-7mm} \emph{Priority Tail Insertion} \\
-\begin{equation}
-\label{pri_tl_ins}
-  R \smodot a  = \left \{
-    \begin{array}{l}
-      r_{p_1}\smcirc\ldots\smcirc r_{p_k}\smcirc a\smcirc\ldots\smcirc\,r_{p_n} 
-      \ \ \ \ \ \ \ \ \text{when}\ \ \ \ 
-      R=r_{p_1}\smcirc\ldots\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}  \\ 
-      r_{p_1}\smcirc\ldots\smcirc\,r_{p_i}\smcirc\,a\,\smcirc\,r_{p_j}\,\ldots\,r_{p_n}
-      \ \ \ \text{when} \ \ \ \   
-      R = r_{p_1}\smcirc\ldots\smcirc r_{p_i}\smcirc r_{p_j}\smcirc\ldots\smcirc r_{p_n} 
-       \wedge \  p_i < p_k < p_j  
-    \end{array} 
-  \right.
-\end{equation}
-
-The head and tail insertion operators are needed because the Ravenscar
-definition postulates that tasks must be inserted into the ready queue
-in two different ways, depending upon the state of the system, the
-type of preemption and the dispatching point reached:
-
-\begin{enumerate}
-\item{A task taken from the blocked set of tasks and put in the ready
-  queue is inserted at the \emph{tail} of the ready subqueue of its
-  priority;}
-\item{A task that is preempted during execution by the scheduler is
-  put at the \emph{head} of the ready subqueue of its priority.}
-\end{enumerate}
-
-\subsection{Structure of the state of a Ravenscar system}
-The state of a Ravenscar system has a static part made up of the set
-of records of all computational units, and a dynamic part which is
-given by the vector:
+$R$ est une file d'attente prioritisée d'activités ``pr\^etes'' qui peut possiblement \^etre vide. $R$ est ordonné en priorité de t\^ache d'exécution; ce qui veux dire qu'à un moment donné l'activité en t\^ete de $R$ est la plus prioritaire du système. Le tuple d'état du système est:
 
 \begin{equation}
   \text{\small \textit{IL}} \intrupt
-  \big[ c, R, B, \SFT{ns}, \SFT{t} \big]
+  \big\langle c, R, B, \SFT{ns}, \SFT{t} \big\rangle
 \end{equation}
 \noindent
-where 
+ou
 \begin{itemize}
-  \item{$\text{\small \textit{IL}}$ is the list of interrupts present
-    in the system and waiting to be handled. When the list of
-    interrupts is empty, the leading ``$\text{\small \textit{IL}}
-    \intrupt$'' may be omitted from the state;}
-  \item{$c$ is the current execution context;}
-  \item{$R$ is the ready queue;}
-  \item{$B$ is the set of blocked tasks;} 
-  \item{$\text{\sffamily ns}$ is the time of the next system clock
-    tick at which control is passed over to the scheduler;}
-  \item{\SFT{t} is the current time, i.e., the current age of the
-    system.}
+  \item{$\text{\small \textit{IL}}$: la liste d'interruptes présentes;}
+  \item{$c$: le contexte d'exécution active;}
+  \item{$R$: la file d'attente pr\^ete;}
+  \item{$B$: la liste de t\^aches bloquées;} 
+  \item{$\text{\sffamily ns}$: le temps d'horloge système ou l'ordonnanceur commencera exécution;}
+  \item{\SFT{t}: le temps actuel.}
 \end{itemize}
 
-Each of the execution context types (scheduler, idle, or active) may
-perform specific execution steps. These steps cause the state of the
-system to evolve over time. The steps performed by the active context
-depend on the current state of the code of its activity, and which is
-given by the \SFT{Beh} field of the state record of the activity. The
-steps that may be performed by the scheduler or the idle task are
-given in Table~\ref{legal_idle_sched}.
-
-\begin{table}
-\caption{Steps performed by idle task and scheduler}
-\label{legal_idle_sched}
-\centering
-\begin{tabular}{|c|r|c|}
-\hline
-\textbf{Type} & \textbf{Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ } & \textbf{Transition}\\
-\hline
-\emph{Idle task} & \emph{idling step} & $\iota \fait{\text{idling}}
-\iota$\\
-\hline
-\emph{Scheduler} & \emph{suspends activity a and takes control} & $a
-\fait{\text{as}} \sigma$\\
- & \emph{suspends idle task and takes control} &
-$\iota\fait{is}\sigma$\\ 
- & \emph{restarts (to handle
-  interrupts)} & $\sigma_s\fait{\text{ss}}\sigma$\\ 
- & \emph{handling an interrupt} & $\sigma\fait{\text{ih}}\sigma$\\
- & \emph{scheduler updates ready queue} &
-$\sigma\fait{\text{ud}}\sigma_s$\\ 
- & \emph{selects and grants control to activity a} &
-$\sigma_s\fait{\text{sa}}a$\\ 
- & \emph{grants control to idle task} &
-$\sigma_s\fait{\text{si}}\iota$\\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Initial state of a Ravenscar system}
-
-The initial state of a Ravenscar system is given by the following configuration:
-
-\begin{equation}
-  \big[ \sigma, R_0, B_0, 0, 0 \big]
-\end{equation}
-
-The initial ready queue, $R_0$, is a \emph{priority-ordered} list of
-all tasks: $ R_0 = T_1 \smcirc \ \ldots \ \smcirc T_n$, indicating
-that all tasks are ready at system startup. $B_0$, the initial set of
-blocked tasks is an empty set: $B_0=\{\}$. Moreover, the initial state
-of each of the periodic tasks, the sporadic tasks, the synchronisers
-and the exchangers, is given by their associated records as follows:\\
-
-\begin{tabular}{l}
-$P =
-  \langle \ 
-    \SFT{Beh}= \text{\scshape prog}(P), \SFT{Nd}=0, \SFT{Et}=0, \SFT{Pt}=0 
-  \ \rangle$\\
-$S =
-  \langle \ 
-    \SFT{Beh}= \text{\scshape prog}(S), \SFT{Nd}=0, \SFT{Et}=0, \SFT{Pt}=0
-  \ \rangle$\\
-$E =
-  \langle \ 
-    \SFT{Beh}= \text{\scshape prog}(E)
-  \ \rangle$
-  \\
-$D =
-  \langle \ 
-    \SFT{Beh}= \text{\scshape prog}(D), \SFT{Queue}=\epsilon, \SFT{Ec}=0, \SFT{Bar}=\SFT{false}
-  \ \rangle$\\
-\end{tabular}
-
-% \SFT{true}\gets\SFT{Queue}=S
- 
-\subsection{State transitions of a Ravenscar System}
-The execution of a Ravenscar system is given by the set of structured
-operational semantics rules, having the structure of a fraction:
+Chaque type de contexte d'exécution peut performer des étapes
+d'exécution spécifiques qui change le tuple d'état du système. L'étap
+performer par le context d'exécution active dépend sur le code
+\SFT{Beh} et l'environnement. L'état initial est représenté par
+$\langle\sigma, R_0, \{\}, 0, 0\rangle$ ou $R_0$ sont toutes les
+t\^aches en ordre de priorité et il n'y a aucune t\^ache bloquée donc
+$B_0 = \{\}$. Nous décrivons les transitions selon le prototype
+suivant, qui dit que si les \emph{antecedents} évalue à vrai la
+transition est prise en exécutant \emph{act} et la conséquente (le
+dénominateur) tiens:
 
 \begin{center}
 \formatreg{
   \regle{ \textit{Antecedents}}
 	{
 	  \text{\small  \textit{IL}} \intrupt 
-	  \big[ 
+	  \big\langle 
 	    c, R, B, \text{\sffamily ns}, \text{\sffamily t} 
-	    \big]
+	    \big\rangle
 	  \Faitv{\textit{act}}
 	  \text{\small  \textit{IL'}} \intrupt
-	  \big[ 
+	  \big\langle
 	    c', R,' B', \text{\sffamily ns'}, 
 	    \text{\sffamily t}
-	    \big] \sqplus \delta(\textit{\small act})
-	} \textit{\scriptsize SHORT NAME}
+	    \big\rangle \sqplus \delta(\textit{\small act})
+	} \textit{\scriptsize SURNOM}
 }
 \end{center}
 
-Where \emph{Antecedents} are the conditions which need to hold in
-order for the \emph{Consequent} (i.e., the numerator) part to be
-applied. The \emph{Antecedents} depend on the current state of the
-system. The \emph{Consequent} part denotes the transition taken and
-the action---$act$---performed. The action $act$ represents the
-smallest possible uninterruptible instruction that can be executed by
-the system. It is an indivisible unit in that interrupts (from
-external devices) and timers will either be fired before or after such
-an instruction, never during it. Complex instructions like \kw{delay
-  until} can be thought of as a sequence of simpler instructions with
-the final indivisible one actually having the intended impact.
-
-\textit{IL} and \textit{IL'} are optional, they represent the list of
-interrupts present before and after the transition. $\delta(act)$ is
-the time consumed by the transition, and $\sqplus\delta(act)$ is the
-\emph{ageing} operator. It is formally defined as:
+\textit{IL} et \textit{IL'} sont optionnels. $\delta(act)$ signifie le temps pris par la transition et $\sqplus\delta(act)$ est l'operateur de \emph{vieillissement}:
 
 \begin{displaymath}
-  \big[ c,R,B,\SFT{ns},\SFT{t} \big] 
+  \big\langle c,R,B,\SFT{ns},\SFT{t} \big\rangle
 \sqplus \delta (act) = 
-\big[ c \sqplus \delta (act), \, R \sqplus \delta (act), \,
-B, \, \text{\sffamily ns}, \, \text{\sffamily t}+\delta (act)\big]
+\big\langle c \sqplus \delta (act), \, R \sqplus \delta (act), \,
+B, \, \text{\sffamily ns}, \, \text{\sffamily t}+\delta (act)\big\rangle
 \end{displaymath}
 
 \noindent
-where:
+ou:
 \begin{equation} 
 \nonumber
   c\sqplus\delta (act) = \left \{
     \begin{array}{l}
-      \sigma\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad\quad\quad\quad\ \ \text{when}
+      \sigma\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad\quad\quad\quad\quad\text{si}
       \ \ c=\sigma \\
       \iota
-      \qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad\quad\quad\quad\ \ \ \text{when}\ \ c=\iota
+      \qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad\quad\quad\quad\quad\quad\ \text{si}\ \ c=\iota
       \\
       \langle\alpha\gets\SFT{Et}=\alpha\cdot\SFT{Et}+\delta (act)
-      \gets\SFT{Pt}=\alpha\cdot\SFT{Pt}+\delta (act)\ \ \ \text{when}
+      \gets\SFT{Pt}=\alpha\cdot\SFT{Pt}+\delta (act)\ \ \ \text{si}
       \  c=\alpha\vee c=\alpha\rx\pi\rangle     
     \end{array} 
     \right.
@@ -2325,619 +2050,98 @@ where:
       \ \ \ \ \ \ \ \ \ \ \smcirc \\
       \langle a_n\gets\SFT{Et}=a_n.\SFT{Et}+\delta (act) \rangle\
     \end{array}
-    \quad\text{when}\ R=a_1\smcirc\ldots\smcirc a_n
+    \quad\text{si}\ R=a_1\smcirc\ldots\smcirc a_n
     \right.
 \end{equation}
 
+Ci-dessus nous disons que l'ordonnanceur et la t\^ache idle ne sont
+pas impactés par l'operateur de vieillissement. De plus que pour le
+contexte actif cet operateur incrément le temps écoulé (\texttt{Et})
+et temps de computation (\texttt{Pt}), hors pour les restes qui sont
+bloqués il incrément seul le temps écoulé. Dans la suite nous donnons
+quelleque transitions comme exemple. Pour une liste exhaustive
+consultez le Chapitre~\ref{chap:formal_sem} de ce manuscrit.
 
-%\begin{eqnarray} 
-%  \nonumber c\sqplus\delta = \left\{
-%  \begin{array}{lll}
-%    \sigma & \quad if \quad & c=\sigma\\
-%    \iota & \quad if \quad & c=\iota\\
-%    \langle\alpha\gets\SFT{Et}=\alpha\cdot\SFT{Et}+\delta
-%      \gets\SFT{Pt}=\alpha\cdot\SFT{Pt}+\delta
-%    \rangle & \quad if \quad & c=\alpha\vee c=\alpha\rx\pi\\
-%  \end{array}
-%  \right.\\
-%  \nonumber\\
-%  \nonumber R\sqplus\delta=
-%  \langle a_1\gets\SFT{Et}=a_1.\SFT{Et}+\delta\rangle\smcirc\ldots\smcirc
-%  \langle a_n\gets\SFT{Et}=a_n.\SFT{Et}+\delta\rangle\ for\
-%  R=a_1\smcirc\ldots\smcirc a_n
-%\end{eqnarray}
-
-The above equations state that if the currently executing task is
-either the scheduler or the idle task then the ageing operator has no
-effect on it. However, if the excution context is an active one then
-the ageing operator adds the $\delta(act)$ amount of time to both the
-elapsed time (\SFT{Et}) and processing time (\SFT{Pt}) fields of the
-record of the activity. On the other hand, for all tasks in the ready
-queue $R$, the ageing operator only adds the $\delta(action)$ amount
-of time to the elapsed time field (they are not budgeted for this
-time). The following subsections give the transition rules for the
-system. 
-
-\subsubsection{Idling}
-Rule \emph{IDLE} shows the idle task executing. The antecedent shows
-that the system can only idle if it hasn't reached the next scheduling
-instant \SFT{ns} \emph{and} the ready queue $R$ is empty, i.e., no
-task is ready to run, this is also evidenced by the fact that the
-system configuration vector shows $\iota$ as the currently active
-context and there are no interrupts waiting to be processed by the
-system. The \emph{age} of the system advances by an amount
-$\delta(idling)$, and $\iota$ stays the active context.
+La transition \emph{IDLE} modèle la t\^ache idle en train de
+s'exécuter. L'antécédent exprime que la file d'attente des t\^aches
+pr\^etes est vide et nous avons pas abordé le moment d'ordonnancement
+prochain \SFT{ns}. En conséquence l'age du système a incrementé et
+$\iota$ reste toujours le contexte actif.
 
 \formatreg {
   \regle {
     c=\iota \ \wedge \ \text{\sffamily t} < \text{\sffamily ns} \ \wedge \ R=\{\}
   } {
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]\ 
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle\ 
     \Faitv{\text{idling}} 
-    \ \ \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \ \ \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \sqplus\delta(idling)
   }
   \textit{\footnotesize IDLE}
 }
 
-\subsubsection{Pure computation steps}
-The \emph{CMPT} and \emph{CMPO} transitions represent sequential
-computations that have no side-effects on the tasking or inter-task
-communication aspects of the system. \emph{CMPT} represents a task
-carrying out a sequential computation, \emph{CMPO} represents a
-protected object's code carrying out a sequential computation
-step. The behavior (\SFT{Beh}) must in both cases have a \texttt{comp}
-instruction at the head, and the current time must be less than the
-next dispatching time for the scheduler.
+La transition \emph{CMPT} modèle une computation sequentielle sans
+effet de borde par une t\^ache. Le comportement (\SFT{Beh}) doit avoir
+une instruction \texttt{comp} en t\^ete et il faut que le temps soit
+avant le moment d'ordonnancement \SFT{ns}. Il faut noter que
+\emph{CMPT} n'incrément pas seulement l'age du système mais aussi
+avance \SFT{Beh}.
 
 \formatreg {
   \regle {
     c=T \ \wedge\ T\cdot\SFT{Beh}=\SFT{comp};\SFT{C}\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[ c,R,B,\SFT{ns},\SFT{t}\big]\ 
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle\ 
     \Faitv{\SFT{comp}} \ 
-    \big[ T',R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(\SFT{comp})\\ \\
+    \big\langle T',R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(\SFT{comp})\\ \\
     T'=\langle T\gets\SFT{Beh}=\SFT{C}\rangle
   }
   \textit{\footnotesize CMPT}  
 }
 
-The \emph{CMPT} transition modifies the state of the system by ageing
-the system with the appropriate time interval, $\delta(comp)$, which
-may be different according to the type of sequential instruction
-carried out. The ready queue $R$, blocked set of tasks $B$ and next
-scheduling instance \texttt{ns} remain the same. The active context's
-record structure is updated by moving \texttt{Beh} forward to the
-remaining steps of its {\scshape prog} (given by $C$ here).
-
-\formatreg {
-  \regle {
-    c=\alpha\RL{x}\pi\ \wedge\ \pi\cdot\SFT{Beh}=(\SFT{comp};\SFT{CC})\ \wedge\ \SFT{t}<\SFT{ns}
-  } {
-    \big[ c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\SFT{comp}}
-    \ \big[\alpha\RL{x}\pi',R,B,\SFT{ns},\SFT{t}\big] \sqplus
-    \delta(comp)\\ \\
-    \pi'=\langle\pi\gets\SFT{Beh}=\SFT{CC}\rangle\\
-  }
-  \textit{\footnotesize CMPO}
-}
-
-The \emph{CMPO} transition modifies the state of the system by ageing
-the system with the appropriate time interval. The ready queue and
-blocked set remain the same, also the active context remains the same
-as the task has not yet returned from the protected object and has not
-been interrupted.
-
-\subsubsection{Capturing dispatch time of sporadic tasks}
-The \emph{SYCT} transition mirrors the execution of the first
-instruction of a \texttt{Await\_Event} entry of a synchroniser. This
-instruction captures the current time and stores it in parameter
-$\SFT{CT}$ which is later used by the calling sporadic task in order
-to compute its next dispatch time.
+La transition \emph{SYCT} modèle l'exécution de la premiere
+instruction d'une t\^ache sporadique. Cette transition capture le
+temps actuel dans paramètre $\SFT{CT}$ pour calculer le temps de
+déclenchement prochain par cette t\^ache sporadique.
 
 \formatreg {
   \regle {
     c=S\RL{x}D\ \wedge\ D\cdot\SFT{Beh}=(\SFT{CT:=Clock};\SFT{CC})\ \wedge\ \SFT{t}<\SFT{ns}
   } {
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{CT:=Clock}}
-    \ \big[S\RL{x}D',R,B,\SFT{ns},\SFT{t}\big] \sqplus
+    \ \big\langle S\RL{x}D',R,B,\SFT{ns},\SFT{t}\big\rangle \sqplus
     \delta(CT:=Clock)\\ \\
     D'=\langle D\gets\SFT{Beh}=\SFT{CC} \gets \SFT{CT}=\SFT{t} \rangle\\
   }
   \textit{\footnotesize SYCT}
 }
 
-\subsubsection{Protected objects}
-The rule \emph{NBCL} represents an activity (task or interrupt)
-calling a procedure of a protected object. Because of the priority
-ceiling protocol and the Ada \texttt{FIFO\_Within\_Priorities}
-scheduling policy, functions and procedures are non-blocking. The
-antecedent states that the current behaviour of the activity is a call
-to a procedure, and that the current time is less than the next
-scheduler launching time. The consequent of this transition is that
-the code of the protected object $\pi$ is now being executed in the
-context of the activity $\alpha$, represented by $\alpha'\RL{x}\pi$
-(and having \SC{priority($\pi$)}, as given by
-Eq.~\ref{eq:pcp_rule}).
+La transition \emph{NBCL} représente une activité (t\^ache ou
+interrupte) quand il appel à un procédure d'un objet protégé. Gr\^ace
+au protocole de priorité plafond (PCP= et le règle
+\texttt{FIFO\_Within\_Priorities} d'Ada ces procédures sont
+non-blonquants. L'antécédent dit le comportement courant du contexte
+actif est un appel à procédure et il n'est pas encure un moment
+d'ordonnancement. La conséquente est que le code d'objet protégé
+s'exécute, et ceci à une priorité \SC{priority($\pi$)} par l'équation
+de PCP qui dit $\text{{\scshape priority}}(\alpha\RL{x}\pi) = \text{{\scshape
+    priority}}(\pi)$.
 
 \formatreg {
   \regle {
     c=\alpha\ \wedge\ \alpha\cdot\SFT{Beh}=(x(\pi);C)\ \wedge\ x\in\{\FNT{Get, Set,Send\_Event}\}\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big \langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\text{$x$}}
-    \big[\alpha'\RL{x}\pi,R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(x)\\ \\
+    \big\langle\alpha'\RL{x}\pi,R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(x)\\ \\
     \alpha'=\langle\alpha\gets\SFT{Beh}=C\rangle\\
     \pi'=\langle\pi\gets\SFT{Beh}=\text{\scshape prog}(\pi ).x\rangle
   }
   \textit{\footnotesize NBCL}  
 }
 
-The transitions \emph{RET1} through \emph{RET4} depict how calls from
-protected objects return. \emph{RET1} represents the \texttt{return}
-from a protected object procedure. The consequent shows that the
-execution time is budgeted to the task's processing time \SFT{Pt}. The
-calling activity is placed at the head of the ready queue and the
-scheduler takes control (to evaluate any possible barriers that may
-have become true as a consequence of this procedure).
-
-\formatreg {
-  \regle {
-    c=\alpha\RL{x}E\ \wedge\ E\cdot\SFT{Beh}=\SFT{ret}\ \wedge\ x\in\{\FNT{Get},\FNT{Set}\}\ \wedge\ \SFT{t}<\SFT{ns}
-  } {
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\SFT{ret}}
-    \big[\sigma,\alpha'\smodot R,B,\SFT{ns},\SFT{t}\big]
-    \sqplus\delta(ret)\\ \\
-    \alpha'=\langle\alpha\gets\SFT{Pt}=\alpha\cdot\SFT{Pt}+\delta(ret)\rangle
-  }
-  \textit{\footnotesize RET1}
-}
-
-\emph{RET2} shows a synchronizer returning from a \texttt{Send\_Event}
-procedure when the entry queue is empty (i.e., no sporadic task is
-blocked on this synchronizer's \texttt{Await\_Event} entry). Again,
-the execution time is budgeted to the task's processing time \SFT{Pt}
-and the scheduler takes over the evaluate the barrier of this
-synchronizer.
-
-\formatreg {
-  \regle {
-    c=\alpha\rsvt D\ \wedge\ D\cdot\SFT{Beh}=\SFT{ret}\ \wedge\ D\cdot\SFT{Queue}=\epsilon\ \wedge\ \SFT{t}<\SFT{ns}
-  } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\SFT{ret}}
-    \big[\sigma,\alpha'\smodot R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(ret)\\ \\
-    D'=\langle D\gets\SFT{Bar}=\text{true}\gets\SFT{Ec}=D\cdot\SFT{Ec}+1\rangle\\
-    \alpha'=\langle\alpha\gets\SFT{Pt}=\alpha'\cdot\SFT{Pt}+\delta(ret)		 
-    \rangle
-  }
-  \textit{\footnotesize RET2}  
-}
-
-Transition \emph{RET3} shows a synchronizer returning from a
-\texttt{Send\_Event} procedure when the entry queue is \emph{not}
-empty. The blocked \texttt{Await\_Event} is immediately executed in
-the context of the current task to save a context switch. The
-execution time is budgeted to the currently executing task's \SFT{Pt}
-and the scheduler takes over to decide whether the waiting task should
-be run (if it is the highest priority ready task it will be run). The
-synchronizer's barrier is set to \SFT{True} and the event count in the
-synchronizer's internal data structures is updated. As a consequence
-of \emph{RET3}, the task waiting on this synchronizer ($S$), is also
-taken out of the set of blocked tasks $B$ and inserted at the tail of
-its ready queue $R$.
-
-\formatreg {
-  \regle {
-    c=\alpha\rsvt D\ \wedge\ D\cdot\SFT{Beh}=\SFT{ret}\ \wedge\ D\cdot\SFT{Queue}=S\ \wedge\ \SFT{t}<\SFT{ns}
-  } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\SFT{ret}}
-    \big[S\rgvt D',\alpha'\smodot R,B',\SFT{ns},\SFT{t}\big]
-    \sqplus\delta(ret)\\ \\
-    B'=B \setminus\{S\}\\
-%    S'=\langle S\gets\SFT{Nd}=\SFT{t}+\text{\scshape
-%      holdingtime}(S)\rangle\\
-    D'=\langle D\gets\SFT{Bar}=\text{true}\gets\SFT{Ec}=D\cdot\SFT{Ec}+1\rangle\\
-    \alpha'=\langle
-    \alpha\gets\SFT{Pt}=\alpha\cdot\SFT{Pt}+\delta(ret)
-    \rangle
-  }
-  \textit{\footnotesize RET3}  
-}
-
-\emph{RET4} gives the situation where a synchronizer returns from
-\texttt{Await\_Event} entry call. The task in whose context the
-execution was taking place is preempted and is placed at the head of
-its ready queue, and the scheduler takes over.
-
-\formatreg {
-  \regle {
-    c=S\rgvt D\ \wedge\ D\cdot\SFT{Beh} = (\texttt{ret; BD})\ \wedge\ \SFT{t}<\SFT{ns}
-  } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\SFT{ret}}
-    \big[\sigma,S'\smodot R,B,\SFT{ns},\SFT{t}\big]
-    \sqplus\delta(\SFT{ret})\\ \\
-    D'=\langle D\gets\SFT{Bar}=(D\cdot\SFT{Ec}>1) \\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \: \gets\SFT{Ec}=D\cdot\SFT{Ec}-1 \\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \: \gets\SFT{Queue}=\epsilon\\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \: \gets\SFT{Beh}=BD\rangle\\
-    S'=\langle S\gets\SFT{Pt}=S\cdot\SFT{Pt}+\delta(\SFT{ret})\\
-     \ \ \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Nd}=\SFT{CT}+ \text{\scshape holdingtime}(S)
-    \rangle
-  }
-  \textit{\footnotesize RET4}
-}
-
-Rules \emph{OBCL} and \emph{CBCL} represent a sporadic
-task issuing a \texttt{Await\_Event} call to a synchronizer. Rule
-\emph{OBCL} reflects the case where the barrier is open and the call
-is immediately executed. Rule \emph{CBCL} mirrors the case where 
-the barrier is closed, thus the call remains blocked in the synchroniser 
-until a \texttt{Send\_Event} is issued by another task (or interrupt)
-and opens the barrier (a consequence of rule \emph{RET3}).
-
-\formatreg {
-  \regle {
-    c=S\ \wedge\ S\!\cdot\!\text{\sffamily Beh} = {\texttt{Await\_Event($D$)}} \texttt{; C}\ \wedge\ D\!\cdot\!\text{\sffamily Bar}=\text{True}\ \wedge\ \text{\sffamily t} < \text{\sffamily ns}
-  } { 
-    \big[c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big]
-    %%%%%%%%%%%%%%%%%%
-    \Faitv{\text{Await\_Event}}
-    %%%%%%%%%%%%%%%%%% 
-    \ \ \ \big[ S' \rgvt D', R, B,
-      \text{\sffamily ns}, 
-      \text{\sffamily t} 
-      \big] \sqplus \delta(Await\_Event) \\ \\
-    S'=\langle S\gets\text{\sffamily Beh}=C\rangle \\
-%    \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Nd}=\text{\sffamily t}+ \text{\scshape holdingtime}(S)
-    D'=\langle D\gets\text{\sffamily Beh}=\text{\scshape prog}(D)\cdot\texttt{Await\_Event}\rangle 
-  }
-  \textit{\footnotesize OBCL}  
-}
-
-\formatreg {
-  \regle {
-    c=S\ \wedge\ S\!\cdot\!\text{\sffamily Beh} =
-    {(\texttt{Await\_Event($D, CT$)}} \texttt{; C})\ \wedge\ 
-    D\!\cdot\!\text{\sffamily Bar}=\text{False}\ \wedge\ \text{\sffamily t} < \text{\sffamily ns}
-  } { 
-    \big[c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big]
-    %%%%%%%%%%%%%%%%%%
-    \Faitv{\text{Await\_Event}}
-    %%%%%%%%%%%%%%%%%% 
-    \big[ S', R, B, 
-      \text{\sffamily ns}, 
-      \text{\sffamily t} 
-      \big] \sqplus \delta(\text{\small Await\_Event}) \\ \\
-    S'=\langle S\gets\text{\sffamily Beh}=C\gets\text{\sffamily Dbl}=\text{true}\rangle \\
-    D'=\langle D\gets\text{\sffamily Queue}=S\rangle 
-  }
-  \textit{\footnotesize CBCL}  
-}
-
-\subsubsection{Scheduler}
-Apart from the arrival of interrupts, the scheduler takes control at
-certain points called \emph{scheduling points} during the lifetime of
-a system's execution. Some of these have already been explained, such
-as the \emph{RET$_i$} transitions. Others occur when the active
-context executes a \kw{delay until} instruction, and when the
-scheduler is \emph{scheduled} to execute. This time is denoted by the
-$ns$ variable in the system configuration and is calculated just
-before the scheduler cedes control to one of the tasks or
-interrupts. \emph{NS-IDLE} represents the scheduler preempting the
-idle task because the scheduler's launch time has arrived ($ns$ in the
-system configuration). The system time must be equal to $ns$, and the
-system configuration must state that the active context is the idle
-task $\iota$. As a consequence, the idle task is taken off the
-processor and the scheduler is put on it, the system is aged by the
-amount of time required for this action, represented by $\delta(is)$.
-
-\formatreg {
-  \regle {
-    c=\iota\ \wedge\ \SFT{t}=\SFT{ns}
-  } { 
-    \big[c, R, B, \SFT{ns}, \SFT{t}\big]
-    \Fait{\text{is}} 
-    \big[\sigma,R,B,\SFT{ns},\SFT{t}\big]
-      \sqplus \delta(is)
-  }
-  \textit{\footnotesize NS-IDLE}
-}
-
-\emph{NS-ACT} shows the scheduler preempting an activity---something
-other than the idle task---because the scheduler's launch time has
-arrived. This would be because a blocked task's dispatch time has
-arrived and the scheduler must remove that task from the blocked set
-and insert it into the ready queue, this is a direct consequence of
-said task having executed a \kw{delay until} instruction with the
-current time instance as argument. The currently executing active
-context must not be the idle task or the scheduler, the current time
-should be the scheduler's dispatch time $ns$. The consequence is that
-the executing active context is preempted and the scheduler's initial
-state is put on the processor. The system is aged by the amount of
-time required for this preemption, represented by $\delta(as)$.
-
-%
-%\textit{Scheduler taking control at scheduling instants}
-%
-\formatreg {
-  \regle {
-    c\neq\iota\ \wedge\ c\neq \sigma\ \wedge\ c\neq \sigma_s\ \wedge\ \text{\sffamily t}=\text{\sffamily ns} 
-  } {
-    \big[c, R, B, \text{\sffamily ns}, 
-      \text{\sffamily t} 
-      \big]
-    %%%%%%%%%%%%%%%
-    \Faitv{\text{as}}
-    %%%%%%%%%%%%%%%
-    \big[ 
-      \sigma, a \smcirc  R, B, \text{\sffamily ns}, 
-      \text{\sffamily t}
-      \big]
-    \sqplus 
-    \delta(as)
-  }
-  \textit{\footnotesize NS-ACT}
-}
-
-\emph{SDELAY} represents a sporadic task undertaking a \kw{delay
-  until} instruction. The antecedent states that the currently
-executing active context must be a sporadic task, its behavior must
-have the next instruction of \kw{delay until} and the current time of
-the system must be less than the next dispatching time of the
-scheduler. As a consequence, the sporadic task is taken off the
-processor and the scheduler runs, the running task---which is by
-definition at the head of the ready queue---is taken off it and put in
-the set of blocked tasks. The system is aged by the amount of time
-required for this preemption, represented by $\delta(delay)$.
-
-\formatreg {
-  \regle {
-    R=c\smodot R'\ \wedge\ c=T\in{\cal T}_s\ \wedge\ T\!\cdot\!\text{\sffamily Beh} = ({\kw{delay
-        until}\texttt{; C})}\ \wedge\ \text{\sffamily t} < ns
-  } { 
-    \big[c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big]
-    \Faitv{\text{delay}} 
-    \big[ \sigma, R', B',  
-      \text{\sffamily ns}, \text{\sffamily t} \big] \sqplus \delta(delay) \\ \\ 
-    T'=\langle T\gets \text{\sffamily Beh}=\text{\scshape prog}(T)\ \gets\text{\sffamily Pt} = T\cdot\text{\sffamily Pt}+\delta(delay)
-    \rangle \\
-    B'=B \cup \{T'\}
-  }
-  \textit{\footnotesize SDELAY}  
-}
-
-\emph{PDELAY} represents a periodic task undertaking a \kw{delay
-  until} instruction. The antecedent states that the currently
-executing active context must be a periodic task, its behavior must
-have the next instruction of \kw{delay until} and the current time of
-the system must be less than the next dispatching time of the
-scheduler. As a consequence, the periodic task is taken off the
-processor and the scheduler runs, the running task---which is by
-definition at the head of the ready queue---is taken off it and put in
-the set of blocked tasks. The system is aged by the amount of time
-required for this preemption, represented by $\delta(delay)$.
-
-\formatreg {
-  \regle {
-    R=T\smodot R'\ \wedge\ c=T\in {\cal T}_p\ \wedge\ T\!\cdot\!\text{\sffamily
-      Beh} = (\kw{delay until}; \texttt{C})\ \wedge\ \text{\sffamily t} < \text{\sffamily ns}
-  } { 
-    \big[c, R, B, 
-      \text{\sffamily ns}, \text{\sffamily t} \big]
-    \Faitv{\text{delay}} 
-    \big[ \sigma, R',B',\text{\sffamily ns},\text{\sffamily t} \big] \sqplus \delta(delay) \\ \\
-    T'=\langle T\gets\text{\sffamily Beh}=\text{\scshape
-      prog}(T)\\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Pt} = T\cdot\text{\sffamily
-      Pt}+\delta(delay)\\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \gets Nd=T\cdot Nd+\text{\scshape Holdingtime}(T)\rangle \\
-    B'=B \cup \{T'\}
-  }
-  \textit{\footnotesize PDELAY}
-}
-
-\emph{SCUD} represents the evolution of the scheduler during its
-execution as it updates the set of blocked tasks and the ready queue
-as a function of the current time and the temporal characteristics of
-the task-set. This is the reason the scheduler has been represented by
-two different states $\omega$ and $\omega_s$. The antecedent states
-that the initial state of the scheduler must be the currently
-executing active context. The consequent states that the scheduler is
-now in its final state, ready to give control to the highest priority
-task. The ready queue and blocked set have been updated and the system
-has aged by $\delta(ud)$. An auxiliary function $ready(B,t)$ is
-defined which returns the subset of tasks in the blocked set whose
-next dispatch time $Nd$ has arrived. This subset is removed from the
-blocked set and is added to the ready queue using the priority
-order conserving $\smodot$ operator.
-
-\formatreg {
-  \regle {
-    c=\sigma
-  } { 
-    \big[ c, R, B, \text{\sffamily ns}, \text{\sffamily t}\big]
-    \Faitv{\text{ud}} 
-    \big[ 
-      \sigma_s, R', B', \text{\sffamily ns},
-      \text{\sffamily t}
-      \big] \sqplus 
-    \delta(ud) \\ \\
-    B'=B \setminus 
-    ready(B, t) \\
-    R'=R \, \smodot \, ready(B, t) \\
-    ready(B, t) =
-    \{ T \in B \ \ | \ \ T\!\cdot\!\text{\small \sffamily Nd} \geq t \}
-  }
-  \textit{\footnotesize SCUD}
-}
-
-\emph{SCAC} represents the calculation by the scheduler of the system
-configuration variable $ns$, which is the next dispatch time for the
-scheduler itself and the handover from the scheduler to an active
-context. The antecedent states that the currently executing active
-context must be the scheduler's final state $\omega_s$ and the ready
-queue must not be empty. As a consequence, the new value of $ns$ is
-calculated as the minimum of the next dispatch times of all tasks
-currently in the blocked set and the active context at the head of the
-ready queue is put on the processor. The system is aged by the amount
-$\delta(sa)$. 
-
-\formatreg {
-  \regle {
-    c=\sigma_s\ \wedge\ R=a\smodot R'\ \wedge\ T=\sigma_s                 
-  } { 
-    \big[c, a \smcirc R, B, \text{\sffamily ns}, \text{\sffamily t}
-      \big]
-    \Faitv{\text{sa}}
-    \big[ T,R,B,\text{\sffamily ns'},
-      \text{\sffamily t}
-      \big] \sqplus 
-    \delta(sa)  \\
-    \\
-    ns' = Min_{T\in B} (T\!\cdot\! Nd) 
-  }
-  \textit{\footnotesize SCAC}
-}
-
-The final rule involving the scheduler's functioning, is the
-\emph{SCID} transition. This transition represents the calculation by
-the scheduler of the system configuration variable $ns$, which is the
-next dispatch time for the scheduler itself and handover from the
-scheduler to the idle task since no other task is ready to run. The
-antecedent states that the currently executing active context must be
-the scheduler's final state $\omega_s$ and the ready queue must be
-empty. As a consequence, the new value of $ns$ is calculated as the
-minimum of the next dispatch times of all tasks currently in the
-blocked set and the active context at the head of the ready queue is
-put on the processor. The system is aged by the amount $\delta(si)$.
-
-\formatreg {
-  \regle {
-     c=\sigma_s\ \wedge\ R = \epsilon
-  } { 
-    \big[c, \epsilon, B, \text{\sffamily ns}, \text{\sffamily t}\big]
-    \Fait{\text{si}} 
-    \big[
-      \iota, \epsilon, B, \text{\sffamily ns'},
-      \text{\sffamily t}
-      \big] \sqplus 
-    \delta(\text{\small si})  \\
-    \\
-    ns'=Min_{T\in B} ( T\!\cdot\! Nd )
-  }
-  \textit{\footnotesize SCID}
-}
-
-\subsubsection{Interrupt Handling}
-\emph{NEWI} represents the arrival of a new interrupt in the
-system. The only precondition is that an instance of said interrupt
-must not be already present in the system. The consequent states that
-the interrupt is simply added to the interrupt list's tail.
-
-\formatreg {
-  \regle {
-    U\notin (\{c\}\cup R\cup\textit{\small IL})\\
-%  where\ \textit{\small IL}=\phi\vee\textit{\small IL}\neq\phi
-  } {
-    \text{\small  \textit{IL}} \intrupt 
-    \big[ c, R, B, \text{\sffamily ns}, 
-      \text{\sffamily t} \big]
-    \Faitv{\text{\ \ }}
-    \textit{\small IL}\smcirc U\intrupt
-    \big[c,R,B,\SFT{ns},\SFT{t}\big] 
-  }
-  \textit{\footnotesize NEWI} 
-}
-
-\emph{I-AS} represents the scheduler preempting an activity to service
-an interrupt. The antecedent stipulates only that the interrupt list
-\emph{IL} not be empty. The consequent has the scheduler running
-instead of the preceding activity, and the system aged by the amount
-$\delta(ias)$. 
-
-\formatreg {
-  \regle {
-  c\neq\sigma\ \wedge\ c\neq\sigma_s\ \wedge\ c\neq\iota\ \wedge\ \text{\textit{IL}}\neq\phi\\
-  } {
-    \text{\small\textit{IL}}\intrupt 
-    \big[c,R,B,\SFT{ns},\SFT{t} \big]
-    \Faitv{ias} 
-    \text{\small \textit{IL}}\intrupt
-    \big[\sigma,a\smodot R,B,\SFT{ns},\SFT{t}\big]
-    \sqplus\delta(ias)
-  }
-  \textit{\footnotesize I-AS}
-}
-
-\emph{I-US} represents the scheduler preempting an interrupt to
-service another interrupt, which is at a higher priority. The
-preconditions being that an interrupt must currently be executing.
-
-\emph{I-IS} represents the scheduler preempting the idle task to
-handle an interrupt. The currently running active context must be the
-idle task for this transition to occur. The consequence is that the
-scheduler is now executing in its initial state and the system is aged
-by $\delta(iis)$.
-
-\formatreg {
-  \regle { 
-    c=\iota\ \wedge\ \text{\textit{IL}} \neq \phi\\
-  } {
-    \text{\small\textit{IL}}\intrupt
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{iis}
-    \text{\small\textit{IL}}\intrupt
-    \big[\sigma,R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(iis)
-  }
-  \textit{\footnotesize I-IS}
-}
-
-The case of a new interrupt arriving \emph{while} the scheduler is
-running is represented by transition \emph{I-SS}. The only
-precondition is that the scheduler be executing and the list of
-interrupts be non-empty. The consequence is that the scheduler is
-restarted and the system is aged by $\delta(iss)$.
-
-\formatreg {
-  \regle {
-      (c=\sigma \vee c=\sigma_s)\ \wedge\ \text{\textit{IL}} \neq \phi\\
-  } {
-    \text{\textit{IL}}\intrupt 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\text{iss}} 
-    \text{\textit{IL}}\intrupt 
-    \big[\sigma,R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(iss)
-  }
-  \textit{\footnotesize I-SS}
-}
-
-\emph{I-IH} represents the scheduler selecting the highest priority
-interrupt from the list of those currently present in the system. The
-antecedent states that it be the scheduler that is running, and there
-be at least one interrupt in the interrupt list. The consequent is
-that the highest priority interrupt is taken---from the head of the
-interrupt list---and is added at the head of the ready queue. The
-system is aged by $\delta(iih)$.
-
-\formatreg {
-  \regle {
-    c=\sigma\ \wedge\ IL=U\smodot IL'
-  } {
-    IL\intrupt\big[c,R,B,\SFT{ns},\SFT{t}\big]
-    \Faitv{\text{iih}} 
-    \text{{\small\textit{IL'}}}\intrupt 
-    \big[\sigma,R\smodot U,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(iih)\\
-  }
-  \textit{\footnotesize I-IH}
-}
-
-\section{Conclusions and future work}
+\subsection*{Prochaines étapes de la sémantique formelle d'Ada}
 This chapter has presented the formal semantics of the Ada Ravenscar
 code generated via the ARC tool. This semantics---as stated---is
 doubly-fixed. On one axis it is fixed to Ada code as it is generated
@@ -3048,4 +2252,3 @@ systèmiques que seules les connecteurs déterministes.
 %%% End:
 
 % LocalWords:  courriél aperiodique ordinateurisation criticité ciblé préemptif
-% LocalWords:  quand-même

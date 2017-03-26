@@ -603,7 +603,7 @@ The scheduler can be in one of possible two states, $\sigma$ and
 $\sigma_s$: $\sigma$ is the state when the scheduler has seized
 control, and $\sigma_s$ is the state when the scheduler is ready to
 grant control. Thus, $\sigma$ and $\sigma_s$ represent two steps in
-the excuction of the scheduler functions, allowing the assignment of
+the execution of the scheduler functions, allowing the assignment of
 different execution times to both in order to accurately model context
 switches and scheduling overload. An active context, $a$, may have one
 of the following forms:\\
@@ -903,7 +903,7 @@ $\sigma_s\fait{\text{si}}\iota$\\
 The initial state of a Ravenscar system is given by the following configuration:
 
 \begin{equation}
-  \big[ \sigma, R_0, B_0, 0, 0 \big]
+  \big[ \sigma, R_0, \{\}, 0, 0 \big]
 \end{equation}
 
 The initial ready queue, $R_0$, is a \emph{priority-ordered} list of
