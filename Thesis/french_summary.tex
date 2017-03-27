@@ -315,7 +315,7 @@ teste extrêmement simple pour déterminer si ledit ensemble est
 ordonnançable. Cependant il ne faut pas oublier que---la version
 basique de---ce teste est applicable seulement aux tâches
 indépendantes; c-à-d celles qui ne se communiquent ou ne se
-synchr\^onisent pas entre elles.
+synchronisent pas entre elles.
 
 \subsection*{Les approches d'Ingénierie Dirigé par les Modèles}
 Comme déjà indiqué, il y a plusieurs techniques de développement de
@@ -325,17 +325,17 @@ petites introductions aux plus importantes parmi celles-ci.
 
 \subsubsection*{Lustre et SCADE Suite}
 Lustre est un langage fonctionnelle pour modéliser des systèmes
-réactifs et synchr\^one en tant que flux de données qui est pertinent
+réactifs et synchrone en tant que flux de données qui est pertinent
 aux systèmes réactifs; dont principalement des systèmes
 automatiques~\cite{halbwachs@popl87, halbwachs@ieee91}. Industrialisé
 par Esterel Technologies, son générateur du code est certifié jusqu'au
 niveau ``A'' du standard DO-178B. Dans le spectre des langages, Lustre
-est synchr\^one; ç-à-d, il est considéré qu'il y a une résolution
+est synchrone; ç-à-d, il est considéré qu'il y a une résolution
 minimale d'activité du système, au-delà duquel n'est pas possible une
 fréquence d'év'enements. Cet hypothèse permet de générer du code
 déterministe et qui ne repose pas nécessairement sur un certain
 système d'exploitation ou un autre; et ça puisque le choix logique
-d'implémenter un programme synchr\^one se trouve être un exécutif
+d'implémenter un programme synchrone se trouve être un exécutif
 cyclique.
 
 Comme déjà dit, Lustre implémente un paradigme de flux de données;
@@ -364,9 +364,9 @@ avec l'utilisation de Lustre et/ou SCADE Suite:
 
 \begin{itemize}
 \item{Le plus grand désavantage reste le fait que Lustre génère un
-  programme synchr\^one qui doit tourner sur un exécutif
+  programme synchrone qui doit tourner sur un exécutif
   cyclique. Donc toutes les tâches doivent être périodique;}
-\item{Sa nature cyclique et synchr\^one engendre la perte de plusieurs
+\item{Sa nature cyclique et synchrone engendre la perte de plusieurs
   cycles du processeur;}
 \item{Ce n'est pas pratique pour programmer des systèmes temps-réels
 générique; ç-à-d ceux qui ne sont pas des systèmes automatiques.}
@@ -381,7 +381,7 @@ plugin laisse générer aussi du code C en utilisant l'outil Real-Time
 Workshop (RTW). RTW peut générer du code pour un nombre important
 d'environnement cible, du système d'exploitation temps-réel complèxe
 jusq'aux éxecutables minimales. Le code généré par RTW peut \^{e}tre
-mono-t\^ache, soit synchr\^{o}ne comme Lustre, ainsi que multi-t\^ache, ce
+mono-t\^ache, soit synchrone comme Lustre, ainsi que multi-t\^ache, ce
 qui necessite un RTOS sous-jacente.
 
 Un autre avantage de Simulink est le fait qu'il nous laisse concevoir
@@ -393,8 +393,8 @@ entier. Chaque mod\`ele a une fr\'equence de base qui est la
 fr\'equence maximale d'ensemble de t\^aches. Les autres bloques dans
 le syst\`eme sont soit \`a la m\^eme fr\'equence soit son
 multiple. Figure~\ref{fig:subsystem_simulink_fr} est un exemplaire
-d'un sous-syst\`eme utilis\'es comme un bloque hierarchique dans un
-syst\`eme englobant. Les ports d'entr\'ees et sorties deviennent les parametres
+d'un sous-système utilis\'es comme un bloque hierarchique dans un
+système englobant. Les ports d'entr\'ees et sorties deviennent les parametres
 formels dans le code gener\'e.
 
 \begin{figure}
@@ -434,7 +434,7 @@ automatis\'e\footnote{Pacifica Group Technologies}.
   differents;}
 \item{Biblioth\`eque importante de composants pr\'ed\'efinis pour
   d'algorithmes standards d'automatique;}
-\item{G\'en\'eration du code synchr\^one ainsi qu'asynchr\^one, ç-à-d,
+\item{G\'en\'eration du code synchrone ainsi qu'asynchrone, ç-à-d,
   cibl\'e \`a un RTOS;}
 \item{Simulation fourni la possibilit\'e de deboggage au niveau du
   mod\`ele.}
@@ -499,7 +499,7 @@ Le deuxi\`eme diagramme pertinent aux syst\`emes temps-r\'eel est le
 attach\'es aux classes actives pour d\'ecrire leurs comportements. Les
 statecharts sont un type d'automates \'etendus avec la capacit\'e de
 modifier les attributs de sa classe et d'envoyer les
-\emph{signaux}---\'evennements asynchr\^ones---aux autres classes
+\emph{signaux}---\'evennements asynchrones---aux autres classes
 actives~\cite{lynch@concur01}. Figure~\ref{fig:statechart_fr} montre un
 machine \`a \'etat qui impl\'ement un chauffage d'eau avec thermostat.
 
@@ -627,10 +627,10 @@ importantes \'etant les suivantes:
   interdite;}
 \item{Le primitif de rendezvous---un type de variable
   conditionnelle---est interdit;}
-\item{Le contr\^ole asynchr\^one est interdit, ç-à-d, des t\^aches ne
+\item{Le contr\^ole asynchrone est interdit, ç-à-d, des t\^aches ne
   peuvent pas susprendre et ne peuvent pas reprendre l'\'ex\'ecution
   d'autres t\^aches;}
-\item{Les objets proteg\'es---objets de synchr\^onisation---doivent
+\item{Les objets proteg\'es---objets de synchronisation---doivent
   suivre le protocole de plafond de priorit\'e~\cite{sha@toc90};}
 \item{Utilisation d'un ordonnanceur \`a priorit\'es fixe, avec
   pr\'eemption en fonction de priorit\'e et tournoi \`a la ronde sous
@@ -721,7 +721,7 @@ end Sporadic;
 \end{minipage}
 
 Pour la communication inter-t\^ache, Ada fournit les objets
-prot\'eg\'es. Ceux sont similaires aux objets synchr\^onis\'es en
+prot\'eg\'es. Ceux sont similaires aux objets synchronisés en
 Java, ç-à-d, seule une t\^ache peut entrer dans les fonctions ou les
 proc\'edures de l'objet en m\^eme temps. La fonctionnalit\'e de ``data
 port'' peut \^etre impl\'em\'ent\'e en encapsulant une instance ou un
@@ -987,7 +987,7 @@ diff\'erents types de composants AADL:
 \item[T\^ache sporadique:]{Transform\'ee en t\^ache Ada avec des
   propri\'et\'es pertinentes, ainsi que la mise en application de
   temps minimale entre arriv\'es d'\'evennements. Un objet prot\'eg\'e
-  que l'on appel un \emph{synchr\^oniseur} est aussi g\'en\'er\'e sur
+  que l'on appel un \emph{synchroniseur} est aussi g\'en\'er\'e sur
   laquelle se bloque cette t\^ache en attente de d\'eclenchement;}
 \item[Data port:]{Transform\'e en objet prot\'eg\'e du m\^eme type que
   le port, et les proc\'edures \texttt{Get} et \texttt{Set} d'acc\`es
@@ -996,7 +996,7 @@ diff\'erents types de composants AADL:
 \item[Event (data) port:]{Transform\'e \`a un type dans
   l'\'enum\'eration d\'evennements que sa t\^ache peut recevoir, au
   cas de port d'entr\'ee; et dans un proc\'edure qui met son type
-  d'\'evennement dans le synchr\^oniseur de la t\^ache cible au cas de
+  d'\'evennement dans le synchroniseur de la t\^ache cible au cas de
   port de sorti;}
 \item[Data component:]{Transform\'e \`a un type Ada;}
 \item[Data subcomponent:]{Transform\'e \`a soit un objet prot\'eg\'e,
@@ -2142,64 +2142,15 @@ de PCP qui dit $\text{{\scshape priority}}(\alpha\RL{x}\pi) = \text{{\scshape
 }
 
 \subsection*{Prochaines étapes de la sémantique formelle d'Ada}
-This chapter has presented the formal semantics of the Ada Ravenscar
-code generated via the ARC tool. This semantics---as stated---is
-doubly-fixed. On one axis it is fixed to Ada code as it is generated
-by the ARC code generator. On the second axis it is fixed to that code
-being executed on a Ravenscar-compliant runtime such as ORK.
-
-The described semantics has two parts, the static semantics and the
-dynamic semantics. The static semantics has been directly inspired
-from and conforms to the Ravenscar Meta-Model. The well-formedness
-rules of the static semantics mirror the design of the RMM and the
-relationships among its various entities in the form of associations
-and containments etc. The dynamic semantics gives the evolution of a
-given system over time. The given system , of course, being a concrete
-instance of the static semantics, and by extension of the Ravenscar
-Meta-Model (thus, a Ravenscar Model, precisely speaking).
-
-The dynamic semantics are given in the form of Structured Operational
-Semantics (SOS) rules, as introduced by
-Plotkin~\cite{plotkin-sos}. The SOS is a powerful yet easy to
-understand formalism for giving meanings to programs. This allows the
-semantics to be used as a documentation and disambiguation tool by the
-end user. While the AADL is a relatively open language with rather
-imprecise semantics, the semantics given in this chapter tie down the
-formal meaning of a subset of AADL constructs as well. The
-formalization of this semantics led to the discovery of the small
-discrepancy in the Ravenscar Profile which can adversely impact
-response-critical sporadic tasks and a solution for which was
-presented in Sec.~\ref{sec:response_crit_st}.
-
-The future work in this direction is of course the implementation of
-these semantics in a suitable formalism such
-AsmL~\cite{gurevich@tcs05}. In fact, any of a number of formalisms
-could be used for the implementation of the semantics as long as they
-provide a few key features such as the ability to model sets and
-queues (for the blocked set and ready queue), allow the specification
-of decisions and preconditions (to express the antecedents) and
-finally that allow the conversion of the specification into an
-automaton or labeled transition system. Such an implementation of the
-semantics would be useful from two distinct points-of-view:
-
-\begin{description}
-\item[Simulation:]{Any simulator for a Ravenscar system, or for any
-  system, needs extremely precise---if not formal---semantics in order
-  to disambiguate for the implementer or the tool developer the
-  meaning of every single aspect. A case in point is the LOTOS
-  verification language which has a formal
-  semantics~\cite{turner@pstv87}. Another is the C programmer
-  language, which does not have formal semantics, resulting in
-  compiler dependant behavior;}
-\item[Verification:]{If the semantics are implemented in a formalism
-  that allows the conversion of the semantics of a given system
-  instance into a labeled transition system, model checking techniques
-  can then be used to verify different aspects of said LTS, and by
-  extension the system itself.}
-\end{description}
-
-The work presented in this chapter has been published in the $13^{th}$
-\emph{International Conference on Reliable Software Technologies---AdaEurope'2008}. 
+Nous avons présenté la sémantique formelle d'Ada Ravenscar dans cette
+section, et il faut noter que celle-là est fixée sur deux axes: elle
+est valable pour du code Ada limité au profil Ravenscar et au code
+généré par l'outil ARC. Le travail dans l'avenir que nous prévoyons
+consiste surtout à utiliser cette sémantique afin de la
+\emph{simulation} et de la \emph{vérification} du code généré. Le
+travail présenté dans cette section a été publié dans $13^{th}$
+\emph{International Conference on Reliable Software
+  Technologies---AdaEurope'2008}. 
 
 \section*{Conclusions}
 L'ing\'enierie dirig\'e par des mod\`eles (IDM) est un m\'ecanisme
@@ -2233,14 +2184,14 @@ centrale dans les systèmes automatique. L'integration dans le
 générateur du code de ces primitifs de communication---les connecteurs
 déterministes---ainsi que l'automatisation de leurs vérification de
 comportement avec l'algèbre de processus LOTOS, fait une b\^oite \`a
-outils pertinent aux syst\`emes temps-r\'eel asynchr\^ones
+outils pertinent aux syst\`emes temps-r\'eel asynchrones
 g\'en\'eralistes.
 
 Finalement, nous avons présenté une sémantique formelle d'Ada
 Ravenscar généré par ARC dans le formalisme de sémantique
-operationnelle structurée~\cite{plotkin-sos} (SOS). SOS décrit la
+opérationnelle structurée~\cite{plotkin-sos} (SOS). SOS décrit la
 sémantique en transitions d'états d'un système
-hypothètique. L'objectif étant de formaliser le comportement totale du
+hypothétique. L'objectif étant de formaliser le comportement totale du
 code généré par ARC à fin de pouvoir faire des vérifications plus
 systèmiques que seules les connecteurs déterministes.
 
@@ -2252,3 +2203,4 @@ systèmiques que seules les connecteurs déterministes.
 %%% End:
 
 % LocalWords:  courriél aperiodique ordinateurisation criticité ciblé préemptif
+%%  LocalWords:  l'ordinateurisation
