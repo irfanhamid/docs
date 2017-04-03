@@ -768,7 +768,7 @@ $\text{Let }p_k = \text{\scshape priority}(a) $\\
       \ \ \ \ \ \ \text{when}\ \ \ \ 
       R=r_{p_1}\smcirc\ldots\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}  \\ 
       r_{p_1}\smcirc\ldots\smcirc\,r_{p_i}\smcirc\,a\,\smcirc\,r_{p_j}\,\ldots\,r_{p_n}
-      \ \ \text{when} \  \ \ \ 
+      \ \ \ \text{when} \  \ \ \ 
       R = r_{p_1}\smcirc\ldots\smcirc r_{p_i}\smcirc
       r_{p_j}\smcirc\ldots\smcirc r_{p_n} \wedge \  p_i < p_k < p_j 
     \end{array} 
@@ -975,10 +975,10 @@ the time consumed by the transition, and $\sqplus\delta(act)$ is the
 \emph{ageing} operator. It is formally defined as:
 
 \begin{displaymath}
-  \big[ c,R,B,\SFT{ns},\SFT{t} \big] 
+  \big\langle c,R,B,\SFT{ns},\SFT{t} \big\rangle 
 \sqplus \delta (act) = 
-\big[ c \sqplus \delta (act), \, R \sqplus \delta (act), \,
-B, \, \text{\sffamily ns}, \, \text{\sffamily t}+\delta (act)\big]
+\big\langle c \sqplus \delta (act), \, R \sqplus \delta (act), \,
+B, \, \text{\sffamily ns}, \, \text{\sffamily t}+\delta (act)\big\rangle
 \end{displaymath}
 
 \noindent
@@ -1056,9 +1056,9 @@ $\delta(idling)$, and $\iota$ stays the active context.
   \regle {
     c=\iota \ \wedge \ \text{\sffamily t} < \text{\sffamily ns} \ \wedge \ R=\{\}
   } {
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]\ 
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle\ 
     \Faitv{\text{idling}} 
-    \ \ \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \ \ \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \sqplus\delta(idling)
   }
   \textit{\footnotesize IDLE}
@@ -1078,9 +1078,9 @@ next dispatching time for the scheduler.
   \regle {
     c=T \ \wedge\ T\cdot\SFT{Beh}=\SFT{comp};\SFT{C}\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[ c,R,B,\SFT{ns},\SFT{t}\big]\ 
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle\ 
     \Faitv{\SFT{comp}} \ 
-    \big[ T',R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(\SFT{comp})\\ \\
+    \big\langle T',R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(\SFT{comp})\\ \\
     T'=\langle T\gets\SFT{Beh}=\SFT{C}\rangle
   }
   \textit{\footnotesize CMPT}  
@@ -1098,9 +1098,9 @@ remaining steps of its {\scshape prog} (given by $C$ here).
   \regle {
     c=\alpha\RL{x}\pi\ \wedge\ \pi\cdot\SFT{Beh}=(\SFT{comp};\SFT{CC})\ \wedge\ \SFT{t}<\SFT{ns}
   } {
-    \big[ c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{comp}}
-    \ \big[\alpha\RL{x}\pi',R,B,\SFT{ns},\SFT{t}\big] \sqplus
+    \ \big\langle\alpha\RL{x}\pi',R,B,\SFT{ns},\SFT{t}\big\rangle \sqplus
     \delta(comp)\\ \\
     \pi'=\langle\pi\gets\SFT{Beh}=\SFT{CC}\rangle\\
   }
@@ -1124,9 +1124,9 @@ to compute its next dispatch time.
   \regle {
     c=S\RL{x}D\ \wedge\ D\cdot\SFT{Beh}=(\SFT{CT:=Clock};\SFT{CC})\ \wedge\ \SFT{t}<\SFT{ns}
   } {
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{CT:=Clock}}
-    \ \big[S\RL{x}D',R,B,\SFT{ns},\SFT{t}\big] \sqplus
+    \ \big\langle S\RL{x}D',R,B,\SFT{ns},\SFT{t}\big\rangle \sqplus
     \delta(CT:=Clock)\\ \\
     D'=\langle D\gets\SFT{Beh}=\SFT{CC} \gets \SFT{CT}=\SFT{t} \rangle\\
   }
@@ -1150,9 +1150,9 @@ Eq.~\ref{eq:pcp_rule}).
   \regle {
     c=\alpha\ \wedge\ \alpha\cdot\SFT{Beh}=(x(\pi);C)\ \wedge\ x\in\{\FNT{Get, Set,Send\_Event}\}\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\text{$x$}}
-    \big[\alpha'\RL{x}\pi,R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(x)\\ \\
+    \big\langle\alpha'\RL{x}\pi,R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(x)\\ \\
     \alpha'=\langle\alpha\gets\SFT{Beh}=C\rangle\\
     \pi'=\langle\pi\gets\SFT{Beh}=\text{\scshape prog}(\pi ).x\rangle
   }
@@ -1171,9 +1171,9 @@ have become true as a consequence of this procedure).
   \regle {
     c=\alpha\RL{x}E\ \wedge\ E\cdot\SFT{Beh}=\SFT{ret}\ \wedge\ x\in\{\FNT{Get},\FNT{Set}\}\ \wedge\ \SFT{t}<\SFT{ns}
   } {
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{ret}}
-    \big[\sigma,\alpha'\smodot R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle\sigma,\alpha'\smodot R,B,\SFT{ns},\SFT{t}\big\rangle
     \sqplus\delta(ret)\\ \\
     \alpha'=\langle\alpha\gets\SFT{Pt}=\alpha\cdot\SFT{Pt}+\delta(ret)\rangle
   }
@@ -1191,9 +1191,9 @@ synchronizer.
   \regle {
     c=\alpha\rsvt D\ \wedge\ D\cdot\SFT{Beh}=\SFT{ret}\ \wedge\ D\cdot\SFT{Queue}=\epsilon\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{ret}}
-    \big[\sigma,\alpha'\smodot R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(ret)\\ \\
+    \big\langle\sigma,\alpha'\smodot R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(ret)\\ \\
     D'=\langle D\gets\SFT{Bar}=\text{true}\gets\SFT{Ec}=D\cdot\SFT{Ec}+1\rangle\\
     \alpha'=\langle\alpha\gets\SFT{Pt}=\alpha'\cdot\SFT{Pt}+\delta(ret)		 
     \rangle
@@ -1218,9 +1218,9 @@ its ready queue $R$.
   \regle {
     c=\alpha\rsvt D\ \wedge\ D\cdot\SFT{Beh}=\SFT{ret}\ \wedge\ D\cdot\SFT{Queue}=S\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{ret}}
-    \big[S\rgvt D',\alpha'\smodot R,B',\SFT{ns},\SFT{t}\big]
+    \big\langle S\rgvt D',\alpha'\smodot R,B',\SFT{ns},\SFT{t}\big\rangle
     \sqplus\delta(ret)\\ \\
     B'=B \setminus\{S\}\\
 %    S'=\langle S\gets\SFT{Nd}=\SFT{t}+\text{\scshape
@@ -1242,16 +1242,15 @@ its ready queue, and the scheduler takes over.
   \regle {
     c=S\rgvt D\ \wedge\ D\cdot\SFT{Beh} = (\texttt{ret; BD})\ \wedge\ \SFT{t}<\SFT{ns}
   } { 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\SFT{ret}}
-    \big[\sigma,S'\smodot R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle\sigma,S'\smodot R,B,\SFT{ns},\SFT{t}\big\rangle
     \sqplus\delta(\SFT{ret})\\ \\
     D'=\langle D\gets\SFT{Bar}=(D\cdot\SFT{Ec}>1) \\
     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \: \gets\SFT{Ec}=D\cdot\SFT{Ec}-1 \\
     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \: \gets\SFT{Queue}=\epsilon\\
     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \: \gets\SFT{Beh}=BD\rangle\\
-    S'=\langle S\gets\SFT{Pt}=S\cdot\SFT{Pt}+\delta(\SFT{ret})\\
-     \ \ \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Nd}=\SFT{CT}+ \text{\scshape holdingtime}(S)
+    S'=\langle S\gets\SFT{Pt}=S\cdot\SFT{Pt}+\delta(\SFT{ret}) \gets\text{\sffamily Nd}=\SFT{CT}+ \text{\scshape holdingtime}(S)
     \rangle
   }
   \textit{\footnotesize RET4}
@@ -1269,14 +1268,14 @@ and opens the barrier (a consequence of rule \emph{RET3}).
   \regle {
     c=S\ \wedge\ S\!\cdot\!\text{\sffamily Beh} = {\texttt{Await\_Event($D$)}} \texttt{; C}\ \wedge\ D\!\cdot\!\text{\sffamily Bar}=\text{True}\ \wedge\ \text{\sffamily t} < \text{\sffamily ns}
   } { 
-    \big[c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big]
+    \big\langle c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big\rangle
     %%%%%%%%%%%%%%%%%%
     \Faitv{\text{Await\_Event}}
     %%%%%%%%%%%%%%%%%% 
-    \ \ \ \big[ S' \rgvt D', R, B,
+    \ \ \ \big\langle S' \rgvt D', R, B,
       \text{\sffamily ns}, 
       \text{\sffamily t} 
-      \big] \sqplus \delta(Await\_Event) \\ \\
+      \big\rangle \sqplus \delta(Await\_Event) \\ \\
     S'=\langle S\gets\text{\sffamily Beh}=C\rangle \\
 %    \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Nd}=\text{\sffamily t}+ \text{\scshape holdingtime}(S)
     D'=\langle D\gets\text{\sffamily Beh}=\text{\scshape prog}(D)\cdot\texttt{Await\_Event}\rangle 
@@ -1290,14 +1289,14 @@ and opens the barrier (a consequence of rule \emph{RET3}).
     {(\texttt{Await\_Event($D, CT$)}} \texttt{; C})\ \wedge\ 
     D\!\cdot\!\text{\sffamily Bar}=\text{False}\ \wedge\ \text{\sffamily t} < \text{\sffamily ns}
   } { 
-    \big[c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big]
+    \big\langle c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big\rangle
     %%%%%%%%%%%%%%%%%%
     \Faitv{\text{Await\_Event}}
     %%%%%%%%%%%%%%%%%% 
-    \big[ S', R, B, 
+    \big\langle S', R, B, 
       \text{\sffamily ns}, 
       \text{\sffamily t} 
-      \big] \sqplus \delta(\text{\small Await\_Event}) \\ \\
+      \big\rangle \sqplus \delta(\text{\small Await\_Event}) \\ \\
     S'=\langle S\gets\text{\sffamily Beh}=C\gets\text{\sffamily Dbl}=\text{true}\rangle \\
     D'=\langle D\gets\text{\sffamily Queue}=S\rangle 
   }
@@ -1325,9 +1324,9 @@ amount of time required for this action, represented by $\delta(is)$.
   \regle {
     c=\iota\ \wedge\ \SFT{t}=\SFT{ns}
   } { 
-    \big[c, R, B, \SFT{ns}, \SFT{t}\big]
+    \big\langle c, R, B, \SFT{ns}, \SFT{t}\big\rangle
     \Fait{\text{is}} 
-    \big[\sigma,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle\sigma,R,B,\SFT{ns},\SFT{t}\big\rangle
       \sqplus \delta(is)
   }
   \textit{\footnotesize NS-IDLE}
@@ -1353,16 +1352,16 @@ time required for this preemption, represented by $\delta(as)$.
   \regle {
     c\neq\iota\ \wedge\ c\neq \sigma\ \wedge\ c\neq \sigma_s\ \wedge\ \text{\sffamily t}=\text{\sffamily ns} 
   } {
-    \big[c, R, B, \text{\sffamily ns}, 
+    \big\langle c, R, B, \text{\sffamily ns}, 
       \text{\sffamily t} 
-      \big]
+      \big\rangle
     %%%%%%%%%%%%%%%
     \Faitv{\text{as}}
     %%%%%%%%%%%%%%%
-    \big[ 
+    \big\langle 
       \sigma, a \smcirc  R, B, \text{\sffamily ns}, 
       \text{\sffamily t}
-      \big]
+      \big\rangle
     \sqplus 
     \delta(as)
   }
@@ -1385,10 +1384,10 @@ required for this preemption, represented by $\delta(delay)$.
     R=c\smodot R'\ \wedge\ c=T\in{\cal T}_s\ \wedge\ T\!\cdot\!\text{\sffamily Beh} = ({\kw{delay
         until}\texttt{; C})}\ \wedge\ \text{\sffamily t} < ns
   } { 
-    \big[c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big]
+    \big\langle c, R, B, \text{\sffamily ns}, \text{\sffamily t} \big\rangle
     \Faitv{\text{delay}} 
-    \big[ \sigma, R', B',  
-      \text{\sffamily ns}, \text{\sffamily t} \big] \sqplus \delta(delay) \\ \\ 
+    \big\langle \sigma, R', B',  
+      \text{\sffamily ns}, \text{\sffamily t} \big\rangle \sqplus \delta(delay) \\ \\ 
     T'=\langle T\gets \text{\sffamily Beh}=\text{\scshape prog}(T)\ \gets\text{\sffamily Pt} = T\cdot\text{\sffamily Pt}+\delta(delay)
     \rangle \\
     B'=B \cup \{T'\}
@@ -1412,15 +1411,15 @@ required for this preemption, represented by $\delta(delay)$.
     R=T\smodot R'\ \wedge\ c=T\in {\cal T}_p\ \wedge\ T\!\cdot\!\text{\sffamily
       Beh} = (\kw{delay until}; \texttt{C})\ \wedge\ \text{\sffamily t} < \text{\sffamily ns}
   } { 
-    \big[c, R, B, 
-      \text{\sffamily ns}, \text{\sffamily t} \big]
+    \big\langle c, R, B, 
+      \text{\sffamily ns}, \text{\sffamily t} \big\rangle
     \Faitv{\text{delay}} 
-    \big[ \sigma, R',B',\text{\sffamily ns},\text{\sffamily t} \big] \sqplus \delta(delay) \\ \\
+    \big\langle \sigma, R',B',\text{\sffamily ns},\text{\sffamily t} \big\rangle \sqplus \delta(delay) \\ \\
     T'=\langle T\gets\text{\sffamily Beh}=\text{\scshape
       prog}(T)\\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Pt} = T\cdot\text{\sffamily
+    \ \ \ \ \ \ \ \ \ \ \ \gets\text{\sffamily Pt} = T\cdot\text{\sffamily
       Pt}+\delta(delay)\\
-    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \gets Nd=T\cdot Nd+\text{\scshape Holdingtime}(T)\rangle \\
+    \ \ \ \ \ \ \ \ \ \ \ \gets Nd=T\cdot Nd+\text{\scshape Holdingtime}(T)\rangle \\
     B'=B \cup \{T'\}
   }
   \textit{\footnotesize PDELAY}
@@ -1445,12 +1444,12 @@ order conserving $\smodot$ operator.
   \regle {
     c=\sigma
   } { 
-    \big[ c, R, B, \text{\sffamily ns}, \text{\sffamily t}\big]
+    \big\langle c, R, B, \text{\sffamily ns}, \text{\sffamily t}\big\rangle
     \Faitv{\text{ud}} 
-    \big[ 
+    \big\langle 
       \sigma_s, R', B', \text{\sffamily ns},
       \text{\sffamily t}
-      \big] \sqplus 
+      \big\rangle \sqplus 
     \delta(ud) \\ \\
     B'=B \setminus 
     ready(B, t) \\
@@ -1476,12 +1475,12 @@ $\delta(sa)$.
   \regle {
     c=\sigma_s\ \wedge\ R=a\smodot R'\ \wedge\ T=\sigma_s                 
   } { 
-    \big[c, a \smcirc R, B, \text{\sffamily ns}, \text{\sffamily t}
-      \big]
+    \big\langle c, a \smcirc R, B, \text{\sffamily ns}, \text{\sffamily t}
+      \big\rangle
     \Faitv{\text{sa}}
-    \big[ T,R,B,\text{\sffamily ns'},
+    \big\langle T,R,B,\text{\sffamily ns'},
       \text{\sffamily t}
-      \big] \sqplus 
+      \big\rangle \sqplus 
     \delta(sa)  \\
     \\
     ns' = Min_{T\in B} (T\!\cdot\! Nd) 
@@ -1505,12 +1504,12 @@ put on the processor. The system is aged by the amount $\delta(si)$.
   \regle {
      c=\sigma_s\ \wedge\ R = \epsilon
   } { 
-    \big[c, \epsilon, B, \text{\sffamily ns}, \text{\sffamily t}\big]
+    \big\langle c, \epsilon, B, \text{\sffamily ns}, \text{\sffamily t}\big\rangle
     \Fait{\text{si}} 
-    \big[
+    \big\langle
       \iota, \epsilon, B, \text{\sffamily ns'},
       \text{\sffamily t}
-      \big] \sqplus 
+      \big\rangle \sqplus 
     \delta(\text{\small si})  \\
     \\
     ns'=Min_{T\in B} ( T\!\cdot\! Nd )
@@ -1530,11 +1529,11 @@ the interrupt is simply added to the interrupt list's tail.
 %  where\ \textit{\small IL}=\phi\vee\textit{\small IL}\neq\phi
   } {
     \text{\small  \textit{IL}} \intrupt 
-    \big[ c, R, B, \text{\sffamily ns}, 
-      \text{\sffamily t} \big]
+    \big\langle c, R, B, \text{\sffamily ns}, 
+      \text{\sffamily t} \big\rangle
     \Faitv{\text{\ \ }}
     \textit{\small IL}\smcirc U\intrupt
-    \big[c,R,B,\SFT{ns},\SFT{t}\big] 
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle 
   }
   \textit{\footnotesize NEWI} 
 }
@@ -1550,10 +1549,10 @@ $\delta(ias)$.
   c\neq\sigma\ \wedge\ c\neq\sigma_s\ \wedge\ c\neq\iota\ \wedge\ \text{\textit{IL}}\neq\phi\\
   } {
     \text{\small\textit{IL}}\intrupt 
-    \big[c,R,B,\SFT{ns},\SFT{t} \big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t} \big\rangle
     \Faitv{ias} 
     \text{\small \textit{IL}}\intrupt
-    \big[\sigma,a\smodot R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle\sigma,a\smodot R,B,\SFT{ns},\SFT{t}\big\rangle
     \sqplus\delta(ias)
   }
   \textit{\footnotesize I-AS}
@@ -1574,10 +1573,10 @@ by $\delta(iis)$.
     c=\iota\ \wedge\ \text{\textit{IL}} \neq \phi\\
   } {
     \text{\small\textit{IL}}\intrupt
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{iis}
     \text{\small\textit{IL}}\intrupt
-    \big[\sigma,R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(iis)
+    \big\langle\sigma,R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(iis)
   }
   \textit{\footnotesize I-IS}
 }
@@ -1593,10 +1592,10 @@ restarted and the system is aged by $\delta(iss)$.
       (c=\sigma \vee c=\sigma_s)\ \wedge\ \text{\textit{IL}} \neq \phi\\
   } {
     \text{\textit{IL}}\intrupt 
-    \big[c,R,B,\SFT{ns},\SFT{t}\big]
+    \big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\text{iss}} 
     \text{\textit{IL}}\intrupt 
-    \big[\sigma,R,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(iss)
+    \big\langle\sigma,R,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(iss)
   }
   \textit{\footnotesize I-SS}
 }
@@ -1613,10 +1612,10 @@ system is aged by $\delta(iih)$.
   \regle {
     c=\sigma\ \wedge\ IL=U\smodot IL'
   } {
-    IL\intrupt\big[c,R,B,\SFT{ns},\SFT{t}\big]
+    IL\intrupt\big\langle c,R,B,\SFT{ns},\SFT{t}\big\rangle
     \Faitv{\text{iih}} 
     \text{{\small\textit{IL'}}}\intrupt 
-    \big[\sigma,R\smodot U,B,\SFT{ns},\SFT{t}\big]\sqplus\delta(iih)\\
+    \big\langle\sigma,R\smodot U,B,\SFT{ns},\SFT{t}\big\rangle\sqplus\delta(iih)\\
   }
   \textit{\footnotesize I-IH}
 }
