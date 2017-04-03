@@ -563,13 +563,13 @@ entities are to be transformed to Ada.
 data components\\
 %\hline
 \texttt{Task\_Features} & Generated protected object
-types used as message transfer buffers among tasks\\
+types used as message xfer buffers among tasks\\
 %\hline
-\texttt{Local\_Comm} & Instantiations of all protected
-objects used as message transfer buffers between tasks\\
+\texttt{Local\_Comm} & Instantiated protected
+objects used as message xfer buffers among tasks\\
 %\hline
-\texttt{Dispatchers} & Procedures that are called at each
-task's dispatch, they invoke the appropriate callbacks\\
+\texttt{Dispatchers} & Procedures called at each
+task's dispatch that invoke the correct callbacks\\
 %\hline
 \texttt{<Thread\_Name>\_FUnit} & Contains the callbacks for all tasks'
 response code, user editable package\\
@@ -1107,8 +1107,8 @@ Thr1_P1 : Task_Features.Int_Type_Exchanger (238);
 \end{lstlisting}
 \end{minipage}
 
-In addition to the exchanger type and instance generated for each
-incoming data port in the \texttt{Task\_Features} and
+In addition to the exchanger type and instance that are generated for
+each incoming data port in the \texttt{Task\_Features} and
 \texttt{Local\_Comm} packages respectively, an API for reading and
 writing to each exchanger instance is also generated in the functional
 unit of the task that may access it. For an exchanger, a

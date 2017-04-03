@@ -268,7 +268,7 @@ follows:
   \ \ \ \ \ \ \ \ \ \ \: \text{(ranged over by} \ T, T', T_i \text{)} \nonumber \\
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   {\cal A}  & =  & \, {\cal T}_p\cup {\cal T}_s \cup
-  {\cal U} \ \ \ \text{(ranged over by} \ \alpha, \alpha',
+  {\cal U} \ \ \ \ \ \text{(ranged over by} \ \alpha, \alpha',
   \alpha_i \text{)} \nonumber \\
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   {\cal P\!O} & = & \ \, 
@@ -572,11 +572,11 @@ injective function with co-domain in ${\cal P\!O}$.
 \section{Dynamic Semantics}
 \label{sec:dynamic_semantics}
 The section provides the detailed dynamic semantics of the generated
-Ravenscar system. The system state will be represented as a vector,
+Ravenscar system. The system state will be represented as a tuple,
 the structure of which will be given in the following subsection. The
 evolution of the system as a function of both time and external
 stimuli will be presented in the form of a labelled transition system
-that updates the system vector, the approach described as
+that updates the system tuple, the approach described as
 \emph{structured operational semantics} according to
 Plotkin~\cite{plotkin-sos}.
 
@@ -817,7 +817,7 @@ $\text{Let }p_k = \text{\scshape priority}(a) $\\
       \ \ \ \ \ \ \ \ \text{when}\ \ \ \ 
       R=r_{p_1}\smcirc\ldots\smcirc\,r_{p_k}\smcirc\ldots\smcirc\,r_{p_n}  \\ 
       r_{p_1}\smcirc\ldots\smcirc\,r_{p_i}\smcirc\,a\,\smcirc\,r_{p_j}\,\ldots\,r_{p_n}
-      \ \ \ \text{when} \ \ \ \   
+      \ \ \ \ \text{when} \ \ \ \   
       R = r_{p_1}\smcirc\ldots\smcirc r_{p_i}\smcirc r_{p_j}\smcirc\ldots\smcirc r_{p_n} 
        \wedge \  p_i < p_k < p_j  
     \end{array} 
@@ -840,11 +840,11 @@ type of preemption and the dispatching point reached:
 \subsection{Structure of the state of a Ravenscar system}
 The state of a Ravenscar system has a static part made up of the set
 of records of all computational units, and a dynamic part which is
-given by the vector:
+given by the tuple:
 
 \begin{equation}
   \text{\small \textit{IL}} \intrupt
-  \big[ c, R, B, \SFT{ns}, \SFT{t} \big]
+  \big\langle c, R, B, \SFT{ns}, \SFT{t} \big\rangle
 \end{equation}
 \noindent
 where 
@@ -903,7 +903,7 @@ $\sigma_s\fait{\text{si}}\iota$\\
 The initial state of a Ravenscar system is given by the following configuration:
 
 \begin{equation}
-  \big[ \sigma, R_0, \{\}, 0, 0 \big]
+  \big\langle \sigma, R_0, \{\}, 0, 0 \big\rangle
 \end{equation}
 
 The initial ready queue, $R_0$, is a \emph{priority-ordered} list of
@@ -944,15 +944,15 @@ operational semantics rules, having the structure of a fraction:
   \regle{ \textit{Antecedents}}
 	{
 	  \text{\small  \textit{IL}} \intrupt 
-	  \big[ 
+	  \big\langle 
 	    c, R, B, \text{\sffamily ns}, \text{\sffamily t} 
-	    \big]
+	    \big\rangle
 	  \Faitv{\textit{act}}
 	  \text{\small  \textit{IL'}} \intrupt
-	  \big[ 
+	  \big\langle 
 	    c', R,' B', \text{\sffamily ns'}, 
 	    \text{\sffamily t}
-	    \big] \sqplus \delta(\textit{\small act})
+	    \big\rangle \sqplus \delta(\textit{\small act})
 	} \textit{\scriptsize SHORT NAME}
 }
 \end{center}
@@ -1047,7 +1047,7 @@ Rule \emph{IDLE} shows the idle task executing. The antecedent shows
 that the system can only idle if it hasn't reached the next scheduling
 instant \SFT{ns} \emph{and} the ready queue $R$ is empty, i.e., no
 task is ready to run, this is also evidenced by the fact that the
-system configuration vector shows $\iota$ as the currently active
+system configuration tuple shows $\iota$ as the currently active
 context and there are no interrupts waiting to be processed by the
 system. The \emph{age} of the system advances by an amount
 $\delta(idling)$, and $\iota$ stays the active context.

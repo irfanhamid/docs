@@ -1111,7 +1111,7 @@ a sporadic thread may or may not interrupt the dispatch of
 \texttt{Data\_Fusion} until the next dispatch of \texttt{Sensor\_A}.
 
 To enable the automatic generation of LOTOS verification code for an
-AADL model, the \texttt{Frames\_To\_Verify} property must be set to a
+AADL model, the property \texttt{Frames\_To\_Verify} must be set to a
 non-zero value on the process component that contains the threads and
 connections which are to be modeled. The default value of this
 property is 0, which signifies that verification code generation is
@@ -1311,9 +1311,9 @@ then there can be two cases:
   problem arises as described in the previous section.}
 \end{description}
 
-In order to describe such a data flow in AADL, a new property has been
-defined, named \texttt{Hyperperiod\_Age}, which is of type integer and
-is applied to AADL connections. For a connection that has the
+In order to describe such a data flow in AADL, a new property---named
+\texttt{Hyperperiod\_Age} of type integer---has been defined which is
+applied to AADL connections. For a connection that has the
 \texttt{Is\_DBX} property set to true, this property gives the
 \emph{age} of the hyperperiod from which to sample the data. Its
 default value is 1, in which case the behavior becomes that of a

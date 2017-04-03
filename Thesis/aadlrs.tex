@@ -66,8 +66,7 @@ Listing~\ref{rs-prof-def}.
 pragma Task_Dispatching_Policy (FIFO_Within_Priorities);
 pragma Locking_Policy (Ceiling_Locking);
 pragma Detect_Blocking;
-pragma Restrictions (
-                      Max_Entry_Queue_Length => 1,
+pragma Restrictions ( Max_Entry_Queue_Length => 1,
                       Max_Protected_Entries => 1,
                       Max_Task_Entries => 0,
                       No_Abort_Statements,
@@ -85,7 +84,7 @@ pragma Restrictions (
                       No_Task_Attributes_Package,
                       No_Task_Hierarchy,
                       No_Task_Termination,
-                      Simple_Barriers);
+                      Simple_Barriers );
 \end{lstlisting}
 \end{minipage}
 
@@ -238,13 +237,13 @@ package Ada.Asynchronous_Task_Control is
   function Is_Held(T : Ada.Task_Indentification.Task_ID) return Boolean;
 end Ada.Asynchronous_Task_Control;
 \end{lstlisting}}
-\item[\texttt{No\_Relative\_Delay}]{This pragma prohibits the use of
-  relative delays---of the form \kw{delay}
-  \texttt{<time\_duration>}---but allows absolute delays---of the form
-  \kw{delay until} \texttt{<time\_instance>}. This is to ensure that
-  tasks don't exhibit non-determinism due to being preempted between
-  the instance it calculates \texttt{<time\_duration>} and it executes
-  the \kw{delay until};}
+\item[\texttt{No\_Relative\_Delay}]{This prohibits the use of relative
+  delays---of the form \kw{delay} \texttt{<time\_duration>}---but
+  allows absolute delays---of the form \kw{delay until}
+  \texttt{<time\_instance>}. This is to ensure that tasks don't
+  exhibit non-determinism due to being preempted between the instance
+  it calculates \texttt{<time\_duration>} and it executes the
+  \kw{delay until};}
 \item[\texttt{No\_Calendar}]{This implies that the package
   \texttt{Ada.Calendar} cannot be used. Instead, all timing operations
   must be performed using the high-precision time types and services
@@ -271,8 +270,8 @@ end Ada.Asynchronous_Task_Control;
 \end{description}
 
 \subsection{Consequences of the Ravenscar Profile}
-Here, a bit of elaboration about both the scheduler selected and the
-ceiling priority protocol; as well as the consequences of their
+Here, a bit of elaboration about both the scheduler selected, the
+ceiling priority protocol, and the consequences of their
 interaction. The \kw{pragma}
 \texttt{Task\_Dispatching\_Policy(FIFO\_Within\_Priorities)} enables a
 task scheduler which is a fixed priority preemptive one, meaning that
@@ -1180,8 +1179,8 @@ various component categories, their details follow.
  & Bus & Communication channel to link hardware components\\
  & Device & Specialized hardware with a known interface\\
 \hline
-\textbf{Hybrid} & System & Hybrid component used to englobe the entire
-architecture model\\
+\textbf{Hybrid} & System & Hybrid component to englobe the entire
+architecture\\
 \hline
 \end{tabular}
 \caption{Different classes and categories of AADL components}
@@ -1650,7 +1649,7 @@ given in Table~\ref{tab:prop_types}.
 \textbf{aadlboolean} & Flags such as whether runtime protection is required \\
 \textbf{aadlreal} & Any floating point number\\
 \textbf{aadlstring} & Computation entrypoints, source texts etc.\\
-\textbf{enumeration} & Exclusive choice properties, e.g., \{\texttt{read\_only},
+\textbf{enumeration} & Concurrency properties, e.g., \{\texttt{read\_only},
 \texttt{write\_only}, \texttt{read\_write}\} for memories\\
 \hline
 \end{tabular}
