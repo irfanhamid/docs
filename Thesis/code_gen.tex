@@ -1482,7 +1482,7 @@ added to the existing ones, \texttt{Is\_Critical}. This is a boolean
 property that applies to threads. If this property is true for a
 sporadic thread, then ARC will set the ceiling priority of its
 synchronizer to \texttt{System.Max\_Interrupt\_Priority}. This makes
-it impossible for any task that is inside a that synchronizer to be
+it impossible for any task that is inside that synchronizer to be
 preempted; by a higher priority task, by an interrupt or even by the
 scheduler (since the scheduler itself is run as a result of a timer
 interrupt). Now the protected entry's start and the storage of the
