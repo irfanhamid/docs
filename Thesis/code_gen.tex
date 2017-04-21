@@ -5,22 +5,22 @@
 \label{chap:code_gen}
 
 This chapter presents the basic code generation rules that can be used
-to transform an AADL model to Ravenscar-compliant Ada code. It
-presents also the overall architecture of the tooling that has been
+to transform an AADL model to Ravenscar-compliant Ada code. It also
+presents the overall architecture of the tooling that has been
 implemented to test and validate these code generation rules. The
 motivation for this work was not only academic, the Ravenscar Profile
 for Ada is a major step forward towards the acceptance of the language
 \emph{and} its associated runtime for safety-critical real-time
 systems development. However, there are some aspects of it that make
-handcoding the entire application in Ada cumbersome and unwieldy. This
-is where a code generator is useful, for it alleviates the tedium of
-writing the entire framework for the application by hand, allowing the
-engineer to focus on the actual problem and its functional solution
-instead. In fact, a code generator is useful no matter what the
-underlying paradigm of programming may be, as it results in fewer
-programming errors due to the preservation of properties during model
-to code transformation. Certain aspects of the model may also be
-refined and additions made to it automatically added based on the
+hand-coding the entire application in Ada cumbersome and
+unwieldy. This is where a code generator is useful, for it alleviates
+the tedium of writing the entire framework for the application by
+hand, allowing the engineer to instead focus on the actual problem and
+its functional solution. In fact, a code generator is useful no matter
+what the underlying paradigm of programming may be, as it results in
+fewer programming errors due to the preservation of properties during
+model to code transformation. Certain aspects of the model may also be
+refined and additions made to it automatically based on the
 information already present in the model.
 
 This chapter presents the basics of this model to code
@@ -41,7 +41,7 @@ Even though code generation is beneficial irrespective of the
 programming language and executive chosen as the target, it becomes
 even more important when the Ada 95/2005 language with its runtime
 constructs for tasking and synchronization are used. The reason is
-simple, if the aim is to use Ada's rich runtime for tasking services
+simple: if the aim is to use Ada's rich runtime for tasking services
 then an API-based approach is ruled out, and all tasking primitives
 are elevated as native language constructs. This makes for a situation
 where, e.g., to create a thread, an Ada task has to be explicitly
@@ -63,22 +63,20 @@ synchronization between the different tasks will need to be written as
 language level constructs in the form of protected objects. These two
 language constructs together form the ``execution framework'' of the
 resulting system. This execution framework is what assures the
-non-functional properties of the system, non-functional properties
+non-functional properties of the system. Non-functional properties
 here being considered to be the temporal properties of the tasks, as
-well as the interfaces and inter-connections between tasks (the
-interfaces and inter-connections between tasks being defined by the
-set of protected objects in the system and the use relations among
-tasks and protected objects). The functional properties of the system,
-i.e., those that respond to the functional requirements, are met in
-the ``holes'' or callbacks provided by this framework. This framework,
-which in the case of Ada Ravenscar is to be written by hand, can be
-constructed via API calls in the case of the more ``traditional'' RTOS
-based approach.
+well as the interfaces and interconnections between tasks (defined
+here by the set of protected objects in the system and the use
+relations among tasks and protected objects). The functional
+properties of the system, i.e., those that respond to the functional
+requirements, are met in the ``holes'' or callbacks provided by this
+framework. This framework, which in the case of Ada Ravenscar is to be
+written by hand, can be constructed via API calls in the case of the
+more ``traditional'' RTOS based approach.
 
 \begin{minipage}{0.40\linewidth}
 \lstset{language=c}
-\begin{lstlisting}[label=lst:api_thread, caption = RTOS API for thread
-  creation]
+\begin{lstlisting}[label=lst:api_thread, caption = RTOS periodic thread]
 _rtos_create_periodic_thread(
    priority, 
    period,
@@ -117,7 +115,7 @@ would alleviate the tedious and error-prone task of building by hand
 the execution framework on top of which to write the actual functional
 logic of the system. If a suitable modeling language can be used to
 describe the task set of the desired system with appropriate
-properties, as well as the topology of inter-connection and interfaces
+properties, as well as the topology of interconnection and interfaces
 of various tasks then code for the above-mentioned can be
 automatically generated to give the framework, leaving only the
 functional code to be written by hand and inserted as the
@@ -131,18 +129,18 @@ benefits:
   eliminated; this claim of course hinges on the hypotheses that
   \emph{(a)} the model is correct from the non-functional perspective
   and \emph{(b)} the code generator is itself error-free;}
-\item[Reduction of effort:]{Since a model is an abstraction itself, it
-  stands to reason that it will be easier to write than the framework
-  itself, thus reducing engineering effort, which will result in
-  reduced cost and reduced time-to-market.}
+\item[Reduction of effort:]{Since a model is itself an abstraction, it
+  stands to reason that it will be easier to write than the framework,
+  thus reducing engineering effort, which will result in reduced cost
+  and time-to-market.}
 \end{description}
 
 A third benefit, which is extrinsic to the act of code generation, is
 that different types of analyses may be brought to bear on the
 model. This requires the explicit enunciation and implementation of
-analysis techniques. These analyses would however, be much easier to
-perform on the model---as it is an abstraction---than on source code
-itself. The classical example of such an analysis would be the
+analysis techniques. These analyses would, however, be much easier to
+perform on the model---as it is an abstraction---than on source
+code. The classical example of such an analysis would be the
 scheduling feasibility test for a set of real-time tasks. In
 Chapter~\ref{chap:adv_code}, a methodology for analyzing and verifying
 the deterministic data-flow properties of a system is presented.
@@ -165,13 +163,12 @@ not limited to:
   Ravenscar), both have a similar \emph{concept space} of entities
   such as process, thread and shared data etc.;}
 \item[Reasonable level of abstraction:]{Like MetaH, the AADL provides
-  a good level of abstraction for software architecture
-  modeling. The constructs of processes, threads and data types
-  translates well to programming language. However, for the oft-used
-  real-time systems concept of data-flow it provides the port
-  construct, which allows a conceptual and uncluttered system
-  architecture while still showing major runtime constructs explicitly
-  in the model;}
+  a good level of abstraction for software architecture modeling. The
+  constructs of processes, threads and data types translates well to
+  programming languages. However, for the oft-used real-time systems
+  concept of data-flow it provides the port construct, which allows a
+  conceptual and uncluttered system architecture while still showing
+  major runtime constructs explicitly in the model;}
 \item[Industrial acceptance:]{It is being designed by a consortium of
   industry and academia \emph{for} the industry, and was expected
   to---and is achieving---large-scale industrial penetration and
@@ -180,11 +177,11 @@ not limited to:
 
 An AADL model is called a ``specification'', which may contain any
 number of different component types and component
-implementations. Since component implementations may themselves
-contain subcomponents. Of course, such an AADL specification cannot be
+implementations. Component implementations may themselves contain
+subcomponents. Of course, such an AADL specification cannot be
 converted to a running system, therefore, it is postulated that in
-every system model specification, there will be on system
-implementation that is to be considered as the ``root'' of the code
+every system model specification, there will be one system
+implementation that is to be considered the ``root'' of the code
 generation tree. This system implementation may---and should---contain
 subcomponents that are taken from the components declared in the
 specification. These subcomponents' implementations in the
@@ -197,17 +194,16 @@ Listing~\ref{lst:aadl_ex}.
 
 It is the system implementation---in this case
 \texttt{Comm\_System.ERC32}---that is actually used to generate
-code. However, during that code generation, as and when different
-component types or implementations are encountered as subcomponents,
-their definitions are looked up in the specification and corresponding
-code is generated. For instance, in the case of the
+code. However, during that code generation, when different component
+types or implementations are encountered as subcomponents, their
+definitions are looked up in the specification and corresponding code
+is generated. For instance, in the case of the
 \texttt{Comm\_System.ERC32} system, the process implementation of
 \texttt{Partition.Impl} will be looked up to instantiate the
 \texttt{Proc1} subcomponent of the system. Similarly, the two thread
-component types will be analyzed since they are declared as
-subcomponents of the process, and the data type \texttt{Int\_Type}
-will be processed as it is the type for the ports on the threads'
-interfaces.
+component types will be analyzed as they are declared as subcomponents
+of the process, and the data type \texttt{Int\_Type} will be processed
+as it is the type for the ports on the threads' interfaces.
 
 The target language chosen for this transformation, as mentioned
 previously, is the Ravenscar Profile for Ada 95/2005. The reasons were
@@ -217,19 +213,19 @@ deadlock as well as the ability to bound priority inversion
 times. Currently, there are two Ravenscar-compliant runtimes
 available, the RAVEN runtime from Aonix~\cite{aonix-raven} and the
 Open Ravenscar Kernel (ORK)~\cite{puente@ae00} from the Universidad
-Polit\'ecnica de Madrid (UPM), which is an open source implementation of a
-Ravenscar runtime based on the GNAT compiler~\cite{gnu-gnat}. In the
-presented research work, the ORK compiler and runtime is used, firstly
-because it is a free and open source solution, and secondly, since the
-UPM is a project partner in the ASSERT European Project, the funding
-source for this work.
+Polit\'ecnica de Madrid (UPM), which is an open source implementation
+of a Ravenscar runtime based on the GNAT compiler~\cite{gnu-gnat}. In
+the presented research work, the ORK compiler and runtime is used,
+firstly because it is a free and open source solution, and secondly,
+since the UPM is a project partner in the ASSERT European Project, the
+source of funding for this work.
 
 Of course, not all AADL models can be converted to Ravenscar-compliant
 Ada source code, the raison d'\^etre of the Ravenscar Profile being to
 disallow unsafe constructs and restrict the runtime to deterministic
 constructs. As a simple example, consider that a thread in AADL is
 given the property association \texttt{Dispatch\_Protocol =>
-  Aperiodc}, this would conceptually result in a Ravenscar task with
+  Aperiodic}, this would conceptually result in a Ravenscar task with
 no enforcement of inter-arrival time separation. This is unsafe since
 such a task might overload the system, jeopardizing
 schedulability. Another example is the declaration of an RPC (remote
@@ -309,7 +305,7 @@ presented of the transformations:
   enumeration is also generated which corresponds to all the events
   this thread can receive (in event and event data ports), and a
   protected object is generated with one entry and procedures to
-  deposit those events, this type of protected object is denoted as
+  deposit those events, this type of protected object is denoted as a
   \emph{synchronizer} in the rest of this document. This protected
   object's entry is the one the generated task waits upon;}
 \item[In and in out data port:]{Transformed to a protected object
@@ -437,7 +433,7 @@ toolchain. The more important classes within the RMM are:
 \item[Synchronizer:]{A concrete class that represents a synchronizer
   protected object. Any number of tasks can send it a message
   (\texttt{sends\_event} association), but only one \texttt{Sporadic}
-  may await upon its entry (the \texttt{gets\_event}
+  task may wait upon its entry (the \texttt{gets\_event}
   association). Also, it may only dispatch one task (the
   \texttt{dispatches} association). It has a multiple association to
   the \texttt{Type} class as well, this is a list of all event types
@@ -508,7 +504,7 @@ its own synchronizer is instantiated
 (\texttt{Alrm\_1\_Synchronizer}). The \texttt{priority} attribute of
 both the exchanger and the synchronizer reflect their PCP
 priorities. This RMM instance model is not observable by the user. As
-stated it is an internal model of the code generation tool
+stated, it is an internal model of the code generation tool
 corresponding to the intermediate representation. The model given in
 Fig.~\ref{fig:rmm_inst} is an approximation of the actual RMM instance
 generated by ARC.
@@ -519,8 +515,8 @@ protected objects that is automatically generated as a consequence of
 a model transformation from AADL to Ada Ravenscar source code. The
 generated framework is separated into a set of packages, some of which
 are present for every system generated, whereas others are generated
-as a function of the actual model itself. The code generator, named
-ARC (AADL to Ravenscar Converter)\footnote{Available at
+as a function of the model under consideration. The code generator,
+named ARC (AADL to Ravenscar Converter)\footnote{Available at
   \url{http://aadl.enst.fr/arc/}} is an open source Eclipse plugin
 based on the OSATE AADL parser~\cite{sei-osate}. ARC---whose
 architecture and implementation overview is given in
@@ -535,20 +531,20 @@ currently being pursued and a lightweight middleware called PolyORB-HI
 construction of distributed Ravenscar-compliant
 applications~\cite{zalila@ae07}.
 
-The packages generated, and their contents, are given in
-Table~\ref{tab:packages}, \texttt{<Proc\_Name>\_Main},
+The packages generated and their contents are given in
+Table~\ref{tab:packages}. \texttt{<Proc\_Name>\_Main},
 \texttt{<Proc\_Name>\-\_Tasks}, \texttt{Data\_Defs},
 \texttt{Task\_Features}, \texttt{Local\_Comm} and \texttt{Dispatchers}
 are the packages that are generated for every model, note that
-\texttt{Proc\_Name} is to be replaced by the name of the process
-\emph{subcomponent} as it is defined in the system implementation that
-is being transformed to code. The number of
+\texttt{<Proc\_Name>} is to be replaced by the name of the process
+\emph{subcomponent} as it is defined in the system implementation
+being transformed to code. The number of
 \texttt{<Thread\_Name>\_FUnit>} package(s) generated, however, depends
 on how many threads there are in the process component implementation;
 one such package is generated for each thread, and it is its
-``functional unit'', i.e., it is where its functional response code is
-to be added. In the following sections details of how different AADL
-entities are to be transformed to Ada.
+``functional unit'', i.e., where its functional response code is to be
+added. The following sections detail how different AADL entities are
+to be transformed to Ada code.
 
 \begin{table}
 \begin{tabular}{|l|l|}
@@ -584,13 +580,13 @@ Before moving to the code generation rules, it is important to go over
 the property mechanism of AADL, specifically when the same property is
 associated to different values by the type, implementation and
 instance of the same component. AADL property associations can be
-given in the definition component types, component implementations or
-component instances (subcomponents with the component classifier under
-consideration). In case the same property is associated to different
-values in the type, implementation and/or instance of the same
-classifier, the \emph{effective property association} for a property
-named $x$ is given according to the following rules (refer to the
-example given in Listing~\ref{lst:effective_prop}):
+given in the definition of component types, component implementations
+or component instances (subcomponents with the component classifier
+under consideration). In case the same property is associated to
+different values in the type, implementation and/or instance of the
+same classifier, the \emph{effective property association} for a
+property named $x$ is given according to the following rules (refer to
+the example given in Listing~\ref{lst:effective_prop}):
 
 \begin{itemize}
 \item{If $x$ is associated to a value in the component type, but not
@@ -655,8 +651,7 @@ to an Ada \kw{record} structure. Data components may also be declared
 as scalars or vectors. Thus, a data component may be of one of four
 different types: scalar data component of a primitive type, scalar
 data component of a compound type, vector data component of a
-primitive types or a vector data component of compound data
-components.
+primitive type or a vector data component of a compound type.
 
 The determination of whether a data component is primitive or compound
 can be done via analysis of its component implementation (if one
@@ -835,7 +830,7 @@ visible to all tasks in the application.
 A periodic thread in AADL is simply a thread subcomponent of a process
 that has an effective property association of
 \texttt{Dispatch\_Protocol => Periodic}. The other necessary
-properties to dimension a periodic thread correctly are
+properties to dimension a periodic thread correctly are the
 \texttt{Stack\_Size} and \texttt{Period} properties. An optional
 property that may be given is \texttt{Deadline}, if it is given, it is
 used in the deadline monotonic analysis for priority assignment, which
@@ -847,7 +842,7 @@ the name (as a string) of the procedure that is called every time this
 thread is dispatched.
 
 A library of generic Ada packages was developed to reduce the amount
-of code that needs to be emitted, this library, called
+of code that needs to be emitted, called
 \texttt{ravenscar\_lib}\footnote{Available at
   \url{http://aadl.enst.fr/arc/}}. One of the generic packages
 available in this library is the \texttt{Ravenscar\_Periodic} generic
@@ -856,10 +851,10 @@ a periodic task. The package's instantiation parameters include:
 
 \begin{description}
 \item[Period\_P:]{This parameter is used in the package's task
-  skeleton to delay the task till the next dispatch time;}
+  skeleton to delay the task till its next dispatch time;}
 \item[Priority\_P:]{This parameter is used as part of a pragma to set
   the task's priority;}
-\item[Stack\_Size\_P:]{This parameter is as part of a pragma to
+\item[Stack\_Size\_P:]{This parameter is used as part of a pragma to
   dimension the task's stack size;}
 \item[Dispatch:]{This parameter is a procedure, which is the callback
   that is called every time this task is dispatched, this procedure is
@@ -1128,7 +1123,7 @@ Fig.~\ref{fig:dataports}. A similar system model with one \texttt{out
 different threads, and a part of the resulting code generated is shown
 in Fig.~\ref{fig:dataports_fanout}. As is apparent, the write
 procedure now invokes calls to the \texttt{Set\_Value} procedures of
-both the target exchangers. These API provide for easy access to the
+both the target exchangers. These APIs provide for easy access to the
 exchangers from the functional unit packages of the various
 threads. They are to be used in the callbacks of the threads to read
 and write values to data ports.
@@ -1154,15 +1149,15 @@ implementation that has an effective property association of
 \texttt{Dispatch\_Protocol => Sporadic}. Similar to a periodic thread,
 the properties \texttt{Stack\_Size} and \texttt{Period} are used to
 dimension the sporadic thread, with \texttt{Period} representing the
-minimum inter-arrival time for two jobs of this thread. The optional
-\texttt{Deadline} property, if given, is used in the deadline
-monotonic priority assignment scheme, otherwise its value is copied
-from the \texttt{Period} property to enable the default fallback of
-the rate monotonic assignment scheme. Contrary to a periodic thread, a
-sporadic thread does \emph{not} have a single, default
-behavior. Instead, a sporadic thread has a (possibly) different
-behavior for every type of event it can receive, therefore, the
-\texttt{Compute\_Entrypoint} of a sporadic thread has no semantic
+minimum inter-arrival time for two consecutive jobs of this
+thread. The optional \texttt{Deadline} property, if given, is used in
+the deadline monotonic priority assignment scheme, otherwise its value
+is copied from the \texttt{Period} property to enable the default
+fallback of the rate monotonic assignment scheme. Contrary to a
+periodic thread, a sporadic thread does \emph{not} have a single,
+default behavior. Instead, a sporadic thread has a (possibly)
+different behavior for every type of event it can receive, therefore,
+the \texttt{Compute\_Entrypoint} of a sporadic thread has no semantic
 meaning. Its callbacks must be declared as the
 \texttt{Compute\_Entrypoint} callbacks for each incoming event and
 event data port that its features section has declared (an incoming
@@ -1251,19 +1246,19 @@ event and event data ports on the thread. For a thread type
 \item{\texttt{Await\_Event (The\_Event:out TType\_Event\_Type;
     Release\_Time:out Time)}: This is an entry on which the task waits
   for dispatch. The event type and the moment of time when the entry
-  starts execution is returned as parameters;}
-\item{\texttt{Send\_<Port\_Name>}: One procedure per incoming
+  starts execution are returned as parameters;}
+\item{\texttt{Send\_<Port\_Name>}: One procedure for each incoming
   \texttt{event port}. This procedure deposits an event of the
   designated type in the internal data structures of the
   synchronizer;}
-\item{\texttt{Send\_<Port\_Name> (D : in <Port\_Type>)}: One
-  procedure per incoming \texttt{event data port}. This procedure
-  deposits an event of the designated type and its associated data in
-  the internal data structures of the synchronizer;}
+\item{\texttt{Send\_<Port\_Name> (D : in <Port\_Type>)}: One procedure
+  for each incoming \texttt{event data port}. This procedure deposits
+  an event of the designated type and its associated data in the
+  internal data structures of the synchronizer;}
 \item{\texttt{Get\_<Port\_Name> (D : out <Port\_Type>)}: One procedure
-  per incoming \texttt{event data port}. This procedure returns the
-  oldest data associated with this port present in the internal data
-  structures of the synchronizer (if any is present);}
+  for each incoming \texttt{event data port}. This procedure returns
+  the oldest data associated with this port present in the internal
+  data structures of the synchronizer (if any is present);}
 \item{\texttt{Event\_Type\_Queue}: A circular queue of type
   \texttt{TType\_Event\_Type}. This queue holds the events that have
   been received and are pending. The size of this queue is the sum of
@@ -1277,7 +1272,7 @@ event and event data ports on the thread. For a thread type
   with each event received over the event data port, the procedure
   \texttt{Get\_<Port\_Name>} returns the data at this queue's
     head. The size of this queue is equal to the \texttt{Queue\_Size}
-    property of the corresponding \texttt{event data port}.}
+    property of its \texttt{event data port}.}
 \end{itemize}
 
 For every sporadic thread subcomponent of a process, a synchronizer
@@ -1307,7 +1302,7 @@ performs the following tasks:
   \end{enumerate}}
 \item{Suspends itself until \emph{release time + minimum
     inter-arrival} in order to enforce the temporal separation
-  between jobs of this task.}
+  between consecutive jobs of this task.}
 \end{enumerate}
 
 An example of the generated synchronizer type and instantiation as
@@ -1358,8 +1353,8 @@ minimum inter-arrival separation for the sporadic task.
  for this example is given in Listing~\ref{lst:await_event}.
 
 \begin{minipage}{\listingwidth}
-\begin{lstlisting}[language=ada,label=lst:await_event, caption=Await\_Event entry
-    of the TType thread type's synchronizer]
+\begin{lstlisting}[language=ada,label=lst:await_event, caption=\texttt{Await\_Event} entry
+    of the \texttt{TType} thread type's synchronizer]
 protected body TType_Synchronizer is
 ...
   entry Await_Event (The_Event    : out TType_Event_Type; 
@@ -1441,7 +1436,7 @@ scenario such as follows can be imagined:
 
 \begin{description}
 \item[$t_0$:]{Dispatching event for $\tau_2$ arrives, the
-  \texttt{Await\_Event} entry is entered by $\tau_2$}
+  \texttt{Await\_Event} entry is entered by $\tau_2$;}
 \item[$t_1$:]{$\tau_2$ is preempted immediately after execution of
   \texttt{Await\_Event} starts but before it can execute
   \texttt{Release\_Time := Clock};}
@@ -1470,7 +1465,7 @@ scenario such as follows can be imagined:
 \label{fig:caveat}
 \end{figure}
 
-This is absolutely no problem if the response time of the sporadic
+This is absolutely not a problem if the response time of the sporadic
 task---\emph{with respect to event arrival, not task dispatch}---in
 question is not a critical factor in the system. However, for sporadic
 tasks where response time between event arrival and job completion
@@ -1544,7 +1539,7 @@ acknowledgement event confirming the completion of the action.
 The platform is controlled via the manipulation of the various control
 surfaces, these surfaces exert forces on the passing airflow and the
 reaction causes the platform to change direction (pitch, roll or
-yaw). It is said to be in a in a \emph{stall} when there is a loss of
+yaw). It is said to be in a \emph{stall} when there is a loss of
 effectiveness of the aerodynamic control surfaces. For the platform
 under consideration, a stall condition exists if:
 
@@ -1588,7 +1583,7 @@ is given in Listing~\ref{lst:cs_data}.
 
 \begin{minipage}{0.45\linewidth}
 \lstset{language=aadl}
-\begin{lstlisting}[label=lst:cs_data, caption=The AADL data components used] 
+\begin{lstlisting}[label=lst:cs_data, caption=AADL data components] 
 data Ravenscar end Ravenscar;
 
 data implementation Ravenscar.Integer
@@ -1654,8 +1649,8 @@ the various body rates being out of bounds, it raises an event on the
 appropriate warning event port.
 
 \texttt{HCI} is a sporadic thread that manages the display and audio
-alarm system. It is a sporadic thread with a minimum inter-arrival
-time of 10 ms. An \emph{Ravenscar.Integer} event data is received on
+alarm system, with a minimum inter-arrival time of 10 ms. A
+\texttt{Ravenscar.Integer} event data is received on
 \texttt{Stall\_Warning}, with the value set according to the severity
 of the stall (hard or soft). An event is received on
 \texttt{Engine\_Failure} if the sensor raises an
@@ -1689,9 +1684,10 @@ first, completes its computation, and writes the data to the ports
 \emph{before} the \texttt{Platform\_Monitor} thread can
 run. Table~\ref{tab:task_set} summarizes the tasking
 configuration. The code generator automatically assigns priorities
-according to the deadline monotic approach. Code is generated for the
-ERC32 processor. A higher numeric value denotes a higher priority. The
-WCETs for the sensor and operator simulation threads is minuscule.
+according to the deadline monotic approach (a higher numeric value
+denotes a higher priority). Code is generated for the ERC32
+processor. The WCETs for the sensor and operator simulation threads
+are minuscule.
 
 \begin{table}
 \centering
@@ -1728,17 +1724,18 @@ functional unit packages in this system's generated code are
 \texttt{Platform\_Monitor\_FUnit}, \texttt{HCI\_FUnit}, and
 \texttt{Landing\_Gear\_FUnit}. 
 
-Listing~\ref{lst:platform_monitor}. The skeleton is generated
-automatically, the code inside the procedure is written by the system
-designer. The various comments of the form \texttt{[xxx] START/STOP}
-allow the code generator to save the state of the edits between
-successive code generation operations. The listing also shows the use
-of the generated stubs to manipulate the ports this thread has defined
-in its features section. The designer can declare local variables
-within the space provided, here a number of local variables have been
-declared to save the data from the various \texttt{in data port}
-features. The functional code can be written in the space provided,
-and will be preserved.
+Listing~\ref{lst:platform_monitor} shows an example of generated
+code. The skeleton is generated automatically, the code inside the
+procedure is written by the system designer. The various comments of
+the form \texttt{[xxx] START/STOP} allow the code generator to save
+the state of the edits between successive code generation
+operations. The listing also shows the use of the generated stubs to
+manipulate the ports this thread has defined in its features
+section. The designer can declare local variables within the space
+provided, here a number of local variables have been declared to save
+the data from the various \texttt{in data port} features. The
+functional code can be written in the space provided, and will be
+preserved.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -1800,8 +1797,8 @@ ports, the corresponding callback is called without any parameters
 \texttt{Roll\_Alarm}, \texttt{Pitch\_Alarm} and
 \texttt{Yaw\_Alarm}. For event data ports, first the synchronizer is
 interrogated to obtain the data attached to the event data port, and
-the corresponding callback is called, and the data obtained is sent as
-a parameter (\texttt{Stall\_Warning}).
+the corresponding callback is called with the data obtained as a
+parameter (\texttt{Stall\_Warning}).
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -1868,7 +1865,7 @@ infrastructure. An exchanger is instantiated for each \texttt{in data
   port} and a synchronizer for each sporadic
 thread. Table~\ref{tab:cs_local_comm} gives the names of the Ada source
 construct generated and their corresponding AADL artifacts along with
-the ceiling priority of said protected object.
+the ceiling priority of each.
 
 \subsection{Schedulability Analysis}
 Schedulability analysis on the given task-set is performed according
@@ -1891,8 +1888,8 @@ R_i=C_i + B_i + \sum_{j\in hp(i)}\Bigg\lceil \frac{R_i}{T_j}\Bigg\rceil C_j
 
 For a system with a priority ceiling protocol, the term $B_i$ can be
 calculated using Eq.~\ref{eq:block_def}. Where $usage(k,i)=1$ if
-resource $k$ is used by at least one task with a priority less then
-task $i$ and at least one task with a priority greater then or equal
+resource $k$ is used by at least one task with a priority less than
+task $i$ and at least one task with a priority greater than or equal
 to task $i$; otherwise $usage(k,i)=0$. $C(k)$ is the WCET of critical
 section $k$.
 
@@ -1946,30 +1943,30 @@ These properties include:
 \begin{itemize}
 \item{\texttt{Read\_WCET/Write\_WCET}: Applies to data components and
   gives the WCET for a \texttt{Get/Set} operation on an exchanger
-  (data port) of this type}
+  (data port) of this type;}
 \item{\texttt{Send\_Event\_WCET} and \texttt{Receive\_Event\_WCET}:
   Applies to threads and gives the WCET for a \texttt{Raise\_Event}
   and \texttt{Await\_Event} operation respectively on the thread's
-  synchronizer}
+  synchronizer.}
 \end{itemize}
 
 Using these properties the code generator will be able to perform a
-precise response time analysis. If the task set is not schedulable the
+precise response time analysis. If the task-set is not schedulable the
 analyzer will be able to pinpoint the task(s) that will not meet their
 deadlines.
 
 The AADL specification for this case study is approximately 150 lines
 of AADL code\footnote{Available at
   \url{http://aadl.enst.fr/arc/doc/}}. From that specification, ARC
-generates an Ada source code that includes 5 tasks, 2 type
-definitions, 4 different protected object types, 5 instantiations of
-those protected object types, a functional unit package for each of
-the 5 threads, a dispatcher package that contains the dispatch
-procedures of the two sporadic threads and the main compilation
-unit. The entire generated code amounts to about 700 lines of Ada
-source. The same system, with the functional code added to the
-callbacks and compiled for the ERC32 processor and including the ORK
-real-time kernel, gives an executable of 440Kb.
+generates Ada source code that includes 5 tasks, 2 type definitions, 4
+different protected object types, 5 instantiations of those protected
+object types, a functional unit package for each of the 5 threads, a
+dispatcher package that contains the dispatch procedures of the two
+sporadic threads and the main compilation unit. The entire generated
+code amounts to about 700 lines of Ada source. The same system, with
+the functional code added to the callbacks and compiled for the ERC32
+processor and including the ORK real-time kernel, gives an executable
+of 440Kb.
 
 \section{Conclusions and future work}
 A method of code generation for a customized execution framework for
@@ -1999,9 +1996,9 @@ The architecture of the code generation tool: a front end that
 converts the AADL model to an internal Ravenscar model, followed by a
 traversal of the Ravenscar model to code, will facilitate the writing
 of code generators from AADL to other languages. Such a profile
-already exists for Java~\cite{kwon@jgi02}, as well as a C language
+already exists for Java~\cite{kwon@jgi02}, as well as C language
 conventions and an interface to the ORK kernel
-itself~\cite{upm-ork-manual}. 
+itself~\cite{upm-ork-manual}.
 
 The major step forward would be the possibility of developing
 distributed real-time systems using the AADL and with
@@ -2026,7 +2023,7 @@ model and the generated code, an interesting axis of
 exploration---more of an engineering problem than a research
 problem---is the implementation of traceability functionality between
 the model and the code. The ideal product would be a plugin that
-automatically generates documentation, which gives a complete
+automatically generates documentation which gives complete
 traceability between the AADL model elements and the code they
 generate (and vice versa). This kind of documentation aids greatly in
 obtaining certification for high-integrity software.
@@ -2035,7 +2032,7 @@ Various parts of the presented work have been published in conferences
 \emph{12$^{th}$ International Conference on Reliable Software
   Technoglogies---AdaEurope'07} and \emph{$31^{st}$ IEEE/NASA Goddard
   Software Engineering Workshop---SEW'07} as well as in the April 2008
-edition of the journal \emph{Innovations in Systems and Software
+edition of the NASA journal \emph{Innovations in Systems and Software
   Engineering}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
