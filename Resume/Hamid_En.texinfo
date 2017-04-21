@@ -8,7 +8,7 @@
 @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @uref{mailto:irfan.hamid@@gmail.com,,irfan.hamid@@gmail.com}
 
 @noindent
-Engineer with an interest in scalability, performance optimization, real-time systems and functional programming. Experienced in the web and enterprise search domains.
+Engineer with an interest in scalability, performance optimization, real-time systems and functional programming. Experience in the web and enterprise search domains.
 
 @unnumberedsec Professional Experience
 @multitable @columnfractions 0.32 0.48 0.2
@@ -16,16 +16,16 @@ Engineer with an interest in scalability, performance optimization, real-time sy
 @end multitable
 @noindent
 @itemize @bullet
-@item @strong{Infrastructure ownership:} Own the search infrastructure. Coordinate the build out of search infrastructure in new datacenters and aid search teams in new search features that require infrastructure changes.
-@item @strong{Dynamic ranking optimization:} Prototyping a dynamic ranking runtime that uses Intel SSEx and AVX vectorizing instruction sets to improve performance at query time.
+@item @strong{Infrastructure ownership:} Own the search infrastructure. Responsible for Search fleet, builds, monitoring, alerting and security.
+@item @strong{Dynamic ranking optimization:} Prototyped a dynamic ranking runtime that uses Intel SSEx and AVX vectorizing instruction sets to improve performance at query time.
 @end itemize
-@multitable
+@multitable @columnfractions 0.32 0.475 0.205
 @item @strong{Salesforce.com} @tab @strong{Lead Member of Technical Staff} @tab @strong{2014-2016}
 @end multitable
 @noindent
 @itemize @bullet
-@item @strong{Search distributed systems functionality:} Developed the replication and ditributed management subsystem. Conducted a complete redesign of the existing in-house to use Apache ZooKeeper; principal for the design and development of the new subsystem and closely involved in the deployment and monitoring aspects.
-@item @strong{Search migration to Apache Solr:} Migrated away from a Lucene based indexer running on top of a SAN to a horizontally scaleable search infrastructure based on Apache Solr.
+@item @strong{Search distributed systems functionality:} Developed the replication and distributed management layer for search. Complete redesign of the existing ad-hoc system to use Apache ZooKeeper; principal for the design and development of the new subsystem and closely involved in the deployment and monitoring aspects.
+@item @strong{Search migration to Apache Solr:} Part of team that migrated away from a Lucene based indexer running on top of a SAN to a horizontally scaleable search infrastructure based on Apache Solr.
 @end itemize
 @multitable @columnfractions 0.32 0.48 0.2
 @item @strong{Microsoft Corp.} @tab @strong{SDE and SDE 2} @tab @strong{2008-2014}
@@ -121,8 +121,9 @@ Systems.} @emph{Embedded Real-time Systems 2006 (ERTS'06).} January 2006
 @item @strong{Technology} @tab @strong{Experience} @tab @strong{Major output}
 @item C/C++ @tab 10 years @tab Multiple projects, academic and professional
 @item C#/F# @tab 5 years @tab Multiple relevance, measurement and analysis tools at Bing 
-@item Java @tab 4 years @tab AADL to Ada code generator, Salesforce search
+@item Java @tab 4 years @tab Salesforce Search, AADL to Ada code generator
 @item Puppet @tab 2 years @tab Search infrastructure and ZooKeeper buildouts
+@item Kerberos @tab 1.5 years @tab Salesforce Search to ZooKeeper authentication
 @item Ada 95/2005 @tab 2 years @tab AADL to Ada code generator
 @item Win32 @tab 6 years @tab Undergrad senior project (flight sim and instrumentation)
 @item Linux @tab 10 years @tab Radar Display Processor, Salesforce search
