@@ -6,17 +6,16 @@ This chapter presents certain advanced aspects of code generation from
 AADL models to Ada source. The major technique introduced in this
 chapter is that of deterministic communication connectors between
 tasks. This deterministic communication is necessary for the correct
-construction of control systems. The other aspect presented, is a
-study of how to implement mode-specific temporal characteristics of
-tasks.
+construction of control systems. The other aspect presented is a study
+of how to implement mode-specific temporal characteristics of tasks.
 
 \section{Deterministic communication}
 Vehicle control systems are one of the most safety-critical categories
-of software even within the various categories of real-time
-systems. Stringent standards of code review---such as DO-178B for
-avionics systems~\cite{do178b}---must be met before deployment onboard
-the platform. Such control systems are invariably implemented in the
-form of control laws that take input data from sensors, carry out
+of software even within the real-time systems domain. Stringent
+standards of code review---such as DO-178B for avionics
+systems~\cite{do178b}---must be met before deployment onboard the
+platform. Such control systems are invariably implemented in the form
+of control laws that take input data from sensors, carry out
 transformations on that data and apply the outputs to actuators, as
 shown in Fig.~\ref{fig:ctrl_loop}. These control law computations are
 always carried out periodically, at a sufficiently high frequency to
@@ -25,20 +24,19 @@ control law implementations are also called ``control loops''. Two
 orthogonal sets of requirements are always leveraged on such systems:
 
 \begin{itemize}
-\item{Timing requirements relating to the timeliness of the produced
-  results. The validity of results is strongly dependant upon the time
-  at which they are available. This is the basic tenet of any
-  real-time system;}
+\item{Timing requirements relating to the timeliness of the results
+  produced, as the validity of results is strongly dependent upon the
+  time at which they are available;}
 \item{Functional requirements describing the output of the system as a
   function of the input, i.e., the algorithmic portion of the control
   law's response loop.}
 \end{itemize}
 
 One of the properties that these systems must exhibit is determinism,
-i.e., two equivalent runs with the same inputs should produce the same
-results. In a process-based executive, data flow between two threads
-operating at different periods may cause non-determinism since their
-order of execution may change from one run to the next due to
+to with that two equivalent runs with the same inputs should produce
+the same results. In a process-based executive, data flow between two
+threads operating at different periods may cause non-determinism since
+their order of execution may change from one run to the next due to
 decisions taken by the scheduler. These different orders of execution
 may result from, among other things, sporadic threads being dispatched
 due to external stimuli.
@@ -53,19 +51,20 @@ are then executed in synchronous lockstep, this ensures a completely
 deterministic execution of the various functions of the control
 loop. An offline data dependency graph can be constructed using the
 data flow information present in the model, this dependency graph
-allows the \emph{\`a priori} calculation of invocation order for the
-various functions. In Chapter~\ref{chap:biblio}, examples of both
+allows the \emph{\`a priori} calculation of the invocation order for
+the various functions. In Chapter~\ref{chap:biblio}, examples of both
 Lustre and Simulink were provided.
 
 Another approach is to write multi-threaded control applications,
 which run atop an operating system with a process based
 scheduler~\cite{butler@spie93}. This scheduler will inevitably preempt
-and resume the various threads at multiple points, thereby introducing
-a certain amount of non-determinism in the order of execution. The
-advantages of this approach are the possibility of higher processor
-utilization as well as flexibility of adding threads later in the
-design stage. It also allows designers to \emph{piggyback} non-control
-threads such as alarm and status monitors onto the same partition.
+and resume the various threads at multiple, arbitrary points. Said
+preemptions will introduce a certain amount of non-determinism in the
+order of execution. The advantages of this approach are the
+possibility of higher processor utilization as well as flexibility of
+adding threads later in the design stage. It also allows designers to
+\emph{piggyback} non-control threads such as alarm and status monitors
+onto the same partition.
 
 In all control systems, communication is carried out in the form of
 data flows as this is the paradigm most native to control law
@@ -107,7 +106,7 @@ next hyperperiod, due to extraneous factors---such as a sporadic alarm
 thread firing---\tl is executed after the \emph{second} job of \ts and
 it reads $\alpha_5$ instead of the expected $\alpha_4$.
 
-Vice versa, if \tl produces data $\beta$ to be read by \ts then the
+Vice-versa, if \tl produces data $\beta$ to be read by \ts then the
 following non-determinism might occur (also shown in
 Figure~\ref{fig:non_determinism}): in the first hyperperiod, \tl
 finishes \emph{after} the last job of \ts and thus all three jobs of
@@ -220,9 +219,9 @@ systems that can incorporate true sporadic threads.
 \label{sec:approach}
 This section presents a simple mathematical formulation of the data
 flow. However, first an explicit statement of hypotheses that can be
-made upon the system needs to be made. These hypotheses are quite
-natural and evident for a large class of real-time operating systems,
-and are true for a Ravenscar-compliant executive:
+made upon the system needs to be enunciated. These hypotheses are
+quite natural and evident for a large class of real-time operating
+systems, and are true for a Ravenscar-compliant executive:
 
 \begin{itemize}
 \item{The system is hard real-time. Periodic tasks are guaranteed to
@@ -235,10 +234,10 @@ and are true for a Ravenscar-compliant executive:
 \item{Deadlines are met, otherwise schedulability has been breached
   and the system should go into a graceful degrade mode;}
 \item{Both the source and destination threads are periodic with
-  \plong=$r\times$\pshort and $r\neq1$. If $r=1$ then there is no
-  problem since there will be one job of each task in each mutual
-  hyperperiod and the higher priority task will always be dispatched
-  first;}
+  \plong=$r\times$\pshort and $r>1$. $r=0$ is a degenerate case and
+  if $r=1$ then there is no problem since there will be one job of
+  each task in each mutual hyperperiod and the higher priority task
+  will always be dispatched first;}
 \item{The source thread writes to the data flow and the destination
   thread reads from the data flow at each job;}
 \item{The scheduler is preemptive and priority based;}
@@ -252,11 +251,11 @@ Given the above assumptions a simple mathematical model for the
 deterministic data flow can be obtained. For a data flow from a
 high-frequency to low-frequency thread every $r^{th}$ write is
 used. Similarly, for a data flow from a low-frequency to
-high-frequency thread every write is read $r$ times. The
-notation~\tl$(i)\gets\alpha_j$ signifies that the $i^{th}$ job of
-thread \tl gets $j^{th}$ instance of data-flow $\alpha$. For the
-example of Fig.~\ref{fig:determinism} (\plong$=3\times$\pshort), the
-first few data flows are:
+high-frequency thread every write is read $r$ times. Let
+\tl$(i)\gets\alpha_j$ signify that the $i^{th}$ job of thread \tl gets
+the $j^{th}$ instance of data-flow $\alpha$. For the example of
+Fig.~\ref{fig:determinism} (\plong$=3\times$\pshort), the first few
+data flows are:
 
 \begin{displaymath}
   \begin{split}
@@ -313,8 +312,8 @@ this approach, though valid, has multiple drawbacks:
 \begin{description}
 \item[Thread population:]{Increases the number of threads in the
   system, since at least one new thread will need to be instantiated
-  for every pair of threads that need to exchange data in a
-  deterministic manner;}
+  for every pair of threads that need to exchange data
+  deterministically;}
 \item[Mixing of functional and non-functional code:]{Introduces an
   impact from the non-functional (periods of the two threads, the type
   of the data flow etc.) towards the functional code of the protocol
@@ -352,7 +351,7 @@ them taking place via well-defined APIs. From~\cite{mehta@icse00}:
 
 The code generation rules presented in the previous chapter are
 specially well adapted to this notion, since the exchangers and
-synchronizers which carry out communication and synchronization among
+synchronizers that carry out communication and synchronization among
 the various tasks are completely separate from the tasks
 themselves. Furthermore, they can only be manipulated via the
 precisely defined APIs that they expose. Thus, a modification of the
@@ -380,10 +379,10 @@ needed. A connector that implements a data flow from a high-frequency
 or faster thread to a low-frequency or slower thread is called a
 \emph{stepper deterministic bridge exchanger}, or stepper DBX. The
 converse connector, which implements a deterministic data flow from a
-low-frequency or slower thread to a high-frequency or higher-frequency
-thread is called a \emph{stagger deterministic bridge exchanger},
-stagger DBX. Both types of connectors have an internal double buffer
-of the same type as the data flow, called the \emph{back store} and
+low-frequency or slower thread to a high-frequency or faster thread is
+called a \emph{stagger deterministic bridge exchanger}, or stagger
+DBX. Both types of connectors have an internal double buffer of the
+same type as the data flow, called the \emph{back store} and
 \emph{front store}. Both also provide a concurrency-safe API of
 \texttt{Get\_Value} and \texttt{Set\_Value} procedures. Thus, both
 types of DBX connectors are basically a specialized type of the
@@ -1533,3 +1532,5 @@ The work presented in this chapter has been published in the
 %%% mode: flyspell
 %%% TeX-master: t
 %%% End:
+
+%%  LocalWords:  preemptions
