@@ -427,7 +427,7 @@ follows:
 The pseudocode for the \texttt{Set\_Value} procedure of a stepper DBX
 is shown as Algorithm~\ref{algo:stepper_write}. It is called a
 \emph{stepper} DBX because it \emph{steps over} a certain number of
-inputs to the data flow, with only every $r^{th}$ data value is copied
+inputs to the data flow, with only every $r^{th}$ data value copied
 into the \emph{back store}.
 
 \begin{algorithm}
@@ -535,7 +535,7 @@ other part is the actual generation of Ada code for the special
 protected object.
 
 In the original mapping, AADL threads are transformed to Ada tasks,
-and each \texttt{in data port} and \texttt{in out data port}in the
+and each \texttt{in data port} and \texttt{in out data port} in the
 features section of the thread is transformed to an \emph{exchanger}
 protected object. As stated, an exchanger is an Ada protected object
 with an internal private data area, and two concurrency-safe access
@@ -736,7 +736,7 @@ verifies that for every DBX connection the following conditions hold:
 
 \begin{enumerate}
 \item{The connection must be between data ports;}
-\item{Both threads must periodic;}
+\item{Both threads must be periodic;}
 \item{The period of one thread must be an integral multiple of the
   period of the other.}
 \end{enumerate}
@@ -784,7 +784,7 @@ system. Imagine also that the sensor thread is the highest priority
 thread, the alarm thread is at an intermediate priority and the data
 fusion thread is the lowest priority thread. The system is shown in
 Fig.~\ref{fig:control_simple}. The \texttt{Sensor\_A} thread has a
-period of 20 ms and is at highest priority, the sporadic thread
+period of 20 ms and is at the highest priority, the sporadic thread
 \texttt{Alrm\_1} has an inter-arrival time of 30 ms and so is at an
 intermediate priority, finally, thread \texttt{Data\_Fusion} is
 periodic with a period of 40 ms, and so is the lowest priority thread.
@@ -797,8 +797,8 @@ periodic with a period of 40 ms, and so is the lowest priority thread.
 \end{figure}
 
 Thus, during every mutual hyperperiod of \texttt{Sensor\_A} and
-\texttt{Data\_Fusion}, \texttt{Sensor\_A} is dispatched twice whereas
-\texttt{Data\_Fusion} once, \texttt{Alrm\_1} may be dispatched at any
+\texttt{Data\_Fusion}, the former is dispatched twice whereas the
+latter is dispatched once, \texttt{Alrm\_1} may be dispatched at any
 point in time. In order to simulate a situation where
 non-deterministic communication would be harmful, consider that the
 threads perform the following computations:
@@ -831,13 +831,13 @@ amount of time that the periodic dispatch of \texttt{Sensor\_A} is now
 possible, thus letting it run before the job of
 \texttt{Data\_Fusion}. This problem can be simply fixed by setting the
 \texttt{Is\_DBX} property to \texttt{True} for the data connection
-between the ports \texttt{outp} and \texttt{inpA} in the system. This
-will result in the data flow as shown in
-Fig.~\ref{fig:det_no_breach}. This is possible because now a stepper
-DBX has been instantiated in the \texttt{Local\_Comm} package to
-handle the data flow between these two threads. The \emph{factor} for
-this stepper DBX is computed to be 2 (40/20), and it is given the
-appropriate ceiling priority to ensure deadlock-free execution.
+between the ports \texttt{outp} and \texttt{inpA}. This will result in
+the data flow as shown in Fig.~\ref{fig:det_no_breach}. This is
+possible because now a stepper DBX has been instantiated in the
+\texttt{Local\_Comm} package to handle the data flow between these two
+threads. The \emph{factor} for this stepper DBX is computed to be 2
+(40/20), and it is given the appropriate ceiling priority to ensure
+deadlock-free execution.
 
 \begin{figure}
 \centering 
@@ -857,33 +857,33 @@ braking of cars and railway signaling systems have a number of very
 restrictive certification constraints. For software systems deployed
 aboard aircraft, the DO-178B standard is the currently accepted
 one. Although the current version of the standard includes only tests
-as a means to obtaining certification, but it does not rule out the
-use of either formal verification or proofs as means of certification
-of certain aspects of the system. In addition, the new version of the
+as a means to obtaining certification, it does not rule out the use of
+either formal verification or proofs as means of certification of
+certain aspects of the system. In addition, the new version of the
 standard, DO-178C, includes an annex that specifically addresses the
-need for a methodology of using verification and/or proofs in lieu of
+need for a methodology of using verification or proofs in lieu of
 exhaustive tests as certification artifacts.
 
-It is with this context that the current section provides a
+It is within this context that the current section provides a
 verification methodology for the DBX connectors, specifically, the
 claim that they \emph{always} provide the envisaged deterministic
 communication (given that the system hypotheses hold). The
-verification is carried out using the LOTOS (Language of Temporal
+verification is carried out with the LOTOS (Language of Temporal
 Order Specification) language~\cite{bolognesi@cnis87} using the CADP
 toolbox from INRIA Rh\^one-Alpes~\cite{garavel@cav07}. Even though the
 following paragraphs do provide a short overview of LOTOS, the
 interested reader is referred to one of a number of
 tutorials~\cite{bolognesi@cnis87, logrippo@cnis92} for a deeper
-understanding of the language and its applications.
+understanding of the language.
 
 \subsubsection{Overview of LOTOS}
 LOTOS (Language of Temporal Order Specifications) is a process
 algebraic formal description technique inspired by
 CCS~\cite{milner-cc} and CSP~\cite{hoare@cacm78}. It uses the concept
 of observable actions carried out by independent processes. Processes
-synchronize upon actions. Actions are taken over \emph{gates} and may
-potentially involve an exchange of data between the gates of the
-synchronized processes.
+synchronize upon actions; these actions are taken over \emph{gates}
+and may potentially involve an exchange of data between the gates of
+the synchronized processes.
 
 The actions a LOTOS process can undertake are written in the form
 \texttt{a; b; c} which means the process engages in \texttt{a},
@@ -964,8 +964,8 @@ number as the data type with each \texttt{WRITE} action, and the
 destination thread accepts it. This natural number is the
 \emph{instance} of data flow being sent; the first job will offer $1$,
 the second job $2$, and so on. These two actions are synchronized with
-by the exchanger's process, which models the data flow protocol, and
-acts as a channel between the two threads.
+by exchanger's process, which models the data flow protocol, and acts
+as a channel between the two threads.
 
 The specification is built in such a way that in case of a reception
 of an unexpected data flow value at the destination thread, an error
@@ -993,23 +993,21 @@ of the exchanger. Finally, the exchanger has two variables named
 count and the ratio between the periods of the two participated
 threads. The stepper exchanger generated automatically for the example
 given in the previous section is shown in
-Fig.~\ref{fig:lotos_stepper}. Preemption of a thread
-\emph{inside} an exchanger is not modeled---the \texttt{READ} and
-\texttt{WRITE} actions are unique---because the purpose is the
-verification of the data flow. Even though during the actual system's
-execution, a task \emph{may} be preempted while it is inside an
-exchanger's procedure, thanks to the priority ceiling protocol, it
-will never be preempted by another task that may access the same
-exchanger (because the ceiling priority of the exchanger, and
-consequently the task inside it, would be at least equal to that of
-the other task). Thus, the procedures of the exchanger can be
-considered atomic \emph{with respect to the other procedures and
-  entries of the same exchanger}. In this context, the actions
-\texttt{READ} and \texttt{WRITE} can be considered to be an accurate
-approximation of the behavior of the system, and either of these
-actions can be thought of as occurring at the moment when the task
-\emph{returns} from the exchanger procedure, and has had the desired
-effect.
+Fig.~\ref{fig:lotos_stepper}. Preemption of a thread \emph{inside} an
+exchanger is not modeled---the \texttt{READ} and \texttt{WRITE}
+actions are unique---because the purpose is the verification of the
+data flow. Even though during the actual system's execution, a task
+\emph{may} be preempted while it is inside an exchanger's procedure,
+thanks to the priority ceiling protocol, it will never be preempted by
+another task that may access the same exchanger (because the ceiling
+priority of the exchanger, and consequently the task inside it, would
+be at least equal to that of the other task). Thus, the procedures of
+the exchanger can be considered atomic \emph{with respect to the other
+  procedures and entries of the same exchanger}. In this context, the
+actions \texttt{READ} and \texttt{WRITE} can be considered an accurate
+approximation of the behavior of the system, and both of these actions
+can be thought of as occurring at the moment the task \emph{returns}
+from the exchanger procedure, and has had the desired effect.
 
 \begin{figure}
 \centering
@@ -1203,10 +1201,10 @@ certified. The standard stipulates that Level A certified software
 undergo Modified Condition/Decision Coverage (MCDC) testing. This code
 coverage method requires a test case to verify each condition that can
 affect the outcome of a decision. A compound condition such as
-\texttt{if(a>0 \&\& b<5)} would result in four MCDC test cases with
-$a\le 0$, $a>0$, $b<5$ and $b\ge 5$. Also, it is not patently clear
-how test cases such as these could even be used to completely test
-application software that has sporadic threads and environmental
+\texttt{if(a>0 \&\& b<5)} would result in four MCDC test cases
+with $a\le 0$, $a>0$, $b<5$ and $b\ge 5$. Also, it is not patently
+clear how test cases such as these could even be used to completely
+test application software that has sporadic threads and environmental
 stimuli. Due to the temporally unpredictable nature of the system, no
 amount of testing could provide complete coverage from the
 point-of-view of arbitrarily dispatched sporadic threads and the
@@ -1276,10 +1274,10 @@ y = ax + (bx-dy)z^{-1} + (cx-ey)z^{-2}
 Since the system is expressed in z-transform equations, it signifies
 that values of $x$ that are multiplied by $z^{-1}$ is the last
 deterministically sampled value of $x$. Similarly, values of $x$
-multiplied by $z^{-2}$ is taken as the last-to-last deterministically
-sampled value of $x$, and so on. These types of systems can be
-implemented in an exceedingly simple manner using synchronous and
-cyclic techniques:
+multiplied by $z^{-2}$ is taken as the second-to-last
+deterministically sampled value of $x$, and so on. These types of
+systems can be implemented in an exceedingly simple manner using
+synchronous and cyclic techniques:
 
 \begin{description}
 \item[Lustre/SCADE Suite:]{$z^{-1}$ when multiplied by $x$ would be
@@ -1294,9 +1292,9 @@ cyclic techniques:
 Implementing these types of higher-order systems in the context of a
 process-based executive with preemption and sporadic threads, however,
 is not so simple. Fortunately, the approach described in the previous
-section can be intuitively extended to provide the idea constructs for
-implementing such data flow. If the source of the data flow---$x$ in
-this case---is one periodic thread, and the destination is another,
+section can be intuitively extended to provide the ideal constructs
+for implementing such data flow. If the source of the data flow---$x$
+in this case---is one periodic thread, and the destination is another,
 then there can be two cases:
 
 \begin{description}
@@ -1317,7 +1315,7 @@ applied to AADL connections. For a connection that has the
 \emph{age} of the hyperperiod from which to sample the data. Its
 default value is 1, in which case the behavior becomes that of a
 simple DBX connector. A value of 2 for the \texttt{Hyperperiod\_Age}
-property would provide data from the last job of the last-to-last
+property would provide data from the last job of the second-to-last
 hyperperiod of the source thread (in effect giving the value of
 $z^{-2}$).
 
@@ -1331,7 +1329,7 @@ following modifications:
   differences in behavior;}
 \item{Instead of a back and front store implemented as separate
   variables, they have an internal FIFO queue of the same type as the
-  data flow, the queue is of size $Hyperperiod\_Age+1$;}
+  data flow, the queue is of size \texttt{Hyperperiod\_Age+1};}
 \item{At the start of every hyperperiod, rather than overwriting the
   front store with the value in the back store, the internal queue is
   \emph{promoted} by one place;}
@@ -1347,7 +1345,7 @@ representation for both a stepper and a stagger exchanger with
 hyperperiod age of 3. The values being written to the exchanger are by
 the last job of the previous hyperperiod of the source thread. At
 every hyperperiod---represented by the vertical bars, the queue is
-promoted, i.e., every element advances by one element. The value read
+promoted, i.e., every element advances by one position. The value read
 is always from the head of the queue.
 
 \begin{figure}
@@ -1361,7 +1359,7 @@ is always from the head of the queue.
 The $2^{nd}$ order filter described above can now simply be modeled in
 AADL by using two \texttt{in data port} features on the thread that is
 to compute the filter value. Both ports should have the same source,
-that gives the value of $x$, one data connection should have
+which gives the value of $x$. One data connection should have
 \texttt{Hyperperiod\_Age => 1}, and the other \texttt{Hyperperiod\_Age
   => 2}. The two ports' values can now be used within the thread's
 callback without the user having to implement any complex buffering
@@ -1383,14 +1381,13 @@ ARC will also generate the entire LOTOS code to model the data flow of
 this system, allowing automatic verification of the data flow
 characteristics by the use of the CADP toolbox. For a higher-order DBX
 specification in LOTOS, instead of just two variables for the internal
-store, the number of variables generated will be $Hyperperiod\_Age+1$,
-i.e., \texttt{Store\_0, Store\_1, ..., Store\_N} where
-$N=Hyperperiod\_Age+1$. These will be used to model the data flow FIFO
-queue within the connector, and the values of each store will be
-``promoted'' to the next one in accordance with the protocol mentioned
-above. Similarly, the process specifications will be modified so that
-the threads offer the correct data flow numbers with the
-\texttt{WRITE} actions and expect the correct ones with the
+store, ARC will generate \texttt{Store\_0, Store\_1, ..., Store\_N}
+where \texttt{N=Hyperperiod\_Age+1}. These will be used to model the
+data flow FIFO queue within the connector, and the values of each
+store will be promoted to the next one in accordance with the protocol
+mentioned above. Similarly, the process specifications will be
+modified so that the threads offer the correct data flow numbers with
+the \texttt{WRITE} actions and expect the correct ones with the
 \texttt{READ} actions; for a higher-order DBX, the first
 $Hyperperiod\_Age$ data flow values are written in the initialization,
 and the source thread's first job writes the one after that. The LTS
@@ -1441,15 +1438,15 @@ the functional code, which is within the thread callbacks. This
 eliminates undue coupling within modules that can lead to difficulty
 in maintainability.
 
-The particular instance of solution provided---architecture in AADL
-and source code in Ada---is specific to the Ravenscar Profile and its
-semantics. However, this approach, in general, would be applicable to
-hard real-time systems running on a process-based executive as well,
-provided the system hypotheses as enunciated are fulfilled by the
-operating system. These hypotheses include rate monotonic or deadline
-monotonic priority assignment, a fixed-priority preemptive scheduler,
-the priority ceiling protocol for mutexes and synchronous release for
-threads that become ready at the same time.
+The particular instance of the provided solution---architecture in
+AADL and source code in Ada---is specific to the Ravenscar Profile and
+its semantics. However, this approach, in general, would be applicable
+to hard real-time systems running on a process-based executive as
+well, provided the system hypotheses as enunciated are fulfilled by
+the operating system. These hypotheses include rate monotonic or
+deadline monotonic priority assignment, a fixed-priority preemptive
+scheduler, the priority ceiling protocol for mutexes and synchronous
+release for threads that become ready at the same time.
 
 Also provided were details of the automatically generated LOTOS code
 that provides verification capability by modeling the data flow aspect
@@ -1479,7 +1476,7 @@ connections, or even activate or deactivate its contained threads (in
 case of a process implementation). This allows the expression in the
 model of large-grain behavior of the system. Implementing modes in
 a code generator like ARC is a proposition with varied complexity
-according to what the support is to be.
+according to what is to be supported.
 
 The most basic mode-dependant behavior is that of changing the
 \texttt{Compute\_Entrypoint} property of a thread with a mode
