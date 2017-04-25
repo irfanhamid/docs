@@ -12,10 +12,11 @@ that captures the dynamic evolution of the generated system. This
 semantics is the basis for on-going developments targeted at enhancing
 the tool-chain with simulation and verification features.
 
-Formal semantics of any system describe its behavior in unambiguous
-terms. For programming languages, the semantics can be given in many
-different methods and formalisms. The method of assigning meanings to
-programs, however, falls in one of three main classes:\\
+The formal semantics of any system describe its behavior in
+unambiguous terms. For programming languages, the semantics can be
+given in many different methods and formalisms. The method of
+assigning meanings to programs, however, falls in one of three main
+classes:\\
 
 \begin{description}
 \item[Denotational:]{Each statement or instruction in the language
@@ -24,7 +25,7 @@ programs, however, falls in one of three main classes:\\
   expression~\cite{tennent@cacm76};}
 \item[Operational:]{An operational semantics provides the meaning of
   programs via a state transition formalism~\cite{plotkin-sos}. Each
-  transition corresponding to one ``step'' of the program being
+  transition corresponds to one ``step'' of the program being
   modeled;}
 \item[Axiomatic:]{The semantics of a program are given via assertions
   pertaining to the state of the system before and after execution of
@@ -32,12 +33,12 @@ programs, however, falls in one of three main classes:\\
   in~\cite{floyd@macs67, hoare@cacm69}.}
 \end{description}
 
-The semantics given are in the form of Structured Operational
-Semantics (SOS). SOS allows for the definition of system behavior in
-the form of a state transition system, whereby the behavior of the
-system is given by the composition of the elementary entities and the
-way they are composed together. The system state gives the
-configuration of the system at any given point in time. The
+The semantics provided herein are in the form of Structured
+Operational Semantics (SOS). SOS allows for the definition of system
+behavior in the form of a state transition system, whereby the
+behavior of the system is given by the composition of the elementary
+entities and the way they are composed together. The system state
+gives the configuration of the system at any given point in time. The
 configuration or state of a single-processor system might include,
 among others, as an example:
 
