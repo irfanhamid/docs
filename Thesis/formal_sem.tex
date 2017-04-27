@@ -77,9 +77,9 @@ allotted. In~\cite{halbwachs@emsoft07}, the authors propose a
 methodology to \emph{simulate} an AADL system model by translating it
 into a synchronous representation in Lustre. This translated system
 needs to have functional code written in Lustre plugged into the
-various nodes (these nodes representing the AADL threads). The
-complete system is then simulated, with non-determinism being provided
-via external inputs called ``oracles''.
+various nodes (these nodes represent the AADL threads). The complete
+system is then simulated, with non-determinism being provided via
+external inputs called ``oracles''.
 
 A large body of work also exists that attempts to formalize the
 semantics of real-time kernels in general and Ravenscar-like
@@ -89,7 +89,7 @@ and causal extension of CCS~\cite{milner-cc} is defined that is aimed
 at studying multitasking systems. However, it does not allow for the
 explicit definition of system functions such as context switching and
 interrupts, instead abstracting them out and thus not allowing the
-modeling of system overheads cause by these actions.
+modeling of system overheads caused by these actions.
 
 The work presented in~\cite{fowler@rtss97} is perhaps the closest to
 the work presented in this thesis. In this work, the authors use the
@@ -114,24 +114,24 @@ primitives---\kw{delay until}, call to a protected object procedure,
 function or entry, etc.---on the internal data structures of the
 scheduler and the kernel. Detailed documentation is provided on the
 timing profiles of context switches, interrupt latencies and other
-issues that would be of engineering concern in an industrial setting
-were ORK to be used.
+issues that would be of concern in an industrial setting were ORK to
+be used.
 
-In~\cite{peyre@ae07}, the authors take an inverse approach, in that
+In~\cite{peyre@ae07}, the authors take an inverse approach in that
 they present the semantics of certain concurrency constructs
 \emph{using} the Ada language. In this case, Ada is more of a modeling
 language than an implementation language. However, since the semantics
-of certain concurrency constructs are presented in a programming
-language itself, it is quite a simple logical leap to an actual
-implementation of these constructs.
+of these constructs are presented in a programming language itself, it
+is a simple logical leap to an actual implementation of these
+constructs.
 
-The formal semantics presented in this chapter are fixed from two
-separate points-of-view, \emph{(a)} they are for a system that runs on
-top of a Ravenscar-compliant executive and \emph{(b)} they are
-specifically for applications written via the ARC code generator for
-AADL. These two stipulations, together with the assumption that the
-functional source code adheres to the Ravenscar restrictions, allows a
-simple yet expressive formal semantics to be developed.
+The formal semantics presented in this chapter are fixed on two
+separate axes, \emph{(a)} they are for a system that runs on top of a
+Ravenscar-compliant executive and \emph{(b)} they are specifically for
+applications written via the ARC code generator for AADL. These two
+stipulations, together with the assumption that the functional source
+code adheres to the Ravenscar restrictions, allows a simple yet
+expressive formal semantics to be developed.
 
 The formal semantics presented here can be broken up into two major
 parts, the static semantics of the system, and its dynamic
@@ -156,12 +156,11 @@ semantics. These give the evolution of the system over time as a
 function of the actions that are taken by the system as a consequence
 of time lapse as well as environmental stimuli. The various data
 structures of the kernel are represented as mathematical objects such
-as sets, bags and queues that can be manipulated as a consequence of
-the transitions being taken and can be used as preconditions to
-certain transitions being allowed. This is the classic structured
-operational semantics approach as proposed by
-Plotkin~\cite{plotkin-sos}. The dynamic semantics is presented in
-Sec.~\ref{sec:dynamic_semantics}. 
+as sets, bags and queues that can be manipulated as a result of the
+transitions being taken and can be used as preconditions to certain
+transitions being allowed. This is the classic structured operational
+semantics approach as proposed by Plotkin~\cite{plotkin-sos}. The
+dynamic semantics is presented in Sec.~\ref{sec:dynamic_semantics}.
 
 \section{Static semantics of the Ravenscar Meta-model}
 \label{sec:static_semantics}
