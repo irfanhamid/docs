@@ -170,9 +170,9 @@ Meta-Model is provided, as it is the basis of the static semantics
 itself. Figure~\ref{fig:rmm} is a class-diagram representation of the
 RMM (it shows certain different aspects as compared to that in
 Fig~\ref{fig:tasking_config}). According to this diagram, a Ravenscar
-system, i.e., an instance of RMM, is made of a set of tasks (that can
-be periodic or sporadic), a set of protected objects (that can be
-synchronisers or exchangers) and a set of interrupts.
+system, i.e., an instance of the RMM, is made up of a set of tasks
+(that can be periodic or sporadic), a set of protected objects (that
+can be synchronisers or exchangers) and a set of interrupts.
 
 \begin{figure}
 \centering
@@ -229,11 +229,11 @@ sets are:
 Each one of these is a set of all the objects of the respective RMM
 meta-class, e.g., ${\cal T}_p$ is the set of all objects of meta-class
 \texttt{Periodic}, which were instantiated as a result of traversal
-and analysis of the source AADL model. In discussion, these sets will
-be ranged over---i.e., iterated over---by symbols such as $P_i$ for
-the set ${\cal T}_p$, $S_i$ for the set ${\cal T}_s$, $U_i$ for the
-set ${\cal U}$, $D_i$ for the set ${\cal D}$ and $E_i$ for the set
-${\cal E}$. Some informal comments on Ravenscar computational units:
+and analysis of the source AADL model. These sets will be ranged
+over---i.e., iterated over---by symbols such as $P_i$ for the set
+${\cal T}_p$, $S_i$ for the set ${\cal T}_s$, $U_i$ for the set ${\cal
+  U}$, $D_i$ for the set ${\cal D}$ and $E_i$ for the set ${\cal
+  E}$. Some informal comments on Ravenscar computational units:
 
 \begin{itemize}
   \item{\emph{Sporadic tasks} are dispatched upon the reception of an
@@ -251,10 +251,10 @@ ${\cal E}$. Some informal comments on Ravenscar computational units:
     to implement AADL data ports;}
   \item{\emph{Synchronisers} are protected objects with an internal
     queue of events that expose a \texttt{Send\_Event} procedure for
-    depositing events. A \texttt{Await\_Event} \emph{entry} is also
+    depositing events. An \texttt{Await\_Event} \emph{entry} is also
     exposed. This is the service on which the associated sporadic task
-    waits for dispatch. These are used to implement AADL event/event data
-    ports.}
+    waits for dispatch. These are used to implement AADL event/event
+    data ports.}
 \end{itemize}
 
 Also defined are four derived sets to aid in the succinct expression
@@ -324,15 +324,15 @@ $\scriptstyle \mathbb{TIME}$ is a discrete time domain and is the
 domain for the functions $\text{\scshape holdingtime}$,
 $\text{\scshape wcet}$ and $\text{\scshape deadline}$. $\text{\scshape
   WCET}$ gives the worst case execution time of a task or an
-interrupt, if that task or interrupt were to be given sole possession
-of the CPU. $\text{\scshape holdingtime}$ can have one of two
-significations depending on the type of object it is applied to, for
-periodic tasks---members of the set ${\cal T}_p$---it gives the
-period, for sporadic tasks---members of the set ${\cal T}_s$---it
-gives the minimum inter-arrival time for two successive
-jobs. $\scriptstyle \mathbb{PROGS}$ is the subset of Ada that the code
-of computational units (tasks, interrupts or protected objects) must
-conform to. The code of a computational unit $\gamma$ is given by
+interrupt, were that task or interrupt given sole possession of the
+CPU. $\text{\scshape holdingtime}$ can have one of two meanings
+depending on the type of object it is applied to, for periodic
+tasks---members of the set ${\cal T}_p$---it gives the period, for
+sporadic tasks---members of the set ${\cal T}_s$---it gives the
+minimum inter-arrival time for two successive jobs. $\scriptstyle
+\mathbb{PROGS}$ is the subset of Ada to which the code of
+computational units (tasks, interrupts or protected objects) must
+conform. The code of a computational unit $\gamma$ is given by
 $\text{\scshape prog}(\gamma)$, and is defined via a number of
 different grammars for each of the computational units. Finally,
 $\scriptstyle \mathbb{ANYPRIORITY}$ is a bounded subset of the set
@@ -344,9 +344,9 @@ gives its ceiling priority.
 \subsection{Conformant ${\scriptstyle \mathbb{PROGS}}$ programs}
 An abstraction of the execution steps allowed for each of the five
 computational units is used in order to simplify the expression of the
-semantics. The legal sequences of execution for each of the different
-functional units are defined via a grammar, the terminals of which
-are the actual execution steps, these steps are:
+semantics. The legal sequences of execution steps for each of the
+different functional units are defined via a grammar, the terminals of
+which are the actual execution steps:
 
 \begin{itemize} 
   \item ${\text{\ttfamily comp}}$: A sequential execution step;
@@ -368,20 +368,12 @@ are the actual execution steps, these steps are:
 The \texttt{comp} instruction is what allows an abstraction of the
 functional code. Any type of sequential code such as arithmetic
 operations, logical operations and control structures such as
-\texttt{if}, \texttt{case} etc. are all collapsed into this
-category. \texttt{Set(E)} and \texttt{Get(E)} are the interfaces of an
-exchanger. \texttt{Send\_Event(D)} is the set of procedures of a
-synchronizer that can be used to send events to
-it. \texttt{Await\_Event} is the protected entry of a synchronizer on
-which the associated sporadic task will wait for events, it returns
-the type of event and associated data (if any) as well as the instance
-of time the entry started execution. The \kw{delay until} and
-\kw{return} instructions are rather self explanatory.
-
-The legal execution sequences of these steps depend on the type 
-of the computational unit. They are defined using grammars for each
-category of functional unit. The code of each functional unit must
-respect its prescribed grammar. These grammars are:\\
+\texttt{if}, \texttt{case}, loops etc. are all collapsed into this
+category. The rest of the instructions are rather self
+explanatory. The legal execution sequences of these steps depend on
+the type of the computational unit. They are defined using grammars
+for each category of functional unit. The code of each functional unit
+must respect its prescribed grammar. These grammars are:\\
 
 \begin{tabular}{llll}
 \emph{Periodic tasks}: 
@@ -417,8 +409,8 @@ synchronisers have the execution behaviours of their calls conformant
 to non terminal CC, which can only perform a sequence of
 ${\text{\ttfamily comp}}$ steps ended by a ${\text{\ttfamily
     ret}}$. Note here that an auxiliary restriction in addition to the
-basic Ravenscar Profile is adapted, i.e., protected objects do not
-make calls to other protected objects.
+basic Ravenscar Profile is adapted in that protected objects do not
+call other protected objects.
 
 \subsection{Topological relations on computational units}
 By an analysis of the set of programs \text{\scshape prog}, the
@@ -446,7 +438,7 @@ signatures:
 
 The $sets$ relation holds for a task and exchanger tuple if and only
 if said task writes data to said exchanger, i.e., $T_i \rset E$
-implies that $T_i$ calls the $E.Set$ procedure. Similarly, the $get$
+implies that $T_i$ calls the $E.Set$ procedure. Similarly, the $gets$
 relation signifies that the task reads from the
 exchanger. $sends\_event$ implies that a task sends an event to the
 synchronizer and $awaits\_event$ means that the sporadic task waits
@@ -506,7 +498,7 @@ writing of rules for the dynamic semantics. These relations are:
 \emph{accesses}. \emph{dispatches} is the inverse of
 \emph{awaits\_event}, \emph{writes\_to} is the union of \emph{sets} and
 \text{\emph{sends\_event}}, and \emph{accesses} is the union of the
-four primitive relations. Formally:
+four primitive relations:
 
 \begin{eqnarray}
   D \RL{DIS} S & \Leftrightarrow & S \rgvt D \label{geinvd}\\
@@ -533,21 +525,8 @@ four primitive relations. Formally:
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{eqnarray}
  
-\subsection{Priority Ceiling Protocol:}
-Scheduling in a Ravenscar-compliant executive is priority based and
-priorities must comply with the priority ceiling protocol. Thus,
-function {\scshape priority} must satisfy the following property
-(where $\RL{ACC}$ is the \emph{accesses} relation defined in
-equation~\ref{eq:accdef}):
-\begin{eqnarray}
-  \text{For any activity} \  \alpha \ \text{and any protected object} \ \pi: 
-  \nonumber \\
-  (\alpha \RL{ACC} \pi) \ \ 
-  \Rightarrow \ \  \text{\scshape priority}(\pi) \geq \text{\scshape priority}(\alpha)
-\end{eqnarray}
-
 For a Ravenscar system to be well-defined, the topological relations
-must satisfy the following constraints:
+must satisfy these constraints:
 
 \begin{eqnarray}
 \label{totd} \forall \ D, \ \exists  \ S \  \text{unique satisfying:} \ D \RL{DIS} S  \\
@@ -568,6 +547,20 @@ relations since this provides a homogenous notation  for the sequel of
 the document. Furthermore, from (\ref{totw}) and (\ref{injw}) it
 follows that relation $\RL{WTO}$, when restricted to ${\cal U}$, is an
 injective function with co-domain in ${\cal P\!O}$.
+
+\subsection{Priority Ceiling Protocol}
+Scheduling in a Ravenscar-compliant executive is priority based and
+priorities must comply with the priority ceiling protocol. Thus,
+function {\scshape priority} must satisfy the following property
+(where $\RL{ACC}$ is the \emph{accesses} relation defined in
+equation~\ref{eq:accdef}):
+
+\begin{eqnarray}
+  \forall \alpha \in {\cal A} \wedge \forall \pi \in {\cal D}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+  \nonumber \\
+  (\alpha \RL{ACC} \pi) \ \ 
+  \Rightarrow \ \  \text{\scshape priority}(\pi) \geq \text{\scshape priority}(\alpha)
+\end{eqnarray}
 
 \section{Dynamic Semantics}
 \label{sec:dynamic_semantics}
