@@ -27,8 +27,8 @@ In order to demonstrate the feasibility of the \ada language and its
 runtime for the construction of real-time systems, a case study was
 carried out in the late 1980s. The Software Engineering Institute at
 CMU, the Naval Weapons Center and IBM's Federal Sector Division
-participated in the creation the Generic Avionics Platform (GAP). The
-work has been reported in~\cite{locke@rtss91}
+participated in the creation of the Generic Avionics Platform
+(GAP). The work has been reported in~\cite{locke@rtss91}
 and~\cite{locke@irtaw90}. The GAP is a software platform that
 implements the Generic Avionics Software
 Specification~\cite{locke@sei90}. It is sufficiently detailed to
@@ -39,22 +39,22 @@ The GAP case study was implemented in \ada~83. \ada tasks were used to
 implement different threads of control that implement the MCC
 functions. Inter-task communication was carried out via rendezvous and
 schedulability analysis was carried out using
-RMA~\cite{liu@jacm73,liu@jacm73}. However excessive use of the \ada
+RMA~\cite{liu@jacm73,liu@jacm73}. However, excessive use of the \ada
 rendezvous renders the predictability and analyzability of the
 application very hard.
 
 The new tasking features introduced in \ada~95 such as protected
 objects can replace the rendezvous to make real-time applications more
 predictable. Also, the compliance with the Ravenscar concurrency
-profile~\cite{burns@adalett04} of the new \ada~2005 standard can make the
-application code statically analyzable. However, in an application
+profile~\cite{burns@adalett04} of the new \ada~2005 standard can make
+the application code statically analyzable. However, in an application
 such as the GAP, where the number of threads is relatively large and
 the communication topology complex (more than 15 threads with over 50
-data-flows among them), writing code ``by hand'' which is compliant
+data-flows among them), writing code ``by hand'' that is compliant
 with the Ravenscar Profile is a very tedious task. Therefore, a
 generative approach must be adopted, where all the tasking and
 inter-task communication code is automatically produced from a
-well-defined model. Also, using a modeling language raises the
+well-defined model. Additionally, using a modeling language raises the
 abstraction level of the application development process, making
 source code management and traceability easier and more comprehensible
 since there is a 1-to-1 correspondence between design artifact and
@@ -69,7 +69,7 @@ entailed foregoing the dangerous and unpredictable rendezvous. The
 code produced is optimized for the application under development which
 increases its performance and decreases its memory footprint. The
 system developed is also compliant with the Ravenscar Profile, which
-has rendered it analyzable for schedulability as well as much, due to
+has rendered it analyzable for schedulability as well as safer, due to
 the guaranteed absence of deadlock and bounded priority inversions.
 
 The main purpose of this case study has been to demonstrate and
@@ -90,27 +90,27 @@ Sec.~\ref{benefits}. Conclusions apprear in Sec.~\ref{conclusions}.
 \section{The Generic Avionics Platform}
 \label{GAP}
 Before the redesign of the GAP architecture can be explained, an
-introduction and overview of the classic platform itself is
-needed. The GAP system models those aspects of a military aircraft
-that are essential in successfully completing a mission. To be noted
-is the fact that a digital flight control system---also called a
-fly-by-wire---is \emph{not} a part of GAP. Furthermore, GAP models
-only the following aspects:
+introduction and overview of the classic platform is needed. The GAP
+system models those aspects of a military aircraft that are essential
+in successfully completing a mission. To be noted is the fact that a
+digital flight control system---also called a fly-by-wire---is
+\emph{not} a part of GAP. Furthermore, GAP models only the following
+aspects:
 
 \begin{itemize}
 \item{Tasking configuration and its timing constraints;}
-\item{Faithful data-flow, this includes data types as well as their
-  correct flow through the subsystems and tasks;}
+\item{Data-flow, including data types as well as their correct flow
+  through subsystems and tasks;}
 \item{Functional complexity, which is modeled by execution times of
   tasks.}
 \end{itemize}
 
 The avionics system consists of a set of sensors and subsystems
-connected over a data bus (e.g.: MIL-STD-1553B) to a central computer,
-as in Fig.~\ref{fig:GAP}. The software for the mission system computer
-performs a number of functions that aid in the successful completion
-of the mission. The major sensors and other hardware modeled in GAP
-include:
+connected over a data bus---e.g., MIL-STD-1553B---to a central
+computer, as in Fig.~\ref{fig:GAP}. The software for the mission
+system computer performs a number of functions that aid in the
+successful completion of the mission. The major sensors and other
+hardware modeled in GAP include:
 
 \begin{description}
 \item[Air Data Computer:]{Provides barometric altitude data
@@ -119,9 +119,9 @@ include:
 \item[INS:]{The Inertial Navigation System provides best estimates of
   aircraft position using accelerometers and gyros, also provides body
   rates (roll, pitch and yaw);}
-\item[Radar:]{This is the active radar, which detects and tracks
-  targets (be they on the ground or in the air);}
-\item[RALT:]{The Radar ALTimeter provides accurate height measurements
+\item[Radar:]{This is the active radar which detects and tracks
+  targets, both airborne and on the ground;}
+\item[RALT:]{The Radar Altimeter provides accurate height measurements
   through electromagnetic pinging of the terrain underneath the
   aircraft;}
 \item[RWR:]{The Radar Warning Receiver senses electromagnetic
@@ -141,7 +141,7 @@ include:
 \item[HUD:]{The Heads-Up-Display is a transparent display of vital
   information that does not obstruct the pilot's view;}
 \item[Keyset:]{This includes all keys that may be pressed by the
-  pilot, and that are not found on the HOTAS itself.}
+  pilot that are not found on the HOTAS.}
 \end{description}
 
 \subsection{High-level Architecture}
@@ -150,20 +150,20 @@ various components and constituent artifacts, is given in
 Fig.~\ref{fig:GAP}. All sensors (INS, ADC, Radar, RALT and RWR), as
 well as the SMS are connected to the computer over a serial data bus
 (MIL-STD-1553B). The HUD and MPD are connected over proprietary
-display connectors; keypresses from the HOTAS and Keyset are relayed
+display connectors. Keypresses from the HOTAS and Keyset are relayed
 over a separate channel (another serial bus). In~\cite{locke@rtss91}
-it is shown (as reproduced in Fig.~\ref{fig:GAP}) that there are two
-distinct computers which make up the MCC; ``Display proc.'' and
-``Mission Mgmt''. However, there is no mention of distribution
-elsewhere in~\cite{locke@rtss91} so it is assumed that they represent
-two distinct subsystems on the same machine.
+it is shown---as reproduced in Fig.~\ref{fig:GAP}---that there are two
+distinct computers that make up the MCC; ``Display proc.'' and
+``Mission Mgmt''. Since there is no mention of distribution elsewhere
+in~\cite{locke@rtss91} it is assumed that they represent two distinct
+subsystems on the same host.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=1.4]{figs/GAP_sys_arch}
 \caption{The GAP system architecture: {\normalsize showing
   decomposition into sensors, subsystems and their interconnection,
-  from~\cite{locke@rtss91}.}}
+  from~\cite{locke@rtss91}}}
 \label{fig:GAP}
 \end{figure}
 
@@ -178,7 +178,7 @@ according to those commands. SMS also sends status information to the
 mission computer which apprises the pilot of the stores' situation.
 
 \subsection{Software subsystems}
-The software portion of the Mission Control Computer are described
+The software portions of the Mission Control Computer are described
 here. From the point-of-view of Fig.~\ref{fig:GAP} this would be the
 two boxes ``Display Proc.'' and ``Mission Mgmt''. The major software
 subsystems and the tasks that comprise them which are modeled within
@@ -193,7 +193,7 @@ are derived from human and hardware factors, these subsystems include:
   which are displayed on either the HUD or the MPD (depending upon its
   mode);}
 \item[Radar warning receiver:]{This subsystem receives threat data
-  from the RWR and may optionally send commands to it, as a result of
+  from the RWR, and may optionally send commands to it as a result of
   pilot input;}
 \item[Radar control and tracking:]{Gathers target and track data from
   the radar. May optionally send commands to the radar to track
@@ -203,7 +203,8 @@ are derived from human and hardware factors, these subsystems include:
 \item[Weapons subsystem:]{When activated, updates weapons
   ballistics. Also allows the designation of targets in conjunction
   with the radar subsystem. Furthermore, performs weapons release as a
-  function of ballistics calculations and target designation;}
+  function of ballistics calculations, target designation and the
+  pilot's keypress on the trigger;}
 \item[Built-in-test:]{Performs diagnostics on the equipment.}
 \end{description}
 
@@ -217,11 +218,11 @@ Fig.~\ref{fig:dataflow}.
 There are also a number of deadline requirements stipulated on various
 tasks (called ``jitter requirements'' in~\cite{locke@rtss91}). The
 most important among these is the one on the task \texttt{Weapon
-release}. This requirement states that a release signal must be sent
+  release}. This requirement states that a release signal must be sent
 to the SMS at most 5~ms after the ideal moment of release (either a
-button depression by the pilot or calculated by ballistics task). This
-is ensured in GAP by giving the \texttt{Weapon release} task the
-highest priority.
+button depression by the pilot or calculated by the ballistics
+task). This is ensured in GAP by giving the \texttt{Weapon release}
+task the highest priority.
 
 \begin{figure}
 \centering
@@ -275,21 +276,18 @@ Data Bus & Poll Bus Devices & 40 & 1 & 2.50\\
 The architecture modeling has been done totally in \aadl, code
 generation has been carried out using the Ocarina\footnote{Available
   at \url{http://aadl.enst.fr/ocarina}} tool suite and is targeted to
-the minimalist high-integrity middleware PolyORB-HI, which is
-Ravenscar-compliant. It shares many common architectural notions while
-using a different code base.
-
-\polyorbhi{}~\cite{hugues@isorc07} strictly follows restrictions set
-by High-Integrity applications on object orientation, scheduling, use
-of memory. It is developed in \newada~\cite{arm05}. It is compliant
-with both the Ravenscar profile and the High Integrity System
-restrictions (Annexes~D and~H of the \newada{} standard). Note that
-most restrictions are enforced at compile time (no dispatching, no
-floating point, no allocator, etc.). This simply yet efficiently
-enforces that no unwanted features are used by the middleware,
-increasing the confidence in the code generated while limiting its
-complexity. Code generated by \ocarina{} also follows the same
-compilation restrictions.
+the minimalist Ravenscar-compliant middleware
+\polyorbhi{}~\cite{hugues@isorc07}. This middleware strictly follows
+restrictions set by high-integrity applications on object orientation,
+scheduling, memory use and task creation/destruction. It is developed
+in \newada~\cite{arm05}. It is compliant with both the Ravenscar
+profile and the High Integrity System Restrictions (Annexes~D and~H of
+the \newada{} standard). Note that most restrictions are enforced at
+compile time (no dispatching, no floating point, no allocator,
+etc.). This simply yet efficiently enforces that no unwanted features
+are used by the middleware, increasing the confidence in the code
+generated while limiting its complexity. Code generated by \ocarina{}
+also conforms to the same set of restrictions.
 
 The GAP was redesigned using \aadl, which from now on shall be called
 the Ravenscar Avionics Platform (or RAP). The design consists of the
@@ -347,29 +345,19 @@ procedure to send this event, respectively. The input event port
 will signal that this periodic task now needs to be activated.
 
 The system also models the data coming in from various sensors in
-order to carry out hardware-in-the-loop simulation:
+order to carry out hardware-in-the-loop (HIL) simulation:
 
 \begin{itemize}
-\item
-  The ADC (Air Data Computer), which sends data gathered from
-  positional and orientation sensors;
-
-\item
-  The RALT (Radar Altimeter);
-
-\item
-  The INS (Inertial Navigation System);
-
-\item
-  The Radar and the RWR (Radar Warning Receiver).
+\item The ADC (Air Data Computer);
+\item The RALT (Radar Altimeter);
+\item The INS (Inertial Navigation System);
+\item The Radar and the RWR (Radar Warning Receiver).
 \end{itemize}
 
-In addition, the key presses of the pilot coming from both the MPD
+Also modeled are the key presses of the pilot coming from both the MPD
 (Multi-Purpose Display) and the HOTAS (Hands On Throttle And Stick)
-subsystems are also modeled (so it is another hardware-in-the-loop
-(HIL) simulation). However, all HIL threads have been separated out
-into a different partition which simplifies the schedulability
-analysis of the actual ``functional'' partition which hosts the RAP
+subsystems. All HIL threads have been separated out into a different
+partition which simplifies the schedulability analysis of the RAP
 system threads.
 
 The entire \aadl system model is available at
@@ -388,7 +376,8 @@ used will serve to document the system architecture. Analysis is
 intentional, since the Cheddar scheduling analysis
 tool~\cite{singhoff@alj04} has been used to carry this out. Cheddar
 allows the schedulability analysis of AADL system models. Code
-generation is also intentional as it is the primary axis the research.
+generation is also intentional as it is the primary axis of the
+research.
 
 \subsection{Analyses}
 As previously stated, the use of a model driven approach to building
@@ -407,8 +396,8 @@ in~\cite{locke@rtss91} because in the RAP analysis the \texttt{Weapon
   trajectory} and \texttt{Weapon release} tasks were taken into
 account which are not always active. This factor is greater than
 $0.709$, thus it cannot be proven that the task set is schedulable
-using RMA. However, using the Cheddar real-time simulator, it can
-deduce that our task set is schedulable. This is due to the well-known
+using RMA. However, the Cheddar real-time simulator can deduce that
+our task set is schedulable. This is due to the well-known
 critical-zone theorem given in~\cite{liu@jacm73, sha@ieeeproc94}. This
 theorem states that if a task meets its first deadline when it and all
 higher priority tasks were launched at the same time, then it will
@@ -489,7 +478,7 @@ Generated code     & $7243$\\
 \label{SLOCs}
 \end{table}
 
-Given the development process retained, most code is automatically
+Given the development process employed, most code is automatically
 generated for an \aadl{} model ($81\%$ in the case of RAP). The code
 in the middleware handles simple types: messages, protocol,
 transport. Generated code adds tasking constructs required to execute
@@ -515,38 +504,36 @@ generation formalisms for sequential code exist as well, which allow
 the generation of verified functional code. One of these, SCADE, can
 be used to generate C and \ada code compatible with that generated by
 the Ocarina toolset\footnote{Complementary work on this topic has been
-  accepted for publication in the ERTS'08 conference to held in
-  January 2008 in Toulouse, France}.
+  accepted for publication in the ERTS'08 conference}.
 
 From the high-integrity systems point-of-view, the use of automatic
 code generation in the development process is doubly
-beneficent. Firstly, it drastically reduces the prototyping time of
+beneficial. Firstly, it drastically reduces the prototyping time of
 DRE systems~\cite{hugues@rsp07}. Secondly, the fact that the generated
 code is a combination of a relatively small set of extensively tested
 design patterns, the analysis and review (e.g., in the context of the
-DO-178B standard~\cite{do178b}) of this code is easier than those of
+DO-178B standard~\cite{do178b}) of this code is easier than that of
 hand-written code.
 
 Unfortunately, it was not possible to obtain the code for the original
 GAP project due to it having been lost. However,
 from~\cite{locke@rtss91, locke@sei90} it can be noted that the
-original GAP system carried out on average 277 rendezvous per second,
-which has been reduced to 0 in the case of the RAP through the use of
-protected objects. The use of the priority ceiling protocol on each
-protected object entails that there is no deadlock/livelock and that
-priority inversion is bounded \emph{and} calculable for each protected
-object being accessed by a task.
+original GAP system carried out on average 277 rendezvous/sec, which
+has been reduced to 0 in the RAP through the use of protected
+objects. The use of the priority ceiling protocol on each protected
+object entails that there is no deadlock/livelock and that priority
+inversion is bounded \emph{and} calculable for each protected object
+being accessed by a task.
 
 \subsection{Design Documentation}
-The documentation of a system design in an architecture description
-language such as the \aadl results in a very easily communicable
-design. Quite a bit of difficulty was encountered in deciphering the
-specification document of the GAP~\cite{locke@sei90}. On the other
-hand, the same system design given in \aadl is very intuitive and easy
-to understand. Whereas in the GAP specification document all thread
+The use of an architecture description language such as the \aadl
+results in a very easily communicable system design. Quite a bit of
+difficulty was encountered in deciphering the specification document
+of the GAP~\cite{locke@sei90}. On the other hand, the same system
+design given in \aadl is very intuitive and easy to
+understand. Whereas in the GAP specification document all thread
 input/output and timing characteristics were explained in text, the
-RAP now provides a model where they are formally explained in a
-language:
+RAP now provides a model where they are formally enunciated:
 
 \begin{itemize}
 \item
@@ -574,8 +561,7 @@ language:
   \end{itemize}
   
 \item
-  The communication topology for the thread's interface, i.e.: the
-  connections between the ports on various threads. This gives a very
+  The connections between the ports on various threads gives a very
   clear picture of the communication topology and by extension, the
   data-flow through the entire system. This was a major problem in
   understanding the original GAP specification.
@@ -587,7 +573,7 @@ this paradigm. Some of these restrictions stem from compliance with
 the Ravenscar Profile, some from the use of AADL as a design vehicle,
 and some from the Ada language itself. The first is that task
 priorities cannot be changed dynamically. This is due to the Ravenscar
-Profile itself, the reason being that changing priorities breaks the
+Profile, the reason being that changing priorities breaks the
 schedulability analysis performed \emph{\`a priori}. However, this can
 be overcome by using an approach presented in~\cite{puente@adalett01},
 which involves decoupling the \emph{job} from the \emph{task}. The
@@ -609,13 +595,13 @@ constructs in its place.
 However, all of these restrictions can be seen as an enforcement of
 ``best practices'' within the embedded and real-time domain as they
 lead to systems that are easier to analyze, simpler to construct and
-safer in execution.
+safer to execute.
 
 \section{Conclusions}
 \label{conclusions}
 An existing case study of an avionics system was rearchitected using
-the AADL and code generated for it automatically. The main reason for
-undertaking this case study was to validate and demonstrate the
+the AADL and code was generated for it automatically. The main reason
+for undertaking this case study was to validate and demonstrate the
 usability of the whole gamut of technology towards the construction of
 real-time systems in general and aerospace/avionics systems in
 particular. The aforementioned technology being of course the Ada
@@ -626,8 +612,9 @@ for the generation of code from AADL. It is a substantial analysis
 effort as well. However, it is not the \emph{largest} AADL model
 analysis effort. The largest AADL model analyzed has been a
 re-engineered fly-by-wire model for a helicopter flight control system
-carried out by Honeywell; reportedly 22,000 lines of AADL code,
-compared to ~1000 lines of AADL code for this case study.
+carried out by Honeywell; at reportedly 22,000 lines of AADL, it
+dwarfs this case study's approximately 1000 lines of AADL by an order
+of magnitude.
 
 %%% Local Variables:
 %%% mode: latex
