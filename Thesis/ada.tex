@@ -7,27 +7,26 @@
 Ada is a structured, statically (strongly) typed, imperative
 object-oriented high-level computer programming language.  Ada is
 fairly unusual in that its runtime provides extensive tasking
-features. Traditionally tasking features are the province of operating
-systems. But, factoring in tasking functionality to the language
-runtime provides some advantages:
+features. Traditionally, tasking features are the province of
+operating systems; however, factoring in tasking functionality to the
+language runtime provides some advantages:
 
 \begin{itemize}
-\item{Uniform behaviour and API across operating systems}
-\item{Greater reliability and control over tasking}
+\item{Uniform behaviour and API across operating systems;}
+\item{Greater reliability and control over tasking;}
 \item{Exploitation of inherent parallelism becomes easier and can be
-  done at the compilation stage}
+  done at the compilation stage.}
 \end{itemize}
 
 \section{Tasks}
 In Ada, parallel activities are described by \emph{tasks}. Ada
-procedures are different from C/C++ functions in that a procedure
-itself may contain multiple, concurrent \emph{entry-points} in the
-form of tasks, as well as other procedures/functions with local
-scope. Code Listing~\ref{tasks_in_proc} shows this approach, where the
-main procedure contains two different tasks itself. The output of this
-code is completely random and depends only on the scheduler
-implemented within the Ada runtime. Any of the six statements may be
-executed in any order (the three~\texttt{Put} and the three
+procedures are different from C/C++ functions in that a procedure may
+itself contain multiple, concurrent \emph{entry-points} in the form of
+tasks, as well as other procedures/functions with local
+scope. Listing~\ref{tasks_in_proc} demonstrates this, where procedure
+\texttt{Main} contains two tasks. The output of this code is
+completely random and depends only on the Ada runtime's scheduler. The
+six statements (the three \texttt{Put} and the three
 \texttt{New\_Line}) may be executed in any order.
 
 Tasks inside procedures may also share data declared within the scope
@@ -105,9 +104,8 @@ In the previous examples the tasks did not interact directly with one
 another once they were activated by the runtime, except for the fact
 that their parent (the procedure \texttt{Main}) had to await their
 termination in order to terminate itself. One way for tasks to
-interact with one another would be by the sending of messages to one
-another. In Ada, this form of IPC is called a \emph{rendezvous}. A
-rendezvous occurs when one task calls (like a procedure) an
+interact is by sending of messages; in Ada, this form of IPC is called
+a \emph{rendezvous}. A rendezvous occurs when a task calls an
 \emph{entry} declared in another task.
 
 \begin{minipage}{\listingwidth}
@@ -158,18 +156,15 @@ end Main;
 In Listing~\ref{rendezvous_single} task \texttt{Producer} calls a
 rendezvous \texttt{Put\_Element} exposed by task
 \texttt{Consumer}. The semantic of this call is that whichever task
-arrives first (be it the \texttt{Producer} that arrives at the call
-first, or the \texttt{Consumer} that arrives at the accept first) will
-wait for the other to arrive at the corresponding point in its thread
-of execution before proceeding. Bear in mind that the \texttt{accept}
-construct is a one-shot receiver for a rendezvous, which is why it is
-enclosed in a loop that executes 10 times.
-
-Rendezvous can easily produce deadlocks as is evident from
-Listing~\ref{deadlock_simple}. The \texttt{Main} procedure calls the
-entries \texttt{Compute\_Sum} and \texttt{Compute\_Product} in the
-opposite order to their declaration inside the \texttt{Calculate}
-task.
+arrives first---be it the \texttt{Producer} or the
+\texttt{Consumer}---will wait for the other to arrive at the
+corresponding point before proceeding. Bear in mind that the
+\texttt{accept} construct is a one-shot receiver for a rendezvous,
+which is why it is enclosed in a loop that executes 10 times. It is
+apparent that rendezvous can produce deadlocks. Note
+Listing~\ref{deadlock_simple} where \texttt{Main} calls entries
+\texttt{Compute\_Sum} and \texttt{Compute\_Product} in the opposite
+order to their declarations inside the \texttt{Calculate} task.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -207,12 +202,11 @@ end Main;
 \end{lstlisting}
 \end{minipage}
 
-If the order of calls is changed to
-\texttt{Calculator.Compute\_Product (3, 4);} and
-\texttt{Calculator.Compute\_Sum (10, 20);} then the program terminates
-successfully. On the other hand, if an extra call to either of the two
-entries is appended at the end of the \texttt{Main} procedure it
-results in the runtime raising a \texttt{TASKING\_ERROR}
+If the order is changed to \texttt{Calculator.Compute\_Product(3, 4)}
+and \texttt{Calculator.Compute\_Sum(10, 20)} then the program
+terminates successfully. On the other hand, if an extra call to either
+of the two entries is appended at the end of the \texttt{Main}
+procedure it results in the runtime raising a \texttt{TASKING\_ERROR}
 exception. This is because after accepting the two entries the
 \texttt{Calculator} terminates and there is nothing to accept the call
 from the procedure.
@@ -220,7 +214,7 @@ from the procedure.
 \section{Timing}
 \label{ada_tasking_timing}
 Ada provides two basic timing primitives, the \kw{delay}
-\texttt{<Duration\_Expression>} to make a task sleep during a certain
+\texttt{<Duration\_Expression>} to make a task sleep for a given
 quantum of time and the \kw{delay until} \texttt{<Time\_Expression>}
 to make a task sleep until a certain instance of time. Since Ada has
 tasking capabilities, it follows logically that the Ada runtime has a
@@ -228,33 +222,29 @@ scheduler. The Ada language core, however, does not say whether the
 Ada scheduler is pre-emptive or not. It does stipulate that tasks may
 have priorities, and that a higher priority task may not be
 interrupted by a lower priority one. What the Ada semantics do say, is
-that a statement of the form
+that a statement of the form \texttt{delay 2.5} will put the calling
+task in the state \emph{suspend} for 2.5 seconds before being declared
+as \emph{ready} again. Note that this does not mean that the task will
+be in the state \emph{running} after the elapse of 2.5 seconds as in
+the meantime a higher priority task may be running on the
+processor. In case the processor is executing a lower priority task
+then the newly enabled task will pre-empt it. This approach, however,
+is not ideal since it does not take into account timing drift due to
+the amount of time required by various actions in the task.
 
-\texttt{delay 2.5}\\will put the calling task in the state
-\emph{suspend} for 2.5 seconds before being declared as \emph{ready}
-again. Note that this does not mean that the task will be in the state
-\emph{running} after the elapse of 2.5 seconds as in the meantime a
-higher priority task may be running on the processor. In case the
-processor is executing a lower priority task then the newly enabled
-task will pre-empt it. This approach however, is not ideal since it
-does not take into account timing drift due to the amount of time
-required by various actions in the task. In order to overcome these
-difficulties, Ada proposes the absolute timeout construct. The
-statement
-
-\kw{delay until} \texttt{Next\_Time;}\\ allows the calling task to be
-suspended up until an absolute delay. Although the same risk
-(inability to run because of a higher priority task occupying the
-processor) as the earlier relative \texttt{delay} exists, yet there is
-no chance of time drift creeping in between cycles of a real-time
-system.
+In order to overcome these difficulties, Ada proposes the absolute
+timeout construct. The statement {delay until} \texttt{Next\_Time;}
+allows the calling task to be suspended up until an absolute moment in
+time. Although the same risk (inability to run because of a higher
+priority task on the CPU) as the earlier relative \texttt{delay}
+exists, there is no chance of time drift creeping in between cycles.
 
 \section{Protected objects}
 \emph{Protected objects} are high-level constructs used to ensure
 mutual exclusion between concurrent tasks that need access to the same
 data. Ada enforces the separation of the interface from the
 implementation for protected objects. The public part of the protected
-object's (or its type's) definition may not contain any data elements.
+object's definition may not contain data elements.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -288,10 +278,10 @@ object. A procedure may not return a value, whereas a function can
 return a value; although a procedure may, in effect, return a value
 indirectly using an \emph{out} parameter. Thus many different tasks
 can be inside a function (if none is inside any of the procedures) but
-only a single task at a time can be a in a procedure (thus precluding
-any others from entering any functions as well). This approach, in
-essence, gives a high-level construct for implementing a CREW
-(Concurrent Read Exclusive Write) protocol.
+only a single task at a time can be in a procedure (thus precluding
+any others from entering any functions as well). This approach gives a
+high-level construct for implementing a MREW (Multiple Reader
+Exclusive Writer) protocol.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -309,12 +299,15 @@ end PO;
 The different functional entry-points of a protected object may also
 be protected by \emph{guards}. This would be similar to having a
 conditional statement at the beginning of the procedure or function
-that exits without carrying out any treatment in case a guard
-condition is false. Ada goes one step further on this concept by
-introducing the concept of blocking guards on the entry-points into a
-protected object. In Ada these guards are called \emph{barriers} and
-in order to use them we use an \emph{entry} into the protected object
-in place of a procedure or function.
+that exits without executing code within if the condition is
+false. Ada extends on this concept by introducing blocking guards on
+the entry-points into a protected object. In Ada these guards are
+called \emph{barriers} and may only be placed on entries on the
+protected object, not on procedures nor functions. As shown in
+Listing~\ref{prod_consumer}, the entry \texttt{Put} has a barrier
+placed on it (the Boolean \texttt{Transit\_Ready}) which is set to
+true when a recipient reads the stored value and false when a sender
+puts a new value.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -344,11 +337,6 @@ end Pipe;
 \end{lstlisting}
 \end{minipage}
 
-As shown in Listing~\ref{prod_consumer}, the entry \texttt{Put} has a
-barrier placed on it (the Boolean \texttt{Transit\_Ready}) which is
-set to true when a recipient reads the stored value and false when a
-sender puts a new value.
-
 \section{Select statement}
 The \texttt{select} statement allows the selection of one entry-point
 among many offered by a task based on the request queued at the task's
@@ -357,7 +345,10 @@ but for task entry-points. Whereas a series of entries
 (\texttt{accept} statements) in a task would only be invocable
 sequentially (resulting in a deadlock if the caller is out of step
 with the callee), a select statement would let the task choose between
-any of the entries available based on the request available.
+any of the entries declared based on the request(s) available. In
+Listing~\ref{select_po}, the object \texttt{Protected\_Variable} may
+respond to any combination of successive \texttt{Read} or
+\texttt{Write} invocations because of the select construct.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
@@ -385,8 +376,3 @@ begin
 end Protected_Variable;
 \end{lstlisting}
 \end{minipage}
-
-In Listing~\ref{select_po}, the object \texttt{Protected\_Variable}
-may respond to any combination of successive \texttt{Read} or
-\texttt{Write} invocations because of the select construct.
-
