@@ -19,7 +19,7 @@ become more and more technologically demanding so that
 products, e.g., cars with anti-lock braking systems, washing machines
 and ovens with automatic timers and programmable functions, not to
 mention cell phones and wrist watches that have more computing power
-than was used to send man to the Moon. In fact, according to different
+than was used to send Man to the Moon. In fact, according to different
 industry estimates, of the \emph{six billion} microprocessors produced
 annually, 90$\sim$98\% are used in embedded systems and are thus
 invisible. The currently perceived major uses of computers include,
@@ -30,7 +30,8 @@ but are not limited to:\\
 \item{Scientific computation;}
 \item{Finance, such as personal accounting all the way to corporate
   finance;}
-\item{Office applications such as word processing, spreadsheets;}
+\item{Office applications such as word processing, spreadsheets and
+  presentations;}
 \item{Communication via the use of emails, instant messaging and
   social networking;}
 \item{Publishing of newspapers and books;}
@@ -38,14 +39,13 @@ but are not limited to:\\
 \end{itemize}
 
 \section{Real-time systems}
-One of the major uses of computer systems in the past four decades
-has been in the domain of \emph{real-time systems}.  Contrary to
-popular misconception, real-time computation does not necessarily mean
-fast computing, real-time implies a computation or computation
-framework where the validity of the results computed are dependant not
-only upon the value computed, but also upon the time at which that
-result is available. Major applications of real-time systems
-include:
+One of the major uses of computer systems in the past four decades has
+been in the domain of \emph{real-time systems}. Contrary to popular
+misconception, real-time does not necessarily mean fast; it instead
+implies a computation framework where the validity of the results
+computed are dependent not only upon the value obtained, but also upon
+the time at which they are available. Major applications of real-time
+systems include:
 
 \begin{description}
 \item[Industrial process control and monitoring:]{Industrial setups
@@ -99,7 +99,7 @@ tasks will meet their deadlines. Before the advent of this paper and
 the techniques it introduced, real-time systems were constructed in an
 ad-hoc manner using cyclic executives~\cite{audsley@rts95,
   laplante@rts95}. However, during the 1970s and 1980s it was realized
-that this approach leads to systems that were inflexible to change and
+that this approach led to systems that were inflexible to change and
 difficult to maintain; an overview of cyclic executives is given in
 Sec.~\ref{sec:scheduling}, also given is an overview of the other
 major type of executives, the so-called ``process based executives''.
@@ -138,11 +138,11 @@ off in case of an emergency is also required. The Therac-25 radiation
 therapy machine has been the cause of serious accidents because of a
 real-time software bug~\cite{leveson@computer93}.
 
-Another class of real-time system, as presented in
-Fig.~\ref{fig:rt_apps_overview} are control systems. Real-time control
-systems are used to control vehicular platforms. This class of system
-mostly consists of a set of periodic threads---those that are launched
-periodically at certain points in time and carry out similar
+Another class of real-time systems, as presented in
+Fig.~\ref{fig:rt_apps_overview}, are control systems. Real-time
+control systems are used to control vehicular platforms. This class of
+systems mostly consist of a set of periodic threads---those that are
+launched periodically at certain points in time and carry out similar
 computations every time---that read data from sensors, compute the
 required response and send commands to actuators based on those
 calculated responses. This type of system is inherently robust to
@@ -154,13 +154,13 @@ stable.
 The final type of real-time systems are those that are a mix of hard
 real-time periodic threads and \emph{sporadic} threads---those that
 are launched as a result of the reception of an event---that
-communicate among themselves to achieve an objective. Examples of such
-systems are mission control computers on aircraft, radar systems,
+communicate amongst themselves to achieve an objective. Examples of
+such systems are mission control computers on aircraft, radar systems,
 assembly lines etc. Because there are sporadic threads in the
 system---e.g., a thread that can be triggered to release a
-weapon---therefore in this class of system, delivery of events must be
-assured because a missed event may mean jeopardizing the functionality
-of the system.
+weapon---therefore in this class of systems, delivery of events must
+be assured because a missed event may mean jeopardizing the
+functionality of the system.
 
 \section{High-integrity software \& certification}
 As stated, because of the fact that modern vehicular platforms are
@@ -187,7 +187,7 @@ computerized due to two main reasons:
   is to introduce a computer into the control loop, which gives rise
   to the fly-by-wire software. Anti-lock braking systems continuously
   check to determine and regulate braking to give optimum non-skid
-  behavior, resulting in shortest braking distances.}
+  behavior, resulting in the shortest possible braking distances.}
 \end{description}
 
 Monitoring systems have been computerized simply because a computer is
@@ -239,12 +239,12 @@ Level E & No effect & None\\
 
 The DO-178B standard thus becomes more stringent going from Level E to
 Level A software. All fly-by-wire and other control systems must be
-declared Level A software and certified accordingly. Certification
-normally occurs via a certification body which audits all the
-artifacts produced during the development of software; documentation
-such as requirement specifications, functional specifications, design,
-code, test cases and their results etc. This is an extremely expensive
-exercise but one which remains necessary.
+Level A software and certified accordingly. Certification normally
+occurs via a regulatory body which audits all the artifacts produced
+during the development of software; documentation such as requirement
+specifications, functional specifications, design, code, test cases
+and their results. This is an extremely expensive exercise but one
+which remains necessary.
 
 One consequence of the criticality level of a software component is in
 the amount and nature of test cases that must be carried out to
@@ -270,7 +270,7 @@ be certified. The operating system (if any), the communication
 modules, the device drivers for hardware such as sensors and actuators
 must all be certified to the criticality level of the application
 software making use of them. Automatic code generators such as Matlab
-\simu and SCADE suite (see Chapter~\ref{chap:biblio})
+\simu and SCADE Suite (see Chapter~\ref{chap:biblio})
 must also be certified to the criticality level of the software
 component they are used to build for the generated code to be exempted
 from the certification process.
@@ -289,11 +289,11 @@ development where~\cite{france@fose07}:
 A model is an approximation of a system, it serves to enable analysis
 of the actual system at a higher level of abstraction, where the
 artifacts are much closer to the problem domain than those of the
-actual physical system. A typical example of a model might be the
-mathematical equations of motion that approximate the flight of a
-projectile fired from the surface of the Earth at a certain angle,
-resulting in parabolic motion. The equations provide an approximation
-of the physical system in a mathematical domain.
+actual physical system. A typical example of a model are the
+mathematical equations of motion that describe the flight of a
+projectile fired from the Earths' surface at an angle, resulting in
+parabolic motion. The equations provide an approximation of the
+physical system in a mathematical domain.
 
 The major push towards MDD approaches began during the 1990s with the
 formation of the Object Management
@@ -303,19 +303,19 @@ UML~\cite{uml-super}. However, model driven engineering existed in the
 software field before that, approaches such as
 OMT~\cite{bruegge@oopsla92}, OOSE~\cite{jacobson-oose} and the Booch
 Method~\cite{white-booch}, which are object oriented modeling and
-design methods, predate the UML by many years. Before that there were
+design methods, predate UML by many years. Before that there were
 design techniques such as Jackson Structured
 Design~\cite{jackson-jsd}. In general, models in computing serve one
 or more of three purposes:
 
 \begin{description}
 \item[Documentation:]{Because models are more abstract than code and
-  are thus nearer the domain, they are used and useful for documenting
-  the software development process. An example of this type of model
-  might be use case diagrams;}
+  are thus nearer the problem domain, they are used and useful for
+  documenting the software development process. An example of this
+  type of model might be use case diagrams;}
 \item[Analysis:]{Being more abstract than code, models are also used
   for carrying out analysis on the system. Examples of these kinds of
-  models include statecharts in UML, which can be used to simulate the
+  models include Statecharts in UML, which can be used to simulate the
   behavior of systems; the B design method~\cite{abrial@vdm91,
     sorensen-B}, proof engines such as PVS~\cite{owre@cav96} and
   process algebraic techniques such as LOTOS~\cite{garavel@cav07}
@@ -352,31 +352,31 @@ deployed.
 \label{fig:mde_chain}
 \end{figure}
 
-Consider the case of a class diagram, which is one of the basic
-notation methods of object oriented design, where the class hierarchy
-and relational structure of a system is given in a graphic format. In
-UML, a class is represented by a rectangle with three compartments,
-for the name of the class, the member variables and the member
-functions. The first design, which is sometimes called the Platform
-Independent Model~\cite{mda-guide} or PIM is not dependent upon the
-programming language or execution environment that will be eventually
-chosen. Once these platform decisions have been made, the PIM can be
-transformed automatically to a Platform Specific Model or PSM, which
-includes refinements in the model to accommodate the platform's
-abilities. The PSM can finally be used to generate
-code. Fig.~\ref{fig:class} shows a model artifact for a circle. The
-PIM is on the left, and the class \texttt{Circle} contains the
-attributes to store its position and radius, and one public member
-function that calculates its area and returns it. The PIM to PSM
-transformation, in this case for C++, results in the class shown in
-the middle. Member functions have been generated to get and set the
-values of the member variables (newly generated model elements are
-shown in bold). This PSM can finally be used to generate code, as
-shown in the final part of the figure. The member functions to access
-the protected variables are generated automatically, whereas the
-function to calculate area must be written by hand. Thus, the PIM is
-at the conceptual level of the problem, whereas the PSM contains more
-implementation information and is nearer to the solution space.
+Consider the case of a class diagram, one of the basic notation
+methods of object oriented design, where the class hierarchy and
+relational structure of a system is given in a graphic format. In UML,
+a class is represented by a rectangle with three compartments, for the
+name of the class, the member variables and the member functions. The
+first design, which is sometimes called the Platform Independent
+Model~\cite{mda-guide} or PIM is not dependent upon the programming
+language or execution environment that will be eventually chosen. Once
+these platform decisions have been made, the PIM can be transformed
+automatically to a Platform Specific Model or PSM, which includes
+refinements in the model to accommodate the platform's abilities. The
+PSM can finally be used to generate code. Fig.~\ref{fig:class} shows a
+model artifact for a circle. The PIM is on the left, and the class
+\texttt{Circle} contains the attributes to store its position and
+radius, and one public member function that calculates its area and
+returns it. The PIM to PSM transformation, in this case for C++,
+results in the class shown in the middle. Member functions have been
+generated to get and set the values of the member variables (newly
+generated model elements are shown in bold). This PSM can finally be
+used to generate code, as shown in the final part of the figure. The
+member functions to access the protected variables are generated
+automatically, whereas the function to calculate area must be written
+by hand. Thus, the PIM is at the conceptual level of the problem,
+whereas the PSM contains more implementation information and is nearer
+to the solution space.
 
 As even this trivial example serves to show, MDE can be a powerful
 tool in the development of complex software systems and can introduce
@@ -402,11 +402,11 @@ MetaH~\cite{metah-manual}.
 
 \section{Context of the research work}
 This section provides an overview of the problem statement that leads
-to the research work carried out during this thesis, namely, the issue
-of the generation of hard real-time system source code from a
-high-level architecture description language that is simple, domain
-specific and non-ambiguous. It presents furthermore the motivation for
-that work, and why it is advantageous to undertake such an endeavour.
+to the research work carried out during this thesis, namely, the
+generation of hard real-time system source code from a high-level
+architecture description language that is simple, domain specific and
+non-ambiguous. It presents, furthermore, the motivation for that work,
+and why it is advantageous to undertake such an endeavor.
 
 \subsection{Problem statement}
 Given this state of affairs, i.e., the complexity of real-time
@@ -422,10 +422,10 @@ code generation from the high-level language. The different types of
 high-level languages allow various modeling methodologies and generate
 different types of application code, e.g., UML generates an execution
 framework and no functional code (in its basic form), which is to run
-on a process based executive; \simu and Lustre generate
-an execution framework \emph{and} functional code that executes within
-that framework on a cyclic executive (see Chapter~\ref{chap:biblio}
-for an introduction to these methodologies).
+on a process based executive; \simu and Lustre generate an execution
+framework \emph{and} functional code that executes within that
+framework on a cyclic executive (see Chapter~\ref{chap:biblio} for an
+introduction to these methodologies).
 
 Architecture description languages (ADL) such as Rapide, Wright and
 UniCon~\cite{clements@iwssd96} provide a higher level view of the
@@ -461,16 +461,16 @@ There exists a need for an architecture description language that is
 geared towards hard real-time systems, as opposed to a generic ADL or
 modeling language. The reason for this is that the domain is very
 specific and the language chosen should be an ideal mix of
-expressiveness and simplicity. Expressiveness to allow the description
-of the large class of systems in the domain and simplicity in order to
-allow a clear semantics to enable precise, unambiguous transformations
-to code. Furthermore, the programming language for which code should
-be generated, and the generated code itself, should be robust, safe
-and predictable. Of course, once this pair has been identified, code
-generation rules for the transformation from architecture to source
-code need to be established, and a code generator itself has to be
-implemented, as a proof-of-concept in the first step and eventually an
-industrial tool as a second step.
+expressiveness and simplicity. Expressiveness to allow for the
+description of the large class of systems in the domain and simplicity
+in order to allow a clear semantics to enable precise, unambiguous
+transformations to code. Furthermore, the programming language for
+which code should be generated, and the generated code itself, should
+be robust, safe and predictable. Of course, once this pair has been
+identified, code generation rules for the transformation from
+architecture to source code need to be established, and a code
+generator itself has to be implemented, as a proof-of-concept in the
+first step and eventually an industrial tool as a second step.
 
 The advantages to this approach include, among others, the fact that
 an automatic vertical transformation from a system model to code will
@@ -498,8 +498,8 @@ be summarized as follows:
   language, which validates the fundamental soundness of the approach,
   as well as the choice of both source architecture language and the
   target programming language and execution environment;}
-\item[Case study:]{A significant case study that can be used to
-  validate the \emph{applicability to the domain} of the approach.}
+\item[Case study:]{A significant case study to validate the
+  \emph{applicability to the domain} of the approach.}
 \end{description}
 
 \subsection{Motivation and objectives of work}
@@ -539,7 +539,7 @@ to be explored included the use of specialized versions of the Unified
 Modeling Language (UML) for the generation of code, the use of formal
 models such as Lustre and other synchronous languages to generate
 functional code and finally methods of providing automatic or
-semi-automatic transformation from requirements to source code
+semi-automatic transformation from requirements to source code,
 including proofs of correctness.
 
 Thus, the motivation for this research is to provide a

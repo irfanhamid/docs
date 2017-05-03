@@ -9,16 +9,16 @@ Layland~\cite{liu@jacm73}, which introduced the concepts of processes,
 jobs and schedulability. Whereas Manacher~\cite{manacher@jacm67} had
 presented the concepts of ``hard real-time'' and ``soft real-time'',
 it was Liu and Layland that presented the first major contribution to
-the area of real-time systems and who presented idea of schedulability
-and feasibility tests for scheduling. This chapter presents an
-introduction to some of the terms and concepts that form the basis of
-the work presented in later chapters, as well as a state of the art
-for code generation techniques for hard real-time systems.
+the area of real-time systems and who presented the idea of
+schedulability and feasibility tests for scheduling. This chapter
+presents an introduction to some of the terms and concepts that form
+the basis of the work presented in later chapters, as well as a state
+of the art for code generation techniques for hard real-time systems.
 
 The first section presents an introduction to real-time tasks (or
-threads), the different types there are and how they differ and their
-temporal characteristics. The second section presents an introduction
-to the various scheduling techniques currently in use for real-time
+threads), their different types and how they differ and their temporal
+characteristics. The second section presents an introduction to the
+various scheduling techniques currently in use for real-time
 systems. Finally, the last section gives an overview of the model
 driven code generation approaches that are currently available for
 real-time systems. The last section presents some conclusions of the
@@ -52,11 +52,11 @@ Real-time tasks are almost always \emph{recurrent}, i.e., they occur
 over and over again during the entire lifetime of a system. Each such
 occurrence of a task is called a \emph{job}. In other words, every
 time a task is dispatched, it is called a job. The scheduling of tasks
-is dependant upon the temporal characteristics said tasks, the
+is dependant upon the temporal characteristics of said tasks, the
 characteristics of a task that impact on schedulability are shown in
 Table~\ref{tab:task_chars}. $C$ is the maximum amount of time one job
 of the task may engage in computation if it was executing in
-isolation, this is also denoted as WCET (Worst-Case Execution
+isolation, this is also denoted its WCET (Worst-Case Execution
 Time). $T$ is either the \emph{(a)} period of a periodic task or
 \emph{(b)} the minimum inter-arrival time for a sporadic task. $I$ or
 interference is the amount of time a ready task is not given the
@@ -124,12 +124,12 @@ starts at $t_0 + 2T_p$ and the $k^{th}$ job is dispatched at $t_0 +
 their deadlines must be respected or the system risks
 instability. Thus for a job of $\tau_i$ that is dispatched at $k\times
 T_i$, its execution \emph{must} terminate nominally at $k\times T_i +
-D_i$, where $D_i$.
+D_i$, where $D_i$ is its deadline.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figs/thread_timeline}
-\caption{Above: Two jobs of a sporadic thread , arriving
+\caption{Above: Two jobs of a sporadic thread, arriving
   randomly. Below: Three consecutive jobs of a periodic thread,
   arriving at regular intervals.}
 \label{fig:thread_timeline}
@@ -181,11 +181,11 @@ are defined for event queues of sporadic tasks:
 \begin{description}
 \item[Hot Overflow]{this stipulates that an incoming event to an
   already full event queue is rejected, i.e., the \emph{hot} event
-  overflows}
+  overflows;}
 \item[Cold Overflow]{this stipulates that an incoming event to an
   already full queue is inserted at the tail of the queue and the
   event at the head of the queue---the oldest queued event---is
-  purged, i.e., the \emph{cold} event overflows}
+  purged, i.e., the \emph{cold} event overflows.}
 \end{description}
 
 \section{Scheduling}
@@ -204,19 +204,19 @@ specially the one that is the basis for the work in this thesis.
 
 \subsection{Cyclic executives}
 Cyclic executives are one method to create a real-time system with
-multiple functions. This type of executive is conceptually
-simple, consisting of a single timer callback that runs at the rate of
+multiple functions. This type of executive is conceptually simple,
+consisting of a single timer callback that runs at the rate of the
 fastest function of the system, which is called the \emph{base
-  rate}. All other functions are \emph{harmonic} compared to the
-base rate, meaning their rates are integral multiples of the base
-rate. The timer callback is responsible for calling the procedures
-that represent the system functions in accordance with
-their rates. For example, if a function $b$ has a rate that is twice
-that of the base rate of the system, then it will be called once every
-second time the clock interrupt is executed. An example of what such a
-clock interrupt handler would look like is shown in
-Listing~\ref{lst:cyclic_callback} and a graphical representation of
-how it is done is shown in Fig.~\ref{fig:cyclic_exec}.
+  rate}. All other functions are \emph{harmonic} compared to the base
+rate, meaning their rates are integral multiples of the base rate. The
+timer callback is responsible for calling the procedures that
+represent the system functions in accordance with their rates. For
+example, if a function $b$ has a rate that is twice that of the base
+rate of the system, then it will be called once every second time the
+clock interrupt is executed. An example of what such a clock interrupt
+handler would look like is shown in Listing~\ref{lst:cyclic_callback}
+and a graphical representation of how it is done is shown in
+Fig.~\ref{fig:cyclic_exec}.
 
 \begin{figure}
 \centering
@@ -235,11 +235,11 @@ void clock_tick (int sig, siginfo_t *siginfo, void *context)
   static int job = 0;
   job++;
   sensor_a_job();
-  if(job==2 || job==4) {
+  if ( job==2 || job==4 ) {
     sensor_b_job();
     data_fusion_job();
   }
-  if(job==4) {
+  if ( job==4 ) {
     actuator_job();
     job = 0;
   }
@@ -265,14 +265,14 @@ procedure invoked by the callback are within bounds for the next one
 to start at an appropriate time and for the processing of each timer
 callback to finish before the next time the timer callback is
 executed. It is also completely deterministic, in that the sequencing
-of the various functions is known \emph{a priori}. However, it does
+of the various functions is known \emph{\`a priori}. However, it does
 suffer from quite a few disadvantages~\cite{locke@rts92}:
 
 \begin{itemize}
 \item{Difficult to incorporate sporadic processes;}
 \item{Any function with a long computation time (WCET) will need to be
-  factorized into a number of smaller functions, this will induce
-  extraneous dependencies between different pieces of the software;}
+  factorized into a number of smaller functions which will induce
+  extraneous dependencies between them;}
 \item{A cyclic executive leads to a large number of processor cycles
   that are lost;}
 \item{Difficulty in constructing such an executive, specially for
@@ -374,7 +374,7 @@ It is obvious that the response time $R$ for the highest priority task
 will be equal to its worst-case execution time. All other tasks will
 suffer \emph{interference} from higher priority tasks. In the general
 case, for a task $\tau_i$, the response time $R_i = C_i + I_i$. The
-form of the equation for response time of a task is given in
+form of the equation for the response time of a task is given in
 Eq.~\ref{eq:rta_wo_sync}, where $hp(i)$ gives the set of all tasks
 with a priority higher than $\tau_i$.
 
@@ -399,11 +399,11 @@ schedulable.
 
 \paragraph{Communication and synchronization among tasks}
 In almost all real-time systems tasks will interact with each
-other. Communication among tasks implies shared data buffers,
-protected via mutexes or semaphores. Synchronization among tasks
-implies shared data buffers protected by mutexes \emph{and} condition
-variables to send asynchronous events. Introducing of shared buffers
-and mutexes raises the possibility of
+other. Communication among tasks implies shared data buffers protected
+via mutexes or semaphores, while synchronization among tasks implies
+shared data buffers protected by mutexes or semaphores \emph{and}
+condition variables to send asynchronous events. The introduction of
+shared buffers and mutexes raises the possibility of
 \emph{deadlock}~\cite{levine@sigops03}. Keeping in mind the
 safety-critical nature of the software under consideration, deadlocks
 and livelocks are unacceptable. The ``Priority Ceiling
@@ -426,47 +426,29 @@ variant of PCP) implies:
 \end{itemize}
 
 For a system that uses the PCP, the blocking time $B_i$ for any task
-$\tau_i$ can be calculated using
-Eq.~\ref{eq:pcp_block} (Sec. 13.11 of~\cite{burns-rtspl}
-and~\cite{sha@toc90}). Where $usage(k, j) = 1$ if critical section $k$
-is used by at least one task with a priority less than $\tau_j$ and at
-least one task with a priority greater than or equal to task
-$\tau_j$; otherwise $usage(k, j) = 0$. $K$ is the set of all critical
-sections and $C_k$ is the WCET of critical section $k$.
-
+$\tau_i$ can be calculated using Eq.~\ref{eq:pcp_block} (Sec. 13.11
+of~\cite{burns-rtspl} and~\cite{sha@toc90}), where $usage(k, j) = 1$
+if critical section $k$ is used by at least one task with a priority
+less than $\tau_j$ and at least one task with a priority greater than
+or equal to task $\tau_j$; otherwise $usage(k, j) = 0$. $K$ is the set
+of all critical sections and $C_k$ is the WCET of critical section
+$k$.
 \begin{equation}
 \label{eq:pcp_block}
 B_j = \max_{k=1}^{K} \Big(usage(k,j)\times C_k\Big)
 \end{equation}
 
-This result can be used in both Eq.~\ref{eq:rma_wo_sync}. To
-incorporate it into the Rate Monotonic Analysis, assume that there are
-$n$ tasks arranged in increasing periods; $\tau_1$ is slowest and
-$\tau_n$ is fastest task. Then the utilization test becomes as shown
-in Eq.~\ref{eq:rma_w_sync}, with the summation term the
-\emph{interference} from higher priority tasks and the $B_j/T_j$ the
-\emph{blocking} due to priority inversion by a low priority task on a
-high priority task.
-
-\begin{equation}
-\label{eq:rma_w_sync}
-\forall j,\ 1 \le j \le n:\ \sum_{i=1}^j
-\bigg(\frac{C_i}{T_i}\bigg)+\frac{B_j}{T_j} \le j(2^{\frac{1}{j}}-1)
-\end{equation}
-
-This happens when the lower priority task inherits the priority
-of a protected object that is equal to or greater than the base
-priority of the higher priority task. This implies the introduction of
-a term to account for blocking, if we consider that $n$ tasks are
-arranged in increasing periods ($\tau_1$ is the slowest task and
-$\tau_n$ the fastest) then the utilization test is as shown in
-Eq.~\ref{eq:rma_w_sync}, where the summation term is the
-\emph{interference} experienced by a task by all higher priority
-tasks, and $B_j/T_j$ is the blocking experienced by the task via
-priority inversions due to all lower priority tasks that inherit the
-priority of a protected object higher than or equal to that of the
-task in question.
-
+This result can be used in both Eqs.~\ref{eq:rma_wo_sync}
+and~\ref{eq:rta_wo_sync}. To incorporate it into the Rate Monotonic
+Analysis, assume that there are $n$ tasks arranged in increasing
+periods; $\tau_1$ is the slowest and $\tau_n$ is the fastest
+task. Then the utilization test becomes as shown in
+Eq.~\ref{eq:rma_w_sync}, with the summation term the
+\emph{interference} from higher priority tasks and $B_j/T_j$ the
+\emph{blocking} due to priority inversion by a lower priority task on
+a higher priority task. Blocking happens when the lower priority task
+inherits the priority of a protected object that is equal to or
+greater than the base priority of the higher priority task.
 \begin{equation}
 \label{eq:rma_w_sync}
 \forall j,\ 1 \le j \le n:\ \sum_{i=1}^j
@@ -476,7 +458,6 @@ task in question.
 Similarly, the PCP result can be incorporated into the Response Time
 Analysis by adding the blocking term to the response time equation,
 which then becomes Eq.~\ref{eq:rta_w_sync} as given below.
-
 \begin{equation}
 \label{eq:rta_w_sync}
 \omega_i^{n+1}=C_i + B_i + \sum_{j \in hp(\tau_i)}
@@ -487,10 +468,8 @@ which then becomes Eq.~\ref{eq:rta_w_sync} as given below.
 This is an example of a dynamic priority scheduler. This scheduler
 puts the task with the nearest deadline on the processor at all
 times. Although a detailed discussion of the EDF scheduler is not
-given here but it must be noted that Liu and Layland gave the
-utilization upper bound for this scheduler as 1 in~\cite{liu@jacm73},
-i.e.,
-
+given here, note that Liu and Layland gave the utilization upper bound
+for this scheduler as 1 in~\cite{liu@jacm73}:
 \begin{displaymath}
 \sum_{i=1}^N \bigg(\frac{C_i}{T_i}\bigg) \le 1
 \end{displaymath}
@@ -625,10 +604,10 @@ of expressions and nodes that are ``slower'' than the basic clock of
 the system. It should be kept in mind here that the basic clock of a
 Lustre system defines the granularity of the reactive system. It is
 the smallest step the system can take, and a system model hypothesis
-is that no events can be missed in this duration. This means that for
-the entire set of environmental events coming into the system, the
-base clock needs to be slower than the minimum of the latch time of
-these events for the system to detect them and act correspondingly.
+is that no events can be missed in this duration. This means that the
+latch time of every possible event coming into the system must be
+slower than the base rate of the system for it to detect them and act
+accordingly.
 
 To produce a working system, the Lustre code is compiled, and the main
 node is attached as a callback of the microprocessor's timer
@@ -638,8 +617,8 @@ network of nodes and data flow can be analyzed and optimized code can
 be generated, including the properly sized buffers for data
 interchange between nodes. At every timer callback, the main node is
 called, whose input flows are gathered from the sensors available in
-the system. The main computes one ``step'', and its outputs, if any,
-are then sent to the various actuators or status displays. Thus a
+the system. The main node computes one ``step'', and its outputs, if
+any, are then sent to the various actuators or status displays. Thus a
 system built using this approach has a cyclic executive and can be
 implemented \emph{without} an operating system. All that is needed is
 the timer callback and the device driver interfaces to the various
@@ -709,7 +688,7 @@ $x_6$ & $x_8$\\
 \simu is a MATLAB add-on that allows modeling of hybrid systems via
 graphical symbols~\cite{simulink}. It is quite similar to the SCADE
 Suite in that it allows data flow modeling and simulation of systems,
-with various blocks performing mathematical transformations to their
+with various blocks performing mathematical transformations on their
 input flows and providing the results as output flows. The tool also
 allows the generation of source code via the use of the Real-Time
 Workshop (RTW) plugin~\cite{rtw}.
@@ -793,7 +772,7 @@ twice as slow. The lower part of Fig.~\ref{fig:abs_output_graphs}
 shows the output flow from both subsystems, the left part showing the
 output flow from the base rate subsystem, the right part showing the
 flow from the slower subsystem, which results in undersampling, as
-only one sample in two from the input is sampled source flow.
+only one sample in two from the input is sampled.
 
 \begin{figure}
 \centering
@@ -834,7 +813,7 @@ analysis of the execution order of the various blocks, as well as
 introducing the possibility of race conditions in the access for
 shared data representing ports. Thus, in a multi-task implementation,
 the shared data buffers need to be protected via mutexes, and certain
-buffering management techniques need to be used in case deterministic
+buffer management techniques need to be used in case deterministic
 data exchange between blocks at different rates is required.
 
 The prevalence of Simulink in the control system design domain is
@@ -876,10 +855,9 @@ systems\footnote{Pacifica Group Technologies}.
   not very useful to the development of general real-time systems,
   which require the easy representation of computation steps such as
   loops, conditions, the sending of events and signaling among
-  different tasks etc (just as it is counter-intuitive to develop
-  control systems using software engineering concepts, it is
-  counter-intuitive to develop generic software using control systems
-  concepts);}
+  different tasks (just as it is counter-intuitive to develop control
+  systems using software engineering concepts, it is counter-intuitive
+  to develop generic software using control systems concepts);}
 \item{Compared to SCADE Suite, Simulink does \emph{not} generate
   DO-178B certified code, so all code generated needs to be certified
   independently for conformance.}
@@ -908,15 +886,15 @@ one is provided for the MOF, and gets specialized for each modeling
 language. In fact, a meta-model can be considered to represent the
 abstract syntax of the modeling language it describes.
 
-According to the MOF-based conception of the UML2, there are four
-levels of models. The most abstract layer is the meta-meta-model,
-provided by the MOF. An instantiation of this meta-meta-model is the
-meta-model (the UML2 meta-model in this case), this meta-model
-describes the set of \emph{all} syntactically well-formed UML2
-models. An instantiation of the UML2 meta-model is a UML2 model, the
-design of a system, whereas an instantiation of that is an actual
-running system. These levels are conventionally called M3 through M0
-and are shown graphically in Fig.~\ref{fig:mof}.
+According to the MOF-based conception of UML2, there are four levels
+of models. The most abstract layer is the meta-meta-model, provided by
+the MOF. An instantiation of this meta-meta-model is the meta-model
+(the UML2 meta-model in this case), this meta-model describes the set
+of \emph{all} syntactically well-formed UML2 models. An instantiation
+of the UML2 meta-model is a UML2 model, the design of a system,
+whereas an instantiation of that is an actual running system. These
+levels are conventionally called M3 through M0 and are shown
+graphically in Fig.~\ref{fig:mof}.
 
 \begin{figure}
 \centering
@@ -935,12 +913,12 @@ generation are \emph{class diagrams} and \emph{statecharts}.
 A class diagram shows the relationships between the classes in a
 system. It shows class hierarchies, associations and containments
 among the various classes of the system. In addition, it can show the
-internals of various classes, such as what attributes a class, its
-member functions, as well as access specifiers on said attributes and
-member functions (whether they are protected, private or public). The
-class diagram is the basic unit for code generation of a system, since
-it is where class specifications are given. The main relationships
-among classes that can be given in class diagrams are:
+internals of these classes, such as their attributes and member
+functions, as well as access specifiers on said attributes and member
+functions (protected, private or public). The class diagram is the
+basic unit for code generation of a system, since it is where class
+specifications are given. The main relationships among classes that
+can be given in class diagrams are:
 
 \begin{description}
 \item[Inheritance:]{Specifies that one class inherits from another;}
@@ -962,21 +940,22 @@ control. Both have an association to \texttt{Driver\_Params}, which in
 this case represents a shared data buffer with accessor methods. The
 object of class \texttt{Driver\_Input} contains one object each of
 \texttt{Accelerator\_IO} and \texttt{Brake\_IO}, which is represented
-via the composition relation. The code generation for this object
-model would result in threads being created for the two active
-classes, as well as the data buffer, which would have the shown
-attributes as well as member functions with correct signatures.
+via the composition relation. The generated code for this object model
+would contain threads for the two active classes. It would also
+contain the shared buffer's code which would comprise the declared
+attributes as data members and member functions with the correct
+signatures.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.75]{figs/class_diag}
-\caption{A class diagram various types of relations among classes
-  allowed in UML, made using Rhapsody}
+\caption{A class diagram showing various types of relations among
+  classes allowed in UML, made using Rhapsody}
 \label{fig:class_diag}
 \end{figure}
 
 The other major diagram within UML2 which aids greatly in real-time
-systems development is the statechart~\cite{jansamak@acsc04,
+systems development is the Statechart~\cite{jansamak@acsc04,
   allen@sigplan95}. Statecharts are state machine diagrams that can be
 attached to active classes to describe their behavior. Statecharts are
 a form of extended input output automata~\cite{lynch@concur01} which
@@ -1001,9 +980,9 @@ software systems. CASE tools such as Rhapsody$\circledR$ provide
 capabilities of code generation, which reduces time spent in software
 development because the behavior of the system can be simulated at the
 level of the model rather than at the level of source code, this
-large-grained debugging exercise results in catching of conceptual
-errors earlier in the design process than would be possible were it
-the case that the application had been coded by hand.
+coarse-grained debugging exercise results in catching of conceptual
+errors earlier in the design process than would be possible if the
+application had been coded by hand.
 
 That said, there are some disadvantages to using UML2 for the design
 of safety-critical real-time systems. The language is very large and
@@ -1011,15 +990,15 @@ complex, the three main documents of the language
 definition~\cite{mof-std, uml-infra, uml-super} together make for over
 2,000 pages. The semantics of the language is not formally defined,
 leading to different tool vendors implementing their own
-interpretation of what various constructs should do. Neither of these
-disadvantages, however, is as great as the fact that the language
-itself is not geared towards the design of real-time systems. Case in
-point is the concept of active classes; they represent threads in the
-generated code, however there is no concept of periodic active class,
-aperiodic active class or sporadic active class. There are no concepts
-of deadline, worst-case execution time or even priority. The system
-and software designer is expected to cater to those requirements him-
-or herself. This, compounded with the fact that the entire concept of
+interpretation of the constructs. Neither of these disadvantages,
+however, is as great as the fact that the language itself is not
+geared towards the design of real-time systems. Case in point is the
+concept of active classes; they represent threads in the generated
+code, however there is no concept of periodic active class, aperiodic
+active class or sporadic active class. There are no concepts of
+deadline, worst-case execution time or even priority. The system and
+software designer is expected to cater to those requirements
+himself. This, compounded with the fact that the entire concept of
 using separate notations of the same basic artifact (a class) for
 different runtime entities is an indication of semantic overloading in
 the language definition. Thus, even though UML2 \emph{is} used within
@@ -1037,16 +1016,16 @@ real-time systems and/or monitor and alarm subsystems.
   point-of-view);}
 \item{It is a language that allows the modeling of object oriented
   concepts and artifacts, together with the integration of functional
-  aspects or behavioral descriptions (in the form of statecharts) in
+  aspects or behavioral descriptions (in the form of Statecharts) in
   the same model;}
 \item{It has a reasonably intuitive conversion to source code,
   specially in an object oriented language such as C++ or Java, i.e.,
   the vertical distance for a transformation to source code is small;}
-\item{Since all implementations of UML are supposed to be based on the
+\item{Since all implementations of UML are supposedly based on the
   MOF, model storage is done via a standardized XML serialization and
-  in theory models can be interchanged between various tools;}
-\item{It contains extensibility mechanisms built into the language
-  itself, via the use of the stereotype mechanism.}
+  in theory models can be interchanged between tools;}
+\item{It contains extensibility mechanisms built into the language via
+  the stereotype mechanism.}
 \end{itemize}
 
 \paragraph{Disadvantages of UML}
@@ -1078,15 +1057,14 @@ real-time systems, is HRT-HOOD (Hard Real-Time
 HOOD)~\cite{burns@rts94}, which contains specific artifacts and
 constructs for real-time systems, which eases timing analysis and
 leads to a safer design. HRT-HOOD allows the modeling of real-time
-systems using objects, which may be of one of five types:
+systems using one of five types of objects:
 
 \begin{description}
 \item[Passive objects:]{These are objects that do not have their own
-  thread of control and which do not invoke operations in other
-  objects either;}
+  thread of control nor do they invoke operations on other objects;}
 \item[Active objects:]{These objects may control when invocations of
-  their operations are executed (they have a thread of control) and
-  which can invoke operations of other objects;}
+  their operations are executed---they have a thread of control---and
+  they can invoke operations of other objects;}
 \item[Protected objects:]{These are objects that may control when
   invocations of their operations are executed (via the enforcement of
   a concurrency control protocol). Protected objects must also be
@@ -1101,7 +1079,7 @@ Because HRT-HOOD is a hierarchical description technique, objects
 defined using it may be non-terminal objects, which contain other
 objects, or terminal objects, which may be of one of the previously
 described types. Non-terminal objects may receive requests, which are
-delegated to the containing objects to be treated.
+delegated to the contained objects to be treated.
 
 All types of objects may expose operations. However, there are
 constraints on the types of operations the various types of objects
@@ -1133,31 +1111,30 @@ Structure). The OPCS is the functional unit of the cyclic object,
 i.e., it is where the periodic response code of the cyclic object is
 found, and it is this part of the cyclic object that is written by
 hand. Sporadic objects must necessarily have an OBCS associated, upon
-whose only PSER operation the sporadic object will await for
+whose only PSER operation the sporadic object will wait for
 dispatch. A sporadic object also has an OPCS which represents its
 response to the various dispatching events.
 
-The various objects may have associated with them various
-\emph{attributes}, which represent their configuration and/or code
-generation parameters. Examples of important attributes include
-DEADLINE, THREAD\_WCET, PERIOD, MINIMUM\_ARRIVAL\_TIME and PRIORITY
-for cyclic and sporadic objects. Some of these attributes are to be
-assigned by the designer while others are supposed to be calculated as
-a function of the system architecture by the code generator.
+These objects may have associated with them various \emph{attributes},
+which represent their configuration and/or code generation
+parameters. Examples of important attributes include DEADLINE,
+THREAD\_WCET, PERIOD, MINIMUM\_ARRIVAL\_TIME and PRIORITY for cyclic
+and sporadic objects. Some of these attributes are to be assigned by
+the designer while others are calculated as a function of the system
+architecture by the code generator.
 
 HRT-UML~\cite{mazzini@ae03} is the latest version of this
-methodology. It removes certain unsafe constructs present in HRT-HOOD,
+methodology. It removes certain unsafe constructs present in HRT-HOOD
 and introduces the methodology as a \emph{profile} of UML, where the
 artifacts of the language are shown as UML classes with specific
-stereotypes. The HRT-UML is furthermore targeted to the Ada Ravenscar
+stereotypes. Furthermore, HRT-UML is targeted to the Ada Ravenscar
 Profile for High-integrity systems~\cite{burns@adalett04} which is a
 subset of Ada specifically tailored for high-integrity hard real-time
-systems (detail in Sec.~\ref{sec:rsp}). The HRT-UML puts a high value
-on the static schedulability analysis of systems described with
-it. There has been research work done to incorporate automatic code
-generation as well, as reported in~\cite{vardanega@ecrts05} and a
-detailed case study using the approach is given
-in~\cite{silvia-hrt-uml-cs}.
+systems (detailed in Sec.~\ref{sec:rsp}). HRT-UML puts a high value on
+the static schedulability analysis of systems described with it. There
+has been research work done to incorporate automatic code generation
+as well~\cite{vardanega@ecrts05}. A detailed case study using the
+approach is given in~\cite{silvia-hrt-uml-cs}.
 
 The HRT-UML firstly removes the active objects from the HRT-HOOD,
 since they are not amenable to static analysis. Also not included in
@@ -1186,16 +1163,16 @@ processed or generated by the tool.
   minimum interarrival time etc.;}
 \item{It \emph{folds} the design method into UML, which is the
   emerging omnipotent vehicle for software design. This could
-  potentially allow the describe of the real-time system architecture
-  (via HRT-UML constructs) alongside the software design of the
-  response code in the shape of class diagrams for the OPCS portions;}
-\item{It may, perhaps, also allow for the description of the
-  functional aspect of the systems using the UML statecharts
-  mechanism;}
-\item{It allows for static schedulability analysis via the use of the
-  proven Rate Monotonic and Response Time analyses;}
-\item{It allows for automatic generation of source code, greatly
-  reducing programmer effort and chance for error.}
+  potentially allow the description of the real-time system
+  architecture (via HRT-UML constructs) alongside the software design
+  of the response code in the shape of class diagrams for the OPCS
+  portions;}
+\item{It also allows for the functional description of the system
+  using UML Statecharts;}
+\item{It allows for static schedulability analysis via the Rate
+  Monotonic and Response Time analyses;}
+\item{It allows for automatic code generation, greatly reducing
+  programmer effort and chance for error.}
 \end{itemize}
 
 \paragraph{Disadvantages of HRT-UML}
@@ -1204,7 +1181,7 @@ processed or generated by the tool.
   uses UML, which is a large and rather unwieldy standard/language;}
 \item{It engages in semantic overload even more than basic UML. Where
   basic UML only says an active class is a thread, HRT-UML overloads
-  the notion by saying it may be a periodic or sporadic thread;}
+  the notion by saying it may be periodic or sporadic;}
 \item{It forces the designer to model the application at a very fine
   grain, i.e., very near to the runtime artifacts that will exist. In
   fact, HRT-UML may be considered a graphical representation of the
@@ -1221,10 +1198,10 @@ real-time embedded systems. This profile, named MARTE (Modeling and
 Analysis of Real-Time and Embedded systems) is an OMG
 standard~\cite{omg-marte}. It uses a mechanism similar to that for
 HRT-UML for describing various real-time aspects of the system it is
-used to model, i.e., it makes extensive use of the stereotype
+used to model, in that it makes extensive use of the stereotype
 construct to add semantic information to a UML class. This semantic
 information can be parsed and understood by a tool that is familiar
-with the conventions as proposed in the profile.
+with the conventions in the profile.
 
 This profile contains not only notation support for real-time systems,
 but also extensive support for QoS and dependability
@@ -1267,7 +1244,7 @@ the Honeywell Advanced Technology Center for use in avionics
 systems~\cite{metah-manual}. It is also the direct ancestor of the
 AADL, which is the architecture design language used in the research
 work being presented. MetaH, like other ADLs, focuses more on software
-architecture than on software design. Thus, it contains entities that
+architecture than on software design. It contains entities that
 correspond to what may be viewed as high-level runtime constructs such
 as threads, communication buffers and modules rather than software
 design concerns such as classes, objects and their
@@ -1295,13 +1272,13 @@ generated from MetaH models.
 \begin{description}
 \item[Process:]{It is the basic unit of execution and schedulability
   (no threads in MetaH). A process may be periodic or aperiodic;}
-\item[Event:]{It is an asynchronous signal that can be sent to a
-  process. Events are used to dispatch aperiodic processes;}
+\item[Event:]{It is an asynchronous signal sent to a process. Events
+  are used to dispatch aperiodic processes;}
 \item[Ports:]{These are data transfer endpoints declared in the
   interface of a process. Ports are typed and serve as message buffers
-  between processors, they also have directional qualifiers
-  \textbf{in} and \textbf{out}. The executive provides real-time data
-  transfer facilities to implement ports;}
+  between processes, they also have directional qualifiers \textbf{in}
+  and \textbf{out}. The executive provides real-time data transfer
+  facilities to implement ports;}
 \item[Package:]{It is a collection of data objects and procedures that
   can act upon those objects. It can be used to give a rudimentary
   software design for the functional response code of processes;}
@@ -1315,7 +1292,8 @@ generated from MetaH models.
 \item[Device:]{It represents any specialized hardware that cannot host
   user-defined software but that may send or receive events and data
   to the user-defined software. Device components are mainly used to
-  provide a model-level abstraction of sensors, actuators etc.;}
+  provide a model-level abstraction of sensors, actuators and other
+  hardware;}
 \item[Channel:]{It is a hardware entity that connects various other
   hardware components together and provides a path for data and/or
   event transfer among them.}
@@ -1332,7 +1310,7 @@ are automatically transferred to the variables corresponding to the
 variables they are transformed to, can be viewed as data flows, which
 meshes well with the nature of control laws and their implementations.
 
-Events in MetaH are pure signals, that can be used to dispatch
+Events in MetaH are pure signals that can be used to dispatch
 aperiodic threads. Events may not contain any accompanying data. In
 source code, an event reception is transformed to a blocking call of a
 procedure of the executive, in this case called
@@ -1364,18 +1342,18 @@ flow applications are being designed, yet retains the flexibility of
 describing sophisticated shared data buffers if and when their need
 arises, via the use of the monitor construct. The port construct,
 though it may seem rather trivial, is an important capability. It
-allows a concise description of the data flow within the system,
+allows for a concise description of the data flow within the system,
 \emph{and} it can be used to embed protocol information in the system
 model. This capability is used to model deterministic data flow
 connectors as shown in Chapter~\ref{chap:adv_code}.
 
 \paragraph{Advantages of MetaH}
 \begin{itemize}
-\item{Provides a concise, clear and non-ambiguous set of constructs
-  for the modeling of real-time systems;}
-\item{Inclusion of hardware components allows system level modeling,
-  with the hardware and software architecture in the same model. This
-  aids in analysis and code generation for distributed applications;}
+\item{Provides a concise, clear and unambiguous set of constructs for
+  modeling real-time systems;}
+\item{Inclusion of hardware components allows system models with the
+  hardware and software architecture in the same model. This aids in
+  analysis and code generation for distributed applications;}
 \item{The port construct allows an intuitive modeling of data flow
   applications, which aids in the design of control systems by letting
   the modeling reflect domain space.}
