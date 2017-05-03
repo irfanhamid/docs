@@ -10,16 +10,16 @@ this thesis, it is only natural that an introduction to both be
 provided. The first section of this chapter provides an overview to
 the Ravenscar Profile, and the second section does the same for
 AADL. An introduction to the tasking and inter-task facilities
-available in the Ada 95 and Ada 2005 language is provided in
-Appendix~\ref{chap:intro_ada}. 
+available in the Ada 95 and Ada 2005 languages is provided in
+Appendix~\ref{chap:intro_ada}.
 
 \section{The Ravenscar Profile}
 \label{sec:rsp}
 The Ada language and its runtime contains a large number of tasking
-and inter-task communication and interaction primitives as part of the
-language itself. Contrast this with the API-based approach where the
-language itself does not contain such features, but uses the services
-provided by the underlying operating system to provide such
+and inter-task communication and interaction primitives as first-class
+citizens of the language. Contrast this with the API-based approach
+where the language itself does not contain such features, but uses the
+services provided by the underlying operating system to provide such
 constructs; e.g.: the POSIX API used by languages such as C and C++ to
 create threads, mutexes and semaphores. This promotion of runtime
 artifacts into the language syntax has a certain number of advantages
@@ -33,8 +33,8 @@ constructs. This was done due to the non-deterministic nature of
 certain constructs (such as rendezvous) and the absence of robust
 real-time implementations of others (such as tasks) in Ada 83. Due to
 this, practitioners tended to use the tasking and inter-task
-communication primitives provided by the underlying platform instead
-of those incorporated into the Ada language and runtime.
+communication primitives provided by the underlying OS instead of
+those incorporated into the Ada language and runtime.
 
 In the late 1990s, the Ravenscar Profile~\cite{burns@adalett99} for
 Ada was proposed, which is a restriction to the rich Ada 95 tasking
@@ -45,7 +45,7 @@ Profile was an addendum to the Real-time Systems Annex (Annex D) of
 the Ada 95 Language Standard~\cite{arm95}. But with the advent of Ada
 2005, it was incorporated into the language standard
 itself~\cite{arm05}. The following sections provide an introduction to
-the profile itself and to the rationale of its definition. The
+the profile itself and to the rationale for its definition. The
 material is mostly taken from~\cite{burns@adalett04} with additional
 explanations where deemed necessary or helpful.
 
@@ -89,24 +89,24 @@ pragma Restrictions ( Max_Entry_Queue_Length => 1,
 \end{minipage}
 
 The Ada 2005 standard also includes a shorthand for defining all these
-pragmas---and thus the enabling the Ravenscar Profile---by specifying
-the shorthand \kw{pragma} \texttt{Profile(Ravenscar)}.
+pragmas---and thus enabling the Ravenscar Profile---by specifying the
+shorthand \kw{pragma} \texttt{Profile(Ravenscar)}.
 
 \subsection{Rationale for Ravenscar Restrictions}
 Here we examine each of the Ravenscar pragmas and provide the
 rationale for their inclusion. The different restrictions together act
-upon a number of different axes; i.e.: static existence model for
-runtime entities, deterministic and asynchronous inter-task
-communication and synchronization, deterministic memory usage and a
-deterministic task execution model.
+upon a number of axes; i.e., static existence model for runtime
+entities, deterministic and asynchronous inter-task communication and
+synchronization, deterministic memory usage and a deterministic task
+execution model.
 
 \subsubsection{Static Existence Model}
 The following restrictions ensure that the set of tasks and interrupts
-is analyzable and is static. It ensures that there is no creation or
-destruction of tasks. These restrictions in concert ensure that the
-final executing system can be analyzed according to the mature and
-robust theory of static priority, static task-set Monotonic Rate
-Assignment~\cite{liu@jacm73}.
+is analyzable and is static. It ensures that there is no dynamic
+creation or destruction of tasks. These restrictions in concert ensure
+that the final executing system can be analyzed according to the
+mature and robust theory of static priority, static task-set Monotonic
+Rate Assignment~\cite{liu@jacm73}.
 
 \begin{description}
 \item[\texttt{No\_Task\_Hierarchy}] This prevents the definition of
@@ -143,32 +143,31 @@ ceiling priority.
 \end{description}
 
 \subsubsection{Static Synchronization and Communication Model}
-This axis is a companion to the static task-set one. It ensures that
-the model for communication and synchronization among tasks is of a
-static and analyzable nature. These restrictions ensure that the
-communication model between tasks in a Ravenscar-compliant system is
-static, analyzable, and asynchronous. The static and analyzable part
-of the thrust is ensured by the absence of dynamically created
-protected objects and by enforcing a flat protected object
-hierarchy. Synchronous inter-task communication is precluded by
-preventing rendezvous among tasks. As a consequence, a system created
-with these restrictions can be analyzed for schedulability using the
-Response Time Analysis technique~\cite{burns-rtspl} (pages 475---479).
+This axis is a companion to the one on static task-sets. These
+restrictions ensure that the communication model between tasks in a
+Ravenscar-compliant system is static, analyzable, and
+asynchronous. The static and analyzable part of the thrust is ensured
+by the absence of dynamically created protected objects and by
+enforcing a flat protected object hierarchy. Synchronous inter-task
+communication is precluded by preventing rendezvous among tasks. As a
+consequence, a system created with these restrictions can be analyzed
+for schedulability using the Response Time Analysis
+technique~\cite{burns-rtspl} (pages 475---479).
 
 \begin{description}
 \item[\texttt{No\_Local\_Protected\_Objects}] This prevents the
 creation of protected objects local to a procedure, tasks or other
 protected objects. This excludes the possibility of having a
 hierarchical structure of protected objects. Thus, all of these
-protected objects must be declared at library-level.
+protected objects must be declared at library-level;
 
 \item[\texttt{No\_Protected\_Type\_Allocators}] This prevents the
   dynamic creation of protected objects in the system. This is
-  necessary to ensure the analyzability of the task-set.
+  necessary to ensure the analyzability of the task-set;
 
 \item[\texttt{No\_Select\_Statements} and
   \texttt{Max\_Task\_Entries=>0}] These two restrictions in
-  conjunction ensure that Ada rendezvous cannot be used to inter-task
+  conjunction ensure that Ada rendezvous cannot be used for inter-task
   synchronization and communication. This is done because rendezvous
   are potentially dangerous constructs that may result in a \emph{(a)}
   a cascade of one task's execution time to another and \emph{(b)}
@@ -177,23 +176,23 @@ protected objects must be declared at library-level.
 
 \subsubsection{Deterministic Memory Usage}
 This axis prevents an \emph{implicit} allocation of dynamic memory by
-the runtime. Note that although Ravenscar Profile does not preclude
-the allocation from the heap---called the standard storage pool as
-well---it is nonetheless highly discourage because of the inherent
-non-determinism of memory allocators.
+the runtime. Note that although the Ravenscar Profile does not
+preclude the allocation from the heap---called the standard storage
+pool as well---it is nonetheless highly discouraged because of the
+inherent non-determinism of memory allocators.
 
 \begin{description}
 \item[\texttt{No\_Implicit\_Heap\_Allocations}] There are certain
-constructs in Ada 95 and Ada 2005 that implicitly allocate memory;
-e.g.: the \kw{declare} keyword. This pragma prevents the use of such
-constructs. Note that explicit memory allocation is allowed, although
-due to its non-deterministic nature it is discouraged in a real-time,
-high-integrity application.
+  constructs in Ada 95 and Ada 2005 that implicitly allocate memory;
+  e.g., the \kw{declare} keyword. This pragma prevents the use of such
+  constructs. Note that explicit memory allocation is allowed,
+  although due to its non-deterministic nature it is discouraged in a
+  real-time, high-integrity application;
 
 \item[\texttt{No\_Task\_Attributes\_Package}] The Ada package
-\texttt{Ada.Task\_Attributes} is used to dynamically create attributes
-for tasks. This may implicitly allocate dynamic memory, thus it is
-prohibited via the use of this pragma.
+  \texttt{Ada.Task\_Attributes} is used to dynamically create
+  attributes for tasks. This may implicitly allocate dynamic memory,
+  thus it is prohibited.
 \end{description}
 
 \subsubsection{Deterministic execution model and dynamic semantics}
@@ -204,29 +203,29 @@ inversions within the system are bounded.
 
 \begin{description}
 \item[\texttt{Max\_Protected\_Entries=>1} and
-  \texttt{Max\_Entry\_Queue\_Length=>1}]{Specifies that the number of
-  entries on a protected objects is 1 and the number of entry calls of
-  tasks that may at any time wait on that entry is also 1. These two
-  restrictions ensure that at most only one task may wait on a
-  protected task entry. This avoids the inherent non-determinism of
-  suspension time which would arise in case of multiple tasks
-  waiting. It also avoids the non-determinism that would arise were
-  there to be two barriers opening simultaneously;}
+  \texttt{Max\_Entry\_Queue\_Length=>1}]{Specifies that there is at
+  most one protected entry on a protected object and that at most one
+  task may concurrently wait upon that entry. These two restrictions
+  ensure that at most only one task may wait on a protected
+  object. This avoids the inherent non-determinism of suspension time
+  which would arise in case of multiple tasks waiting. It also avoids
+  the non-determinism that would arise were there to be two barriers
+  opening simultaneously;}
 \item[\texttt{Simple\_Barriers}]{This implies that the boolean
   predicate of an entry barrier shall be either a static boolean
   expression or a boolean predicate composed of only the private data
-  members of the associated protected objects. As an implication it
+  members of the containing protected object. As an implication it
   means that the only way to open an entry barrier is via calling a
-  procedure of the protected object;}
+  procedure of its protected object;}
 \item[\texttt{No\_Requeue\_Statements}]{This ensures that a task
-  returning from a protected entry may not requeue itself immediately
-  upon another entry, which---if allowed---would render static
-  schedulability analysis very difficult;}
+  returning from a protected entry may not re-enqueue itself
+  immediately upon another entry, which---if allowed---would render
+  static schedulability analysis very difficult;}
 \item[\texttt{No\_Asynchronous\_Control}]{The package
   \texttt{Ada.Asynchronous\_Task\_Control} provides services for one
-  task to put another on hold and continue it again. This is a
-  dangerous construct for real-time systems as one task may unduly
-  influence the execution time of another. This pragma prohibits its
+  task to suspend and resume another. This is a dangerous construct
+  for real-time systems as one task may unduly influence the execution
+  time of another. This pragma prohibits its
   use. \texttt{Ada.Asynchronous\_Task\_Control} exports the following
   API:
 \begin{lstlisting}[label=ada.asynchronous_task_control, caption=The
@@ -240,28 +239,27 @@ end Ada.Asynchronous_Task_Control;
 \item[\texttt{No\_Relative\_Delay}]{This prohibits the use of relative
   delays---of the form \kw{delay} \texttt{<time\_duration>}---but
   allows absolute delays---of the form \kw{delay until}
-  \texttt{<time\_instance>}. This is to ensure that tasks don't
-  exhibit non-determinism due to being preempted between the instance
-  it calculates \texttt{<time\_duration>} and it executes the
-  \kw{delay until};}
+  \texttt{<time\_instance>}---to ensure that tasks don't exhibit
+  non-determinism due to being preempted between the instance they
+  calculate \texttt{<time\_duration>} and execute the \kw{delay
+    until};}
 \item[\texttt{No\_Calendar}]{This implies that the package
   \texttt{Ada.Calendar} cannot be used. Instead, all timing operations
   must be performed using the high-precision time types and services
   provided by the \texttt{Ada.Real\_Time} package;}
 \item[\texttt{pragma Task\_Dispatching\_Policy
-    (FIFO\_Within\_Priorities)}]{This stipulates that that the
-  scheduler used within the partition is
-  \texttt{FIFO\_Within\_Priorities} as defined in the Real-Time
-  Systems Annex of the Ada Language Reference Manual~\cite{arm95,
-    arm05};}
+    (FIFO\_Within\_Priorities)}]{This stipulates that the scheduler
+  used within the partition is \texttt{FIFO\_Within\_Priorities} as
+  defined in the Real-Time Systems Annex of the Ada Language Reference
+  Manual~\cite{arm95, arm05};}
 \item[\texttt{pragma Locking\_Policy (Ceiling\_Locking)}]{This pragma
   stipulates that all protected objects must follow the ceiling
   priority locking policy~\cite{sha@toc90}. This bounds the priority
-  inversion time in the system and avoids deadlock completely. In
+  inversion time in the system and avoids deadlocks completely. In
   order to implement the ceiling priority protocol, all Ada protected
   objects are assigned a \emph{ceiling priority} via the
   \kw{pragma}\texttt{ Priority(pri)}. The ceiling priority of a
-  protected object \emph{must} be less than or equal to the base
+  protected object \emph{must} be greater than or equal to the base
   priority of all tasks that access it. When a task is inside a
   protected object, its active priority is raised to the ceiling
   priority of said protected object. If a task that has a base
@@ -270,18 +268,18 @@ end Ada.Asynchronous_Task_Control;
 \end{description}
 
 \subsection{Consequences of the Ravenscar Profile}
-Here, a bit of elaboration about both the scheduler selected, the
-ceiling priority protocol, and the consequences of their
-interaction. The \kw{pragma}
+Elaboration about both the scheduler selected, the ceiling priority
+protocol, and the consequences of their interaction are presented
+here. The \kw{pragma}
 \texttt{Task\_Dispatching\_Policy(FIFO\_Within\_Priorities)} enables a
-task scheduler which is a fixed priority preemptive one, meaning that
-at any time a higher priority task or interrupt may preempt a lower
-priority task or interrupt. The task dispatching policy is described
-in terms of \emph{ready queues} and \emph{blocked queues}. For every
-priority in the system, there is an associated ready queue. At any
-given point in the lifetime of the system when the scheduler decides
-which task to execute, it is the one at the head of the highest
-priority non-empty ready queue.
+fixed priority preemptive task scheduler, meaning that at any time a
+higher priority task or interrupt may preempt one with lower
+priority. The task dispatching policy is described in terms of
+\emph{ready queues} and \emph{blocked queues}. For every priority in
+the system, there is an associated ready queue. At any given point in
+the lifetime of the system when the scheduler decides which task to
+execute, it picks the one at the head of the highest priority
+non-empty ready queue.
 
 The dispatching policy governs when tasks are inserted into and
 deleted from the ready queues, and whether a task is inserted at the
@@ -293,22 +291,22 @@ in~\cite{arm05}:
 
 \begin{enumerate}
 \item{When a blocked task becomes ready, it is added to the tail of
-  the ready queue for its active priority}
+  the ready queue for its active priority;}
 \item{When the active priority of a ready task that is not running
   changes, or the setting of its base priority takes effect, the task
   is removed from the ready queue for its old active priority and is
   added to the tail of the ready queue for its new active priority,
   except in the case where the active priority is lowered due to the
   loss of inherited priority, in which case the task is added at the
-  head of the ready queue for its new active priority}
+  head of the ready queue for its new active priority;}
 \item{When the setting of the base priority of a running task takes
   effect, the task is added at the tail of the ready queue for its
-  active priority}
+  active priority;}
 \item{When a task executes a \texttt{<delay\_statement>} that does not
   result in blocking---the time instance given is in the past---it is
-  added to the tail of the ready queue for its active priority}
+  added to the tail of the ready queue for its active priority;}
 \item{When a task is preempted, it is added to the head of the ready
-  queue for its active priority}
+  queue for its active priority.}
 \end{enumerate}
 
 Rule 2 from the above list is not completely valid for Ravenscar
@@ -322,9 +320,8 @@ a task's priority to change during runtime is if it enters a protected
 object whose ceiling priority is higher than the task's base
 priority. For this to happen the task \emph{must} be running at the
 time. This rule would be applicable had the Ravenscar Profile allowed
-changing a task's priority by that task or by another task via task
-IDs via the \texttt{Ada.Dynamic\_Priorities} package which contains
-the following API:
+changing a task's priority via the \texttt{Ada.Dynamic\_Priorities}
+package which contains the following API:
 
 \begin{minipage}{\listingwidth}
 \begin{lstlisting}[label=ada_dynamic_priorities, caption=The
@@ -376,8 +373,8 @@ ready queues $Q_\alpha$, $Q_\beta$ and $Q_\gamma$, one for each
 priority level. Let there be a resource $R$ with a protected entry \si
 that can be accessed by certain tasks of priority level \be and
 \ga. Therefore, any task inside \si will have its priority raised to
-\be due to PCP. The fact that a task $T_{xy}$ is has access to
-resource $R$ is denoted by $T_{xy} \gets R$.
+\be due to PCP. The fact that a task $T_{xy}$ has access to resource
+$R$ is denoted by $T_{xy} \gets R$.
 
 If $T_{\beta 1} \gets R$ and is currently running then $head(Q_\beta)
 \neq T_{\beta 1}$. The Ravenscar restrictions stipulate that a task
@@ -387,9 +384,10 @@ the processor while in \si is:
 
 \begin{enumerate}
 \item{A higher priority task---one of the $T_{\alpha i}$---interrupts
-  it}
+  it;}
 \item{An interrupt handler that has a higher interrupt priority than
-  the ceiling priority of $R$---and thus cannot access $R$---is fired}
+  the ceiling priority of $R$---and thus cannot access $R$---is
+  fired.}
 \end{enumerate}
 
 However, according to Rule 5 of the \texttt{FIFO\_Within\_Priorities}
@@ -398,18 +396,18 @@ priority queue for its active priority. Thus, when preempted,
 $head(Q_{\beta}) = T_{\beta 1}$ which ensures that once all other
 higher priority tasks have finished execution, it \emph{must} be
 $T_{\beta 1}$ which will be given the processor before all other \be
-or \ga priority tasks. Thus, once a task has entered a protected
-object, it will exit from the protected object before any other task
-that \emph{may} access the protected object is allowed to run.
+or \ga priority tasks. This implies that once a task has entered a
+protected object, it will exit from the protected object before any
+other task that \emph{may} access the protected object is allowed to
+run.
 
 Similarly, if it is a \ga priority task that is preempted while it is
 in $R$, then it will be put at the head of the \be queue because its
-active priority during the protected operation is inherited from $R$
-ceiling priority. Thus, e.g., if $T_{\gamma 1} \gets R$ then
+active priority during the protected operation is inherited from the
+ceiling priority of $R$. Thus, if $T_{\gamma 1} \gets R$ then
 $priority(T_{\gamma 1}) = \beta$ while it holds $R$. In other words,
 during the time period that $T_{\gamma 1} \gets R$, it will behave as
-a \be priority task and thus the logic of the previous paragraph is
-applicable to it as well.
+a \be priority task and so the logic of the previous paragraph holds.
 
 There are a few caveats to this, which need to be clarified. The
 Ravenscar Profile uses \kw{pragma}\texttt{
@@ -424,13 +422,12 @@ Ravenscar Profile uses \kw{pragma}\texttt{
   to be potentially blocking, and need not be detected"}. Thus, there
 are two problems due to which the preceding demonstration for absence
 of contention may be invalidated:
-
 \begin{enumerate}
 \item{The compiler only analyses the \emph{body} of the protected
   entry or subprogram. If there are procedure or function calls from
   said body which may contain blocking statements, they will not be
   detected by the compiler. An alternative is to perform a complete
-  execution flow analysis of the source code.}
+  execution flow analysis of the source code;}
 \item{An operation that causes a task to be blocked in a foreign
   language domain---e.g., a library function written in C---cannot be
   detected.}
