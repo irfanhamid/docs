@@ -112,7 +112,7 @@ Rate Assignment~\cite{liu@jacm73}.
 \item[\texttt{No\_Task\_Hierarchy}] This prevents the definition of
   tasks inside procedures or other tasks (which is allowed in
   Ada). All tasks are created at library-level in a Ravenscar system,
-  meaning they are dependant only on the environment task of the
+  meaning they are dependent only on the environment task of the
   partition;
 
 \item[\texttt{No\_Task\_Allocators}] This prevents the dynamic
@@ -425,12 +425,11 @@ of contention may be invalidated:
 \begin{enumerate}
 \item{The compiler only analyses the \emph{body} of the protected
   entry or subprogram. If there are procedure or function calls from
-  said body which may contain blocking statements, they will not be
-  detected by the compiler. An alternative is to perform a complete
-  execution flow analysis of the source code;}
-\item{An operation that causes a task to be blocked in a foreign
-  language domain---e.g., a library function written in C---cannot be
-  detected.}
+  said body contain blocking statements, they will not be detected by
+  the compiler. An alternative is to perform a complete execution flow
+  analysis of the source code;}
+\item{An blocking operation in a foreign language---e.g., a C library
+  function---cannot be detected.}
 \end{enumerate}
 
 That said, if a system in its entirety follows the \emph{spirit} of
@@ -442,35 +441,33 @@ contention for resources cannot occur in the system.
 There are two sets of restrictions that have a major impact on
 programming a Ravenscar system. One are the
 \texttt{No\_Task\_Hierarchy}, \texttt{No\_Task\_Allocators} and
-\texttt{No\_Task\_Termination} which restrict the methods in which we
-can create tasks. As stated, this stipulates that all tasks need to be
-created at ``library level''. This implies that all tasks must be
-explicitly declared using Ada task constructs in the code. This
-prohibits the use of an API based creation of tasks, prohibits the use
-of dynamically creating Ada tasks via allocation of task types, and
-disallows the nesting of tasks within procedures or other tasks as
-well as their termination.
+\texttt{No\_Task\_Termination} which restrict how we can create
+tasks. As stated, this stipulates that all tasks need to be created at
+``library level'' which means that all tasks must be explicitly
+declared using static Ada task constructs. This prohibits the use of
+an API based creation of tasks, prohibits the use of dynamically
+creating Ada tasks via allocation of task types, and disallows the
+nesting of tasks within procedures or other tasks as well as their
+termination.
 
 The other set is that of \texttt{No\_Local\_Protected\_Objects},
 \texttt{No\_Protected\_Type\_Allocators}. These restrictions are the
-analogs of the ones for tasks, in essence stipulating that all
-protected objects must be declared at library level. Similar to tasks,
-no allocation (dynamic creation) or protected objects is allowed,
-neither is a hierarchy of protected objects allowed in the form of
-protected objects embedded within tasks or within other protected
-objects.
+analogs of the ones for tasks, stipulating that all protected objects
+must be declared at library level. Similar to tasks, no allocation
+(dynamic creation) of protected objects is allowed, neither is a
+hierarchy of protected objects allowed via embedding them in tasks or
+other protected objects.
 
 \subsubsection{Periodic Tasks}
-As defined previously, a periodic task is one that is dispatched as a
-function of time. In case of Ravenscar systems, the periodic sleeping
-of the task is ordered not by the executive but by the source code of
-the task itself, via the \kw{delay until} Ada construct. As an example
-of the most rudimentary case, consider a system with two independent
-periodic tasks \texttt{Task\_A} and \texttt{Task\_B} with periods of
-20 msec and 40 msec and priorities of 240 and 239
+As stated, a periodic task is one that is dispatched as a function of time. In
+case of Ravenscar systems, the periodic sleeping of the task is
+ordered not by the executive but by the source code of the task
+itself, via the \kw{delay until} Ada construct. As an example of the
+most rudimentary case, consider a system with two independent periodic
+tasks \texttt{Task\_A} and \texttt{Task\_B} with periods of 20 msec
+and 40 msec and priorities of 240 and 239
 respectively. Listing~\ref{lst:two_periodic_tasks} shows the Ada
 Ravenscar code to implement this.
-
 \begin{minipage}{\listingwidth}
 % Fix the numbering later %
 \lstset{language=ada,
@@ -516,18 +513,17 @@ From the code in Listing~\ref{lst:two_periodic_tasks} we can see that
 not only is the entire high-level logic of the periodicity the
 responsibility of the programmer, but that the entire tasking artifact
 is completely visible in the source code rather than being abstracted
-away in an API call. Lines 2 and 18 explicitly assign priorities to
+away in an API call. Lines 2 and 17 explicitly assign priorities to
 both \texttt{Task\_A} and \texttt{Task\_B}. The periodic nature of
 both tasks is encoded via the calculation of the
 \texttt{Next\_Dispatch} variable and the following \kw{delay until}
-\texttt{Next\_Dispatch} at lines 12---13 and 28---29 for
-\texttt{Task\_A} and \texttt{Task\_B} respectively.
+\texttt{Next\_Dispatch} at lines 11---12 and 26---27.
 
 The Ravenscar Profile supports the use of discriminants for tasks.
-These may be used as formal parameters to parametrize the
+These may be used as formal parameters to parameterize the
 library-level instantiation of tasks. The example given in
 Listing~\ref{lst:two_periodic_tasks} can be recoded by using task
-types that can be parametrized for period and priority using
+types that can be parameterized for period and priority using
 discriminants, as shown below in
 Listing~\ref{lst:periodic_template_ex}.
 
@@ -566,14 +562,14 @@ Listing~\ref{lst:periodic_template_ex} is creating a pair of tasks at
 runtime, it is not the case. \texttt{Task\_A} and \texttt{Task\_B} are
 in fact library-level tasks. They are created at system startup and
 elaboration time, \emph{not} during the execution of the system. In
-the periodic response code for the tasks---line 14 in
-Listing~\ref{lst:periodic_template_ex}---there is no restriction to
+the periodic response code for the tasks---line 11 in
+Listing~\ref{lst:periodic_template_ex}---there is no restriction on
 calling protected procedures, entries or functions. This means that
 the periodic response code of a task can communicate with other
 tasks.
 
 Normally, it is safe to assume that all periodic tasks of a system are
-\emph{released} at the same time at system startup, $t_0$, with the
+\emph{released} simultaneously at system startup, $t_0$, with the
 highest priority task being \emph{dispatched} first, followed by
 successively lower priority tasks. However, periodic tasks may have
 precedence relations among them, implying that a job of one task may
@@ -585,13 +581,14 @@ relation among the two tasks in a Ravenscar system:
 \begin{description}
 \item[Priority based:]{One of the tasks may be given a higher priority
   than the other. If both have harmonic periods then at each mutual
-  frame the higher priority task will \emph{always} be dispatched and
-  executed before the lower priority task; thus the precedent task
-  should be given a higher priority than the dependant task;}
+  hyperperiod the higher priority task will \emph{always} be
+  dispatched and executed before the lower priority task. Thus, the
+  precedent task should be given a higher priority than the dependent
+  task;}
 \item[Offset based:]{The precedent task may be given a lesser
-  \emph{starting offset} than the dependant task. As periodic tasks
-  they both are logically supposed to be dispatched at system startup,
-  but the dependant task's greater offset will cause it to always be
+  \emph{starting offset} than the dependent task. As periodic tasks
+  they are both logically dispatched at system startup, but the
+  dependent task's greater offset will cause it to always be
   \emph{staggered} with respect to the precedent task;}
 \item[Sporadic task based:]{Another method of implementing task
   precedences is to make the consequent task a sporadic one with the
@@ -601,7 +598,7 @@ relation among the two tasks in a Ravenscar system:
 
 Consider that we have two tasks $\tau_1$ and $\tau_2$, with $C_1$ and
 $C_2$ as WCET and $T$ as the period of both tasks. Assume that
-$\tau_1$ is the precedent task and $\tau_2$ is the dependant task. In
+$\tau_1$ is the precedent task and $\tau_2$ is the dependent task. In
 order to ensure that at every release of both tasks, $\tau_1$ is
 dispatched first, its priority needs to be higher. Considering that
 these two are the only tasks in the system, $\tau_2$ will always be
@@ -619,11 +616,11 @@ scheduler computation and context switching).
 A second method of enforcing such a precedence relation is to
 introduce a \emph{starting offset}; this is defined to be the amount
 of time after system startup that a task will be \emph{released}. If
-the starting offset of the dependant task is equal to or greater than
+the starting offset of the dependent task is equal to or greater than
 the WCET of the precedent task then the precedence relation will be
-maintained at each mutual frame. Consider again two tasks $\tau_1$ and
+maintained at each hyperperiod. Consider again two tasks $\tau_1$ and
 $\tau_2$, with $\tau_1 \to \tau_2$. Assume also that $T_1$ and $T_2$
-are their respective periods with $T_1 = T_2 \times 2$, i.e., $\tau_2$
+are their periods, respectively. $T_1 = T_2 \times 2$, i.e., $\tau_2$
 is faster and would thus be dispatched first if both were released
 simultaneously. The offset methodology may be used to enforce
 precedence among two tasks where the precedent may happen to be at
@@ -674,16 +671,10 @@ end Periodic_Offset_Task;
 \end{figure}
 
 Here, it is interesting to note that for any task $\tau_i$, the
-implicit starting offset is given by the following equation, where
-$hp(i)$ gives the set of all tasks that have a higher priority than
-$\tau_i$:
-
-\begin{displaymath}
-Offset_i = \sum_{j\in hp(i)} C_j
-\end{displaymath}
-
-Meaning the starting offset for any task will be equal to the sum of
-the WCET of all concurrently released tasks with higher priority.
+implicit starting offset is equal to the sum of the WCET of all
+concurrently released tasks with higher priority. This is given by
+$Offset_i = \sum_{j\in hp(i)} C_j$, where $hp(i)$ is the set of all
+tasks that have a higher priority than $\tau_i$.
 
 \paragraph{Sporadic Tasks}
 An aperiodic task, as explained earlier, is a task that is dispatched
@@ -713,9 +704,9 @@ end Aperiodic;
 \end{lstlisting}
 \end{minipage}
 
-As is seen from the listing, an aperiodic task waits on an event (in
-line 8) which is a call to a protected object entry. Aperiodic tasks
-can, however, be dangerous in a real-time system as they can potentially
+As is seen in the listing, an aperiodic task waits on an event (in
+line 8) which is a call to a protected object entry. However,
+aperiodic tasks can be dangerous in real-time systems as they may
 starve lower-priority tasks in case of event floods. The safer
 construct of a sporadic task is shown in Listing~\ref{lst:sporadic}.
 
@@ -748,12 +739,12 @@ end Sporadic;
 
 The amount of load a sporadic task can impose upon a system is bounded
 by the minimum inter-arrival time of events, imposed in code via lines
-11 and 14 in Listing~\ref{lst:sporadic}. As soon as the task is
+14 and 16 in Listing~\ref{lst:sporadic}. As soon as the task is
 released via the arrival of an event, it stores the time of release in
-a variable and after processing blocks itself---via \kw{delay
+a variable. After its response code it blocks itself ---via \kw{delay
   until}---until at least the minimum inter-arrival amount of time has
 passed before it accepts another event. The behavior in case of an
-overflow is dependant upon the implementation details of the protected
+overflow is dependent upon the implementation details of the protected
 object whose entry is waited upon by the sporadic task (for details
 see Sec.~\ref{sec:comm_sync}).
 
@@ -815,9 +806,8 @@ $t_4$. Note that $t_5 - t_4 = t_2 - t_1$.}
 Inter-task communication is one of the major concerns of any real-time
 application. According to the Ravenscar restriction
 \texttt{No\_Task\_Entries}, no synchronous inter-task interaction is
-allowed. In essence, this means that all communication and
-synchronization among tasks is thus carried out using protected
-objects.
+allowed. Consequently all communication and synchronization among
+tasks is thus carried out using protected objects.
 
 Inter-task communication---exchange of data---is the easier of the two
 problems and is implemented via one of the simplest possible examples
@@ -1887,7 +1877,7 @@ changes are described as a finite state automaton, with each state of
 the automaton representing the mode and incoming events being the
 actions on which the automaton changes state (mode). A component's
 properties, internal connections and its active subcomponents may be
-mode dependant. A thread's period may change with a change in mode, a
+mode dependent. A thread's period may change with a change in mode, a
 process component may disable a data connection between two threads in
 a certain mode, and a process component may even deactivate a thread
 in a certain mode.
