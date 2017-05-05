@@ -12,7 +12,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{comment}
-\usepackage{pstricks}
+\usepackage[pdf]{pstricks}
 \usepackage{verbatim}
 \usepackage{algorithm2e}
 \usepackage{multirow}
@@ -89,16 +89,12 @@
 \newcommand{\stood}{Stood\xspace}
 \newcommand{\hood}{HOOD\xspace}
 \newcommand{\kw}[1]{\texttt{\textbf{#1}}}
-%\newcommand{\dataport}{\pspolygon[linewidth=1pt,fillcolor=black,fillstyle=solid]
-%(0,0)(0,0.2)(0.2,0.1)\xspace\xspace\xspace}
-%\newcommand{\eventport}{\psline[linewidth=1pt](0,0)(0.2,0.1)(0,
-%0.2)\xspace\xspace\xspace}
-%\newcommand{\eventdataport}{\pspolygon[linewidth=1pt,fillcolor=black,
-%fillstyle=solid](0.02,0.07)(0.02,0.13)(0.08,0.1)\psline[linewidth=0.5pt](0,
-%0)(0.2,0.1)(0 ,0.2)\xspace\xspace\xspace}
-\newcommand{\dataport}{}
-\newcommand{\eventport}{}
-\newcommand{\eventdataport}{}
+\newcommand{\dataport}{\pspolygon[linewidth=1pt,fillcolor=black,fillstyle=solid](0,0)(0,0.2)(0.2,0.1)\xspace\xspace\xspace}
+\newcommand{\eventport}{\psline[linewidth=1pt](0,0)(0.2,0.1)(0,0.2)\xspace\xspace\xspace}
+\newcommand{\eventdataport}{\pspolygon[linewidth=1pt,fillcolor=black,fillstyle=solid](0.02,0.07)(0.02,0.13)(0.08,0.1)\psline[linewidth=0.5pt](0,0)(0.2,0.1)(0 ,0.2)\xspace\xspace\xspace}
+%\newcommand{\dataport}{}
+%\newcommand{\eventport}{}
+%\newcommand{\eventdataport}{}
 \newcommand{\ts}{$\tau_s$\xspace}
 \newcommand{\tl}{$\tau_l$\xspace}
 \newcommand{\plong}{$T_{long}$\xspace}
