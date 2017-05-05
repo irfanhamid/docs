@@ -900,7 +900,10 @@ which will be used to unblock the entry. The \texttt{Event\_Object} in
 the listing for sporadic tasks is an example of such a construct. The
 most basic type is shown in Listing~\ref{lst:basic_po}. This protected
 object has just one procedure, \texttt{Signal}, to unblock the entry
-\texttt{Await} on which the sporadic task would wait.
+\texttt{Await} on which the sporadic task would wait. A more
+sophisticated version of such a synchronizing protected object would
+be to endow it with an internal queue, whence the barrier on the entry
+would be a check on whether the internal queue is empty.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada,
@@ -933,21 +936,17 @@ end Event_Object;
 \end{lstlisting}
 \end{minipage}
 
-A more sophisticated version of such a synchronizing protected object
-would be to endow it with an internal queue, whence the barrier on the
-entry would be a check on whether the internal queue is empty or not.
-
 \subsubsection{Interrupt Handling}
 Interrupt handling in Ravenscar is done by attaching a protected
 object procedure to an interrupt. The protected procedure is run at
-the hardware interrupt level, this procedure typically only read a
-value from hardware registers whereas the major processing is done via
-a task that waits upon an entry of said protected object and which is
-run at software priority. The protected procedure that is attached to
-the interrupt must be parameterless to match the signature of
-interrupts. The ceiling priority of an interrupt handler protected
-object must be in the range of \texttt{System.Interrupt\_Priority}. An
-example is shown in Listing~\ref{lst:interrupt_po}.
+the hardware interrupt level and only reads a value from hardware
+registers whereas. The major processing is done via a task that waits
+upon an entry of said protected object and which is run at software
+priority. The protected procedure that is attached to the interrupt
+must be parameterless to match the signature of interrupts. The
+ceiling priority of an interrupt handler protected object must be in
+the range of \texttt{System.Interrupt\_Priority}. An example is shown
+in Listing~\ref{lst:interrupt_po}.
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada,
@@ -966,6 +965,7 @@ private
    pragma Priority (System.Interrupt_Priority);
    Int_Data : Data;
    Signalled : Boolean := False;
+end Interrupt_Event;
 \end{lstlisting}
 \end{center}
 \end{minipage}
@@ -994,13 +994,12 @@ another needs to be taken into account. This blocking will occur in
 the case of Ada Ravenscar systems via tasks accessing protected
 objects. Since protected object access obeys the priority ceiling
 protocol in Ravenscar, Eq.~\ref{eq:rma_w_sync} can be used to test the
-feasibility of such a task set. The blocking time for individual tasks
+feasibility of such a task-set. The blocking time for individual tasks
 is calculated via Eq.~\ref{eq:pcp_block}, reproduced below:
-
 \begin{displaymath}
 B_j = \max_{k=1}^{K} \Big(usage(k,j)\times C_k\Big)
 \end{displaymath}
-\noindent
+
 The $usage(k,j)$ relation can be deduced simply from system source
 code, based on whether a task $j$ is accessing a protected object
 procedure or entry $k$ and the term $C_k$ is the worst-case execution
@@ -1010,11 +1009,11 @@ The more sophisticated and liberal Deadline Monotonic Assignment and
 its associated Response Time Analysis feasibility test can also be
 applied to Ravenscar systems. The blocking time term remains the
 same---as it is dependent on the priority inheritance protocol---and
-priority assignment is done via inverse deadline order versus inverse
-period order. The temporal commonsense constraint on this assignment
-technique being that for every task $i$, $C_i \le D_i \le T_i$, then
-the feasibility for an independent task set is given via
-Eq.~\ref{eq:rta_wo_sync}. Similarly, the feasibility for a task set
+priority assignment is done via inverse deadline order instead of
+inverse period order. The temporal commonsense constraint on this
+assignment technique being that for every task $i$, $C_i \le D_i \le
+T_i$, then the feasibility for an independent task set is given via
+Eq.~\ref{eq:rta_wo_sync}. Similarly, the feasibility for a task-set
 with communicating and synchronizing tasks is computable via
 Eq.~\ref{eq:rta_w_sync}. This is a fixed-point recurrence relation
 that can be solved iteratively.
