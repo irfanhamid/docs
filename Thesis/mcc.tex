@@ -161,9 +161,9 @@ subsystems on the same host.
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=1.4]{figs/GAP_sys_arch}
-\caption{The GAP system architecture: {\normalsize showing
-  decomposition into sensors, subsystems and their interconnection,
-  from~\cite{locke@rtss91}}}
+\caption[Generic Avionics Platform architecture.]{The GAP system
+  architecture: {\normalsize showing decomposition into sensors,
+    subsystems and their interconnection, from~\cite{locke@rtss91}}.}
 \label{fig:GAP}
 \end{figure}
 
@@ -227,9 +227,9 @@ task the highest priority.
 \begin{figure}
 \centering
 \includegraphics{figs/dataflow}
-\caption{Data-flow in GAP: {\normalsize this figure shows the
-    data-flow within the \emph{software} subsystems in the GAP mission
-    control computer}}
+\caption[Data-flow in the Generic Avionics Platform]{Data-flow in GAP:
+  {\normalsize this figure shows the data-flow within the
+    \emph{software} subsystems in the GAP mission control computer}.}
 \label{fig:dataflow}
 \end{figure}
 
@@ -267,7 +267,7 @@ Data Bus & Poll Bus Devices & 40 & 1 & 2.50\\
 \hline
 \end{tabular}
 \caption{GAP Timing Requirements: {\normalsize E is WCET (ms.) and U is
-    utilization as a percentage}}
+    utilization as a percentage}.}
 \label{tab:GAP_timing}
 \end{table}
 
@@ -330,10 +330,11 @@ and does not cause a 100\% CPU utilization.
 \begin{figure}
 \centering
 \includegraphics[scale=0.5]{figs/mode_periodic}
-\caption{Mode-dependent periodic thread: {\normalsize all threads of
-    the weapons subsystem are modeled according to this archetype,
-    where the functional code of the thread requeues itself for
-    periodic dispatch by sending an event to itself}}
+\caption[Mode-dependent periodic thread.]{Mode-dependent periodic
+  thread: {\normalsize all threads of the weapons subsystem are
+    modeled according to this archetype, where the functional code of
+    the thread requeues itself for periodic dispatch by sending an
+    event to itself}}
 \label{fig:mode_periodic}
 \end{figure}
 
@@ -474,7 +475,7 @@ Middleware         & $1255$\\
 Generated code     & $7243$\\
 \hline
 \end{tabular}
-\caption{Source code size}
+\caption{Source code size.}
 \label{SLOCs}
 \end{table}
 

@@ -82,7 +82,7 @@ balloon.
 \begin{figure}
 \centering
 \includegraphics[scale=1.4]{figs/impulse}
-\caption{Control loop and its block diagram}
+\caption{Control loop and its block diagram.}
 \label{fig:ctrl_loop}
 \end{figure}
 
@@ -146,7 +146,7 @@ sample from the previous value calculated by node \texttt{Slow}.
 \begin{minipage}{\listingwidth}
 \begin{center}
 \begin{lstlisting}[language=lustre, label=lst:lustre_dataflow,
-    caption=A slow to fast node deterministic data flow in Lustre]
+    caption=A slow to fast node deterministic data flow in Lustre.]
 node Fast (beta : int) returns (cmd1 : int)
 let
   cmd1 = 0->current(pre(beta))+2;
@@ -188,7 +188,7 @@ to the \texttt{Rate Transition} block present.
 \centering
 \includegraphics[scale=0.8]{figs/rate_transition}
 \caption{Rate transition block between two blocks at different rates
-  in Simulink}
+  in Simulink.}
 \label{fig:rate_transition}
 \end{figure}
 
@@ -204,14 +204,14 @@ systems that can incorporate true sporadic threads.
 \begin{figure}
 \centering
 \includegraphics[scale=1.75]{figs/det_breach1}
-\caption{Non-determinism in data-flow}
+\caption{Non-determinism in data-flow.}
 \label{fig:non_determinism}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[scale=1.75]{figs/det_no_breach}
-\caption{Protocol to ensure determinism}
+\caption{Protocol to ensure determinism.}
 \label{fig:determinism}
 \end{figure}
 
@@ -331,9 +331,10 @@ this approach, though valid, has multiple drawbacks:
 \includegraphics[scale=1.5]{figs/protocol_task}
 \hspace{5mm}
 \includegraphics[scale=1.5]{figs/protocol2}
-\caption{A suboptimal implementation. Left: Data flow from a fast
+\caption[Suboptimal implementation of the deterministic data transfer
+  protocol.]{A suboptimal implementation. Left: Data flow from a fast
   thread to a slow thread. Right: Data flow from a slow thread to a
-  fast thread}
+  fast thread.}
 \label{fig:protocol_thread}
 \end{figure}
 
@@ -431,7 +432,7 @@ inputs to the data flow, with only every $r^{th}$ data value copied
 into the \emph{back store}.
 
 \begin{algorithm}
-\caption{\texttt{Set\_Value (\textbf{in} Data})}
+\caption{\texttt{Set\_Value (\textbf{in} Data}).}
 \label{algo:stepper_write}
 \SetKwInOut{D}{Data}
 \SetKwInOut{r}{r}
@@ -487,7 +488,7 @@ is shown as Algorithm~\ref{algo:stagger_read}. It is called a
 certain number of times before getting a new one.
 
 \begin{algorithm}
-\caption{\texttt{Get\_Value (\textbf{out} Data})}
+\caption{\texttt{Get\_Value (\textbf{out} Data}).}
 \label{algo:stagger_read}
 \SetKwInOut{D}{Data}
 \SetKwInOut{r}{r}
@@ -574,7 +575,7 @@ specification for a stagger DBX connector is similar.
 
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
-\begin{lstlisting}[label=lst:DBX_spec, caption=Specification of the Stepper DBX connector]
+\begin{lstlisting}[label=lst:DBX_spec, caption=Specification of the Stepper DBX connector.]
 generic
   Priority_P : System.Any_Priority;
   Factor_P : Integer;
@@ -605,7 +606,7 @@ end Stepper_DBX;
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
 \begin{lstlisting}[label=lst:DBX_body, caption=Stepper DBX connector
-    \texttt{Set\_Value} procedure]
+    \texttt{Set\_Value} procedure.]
 
 
 
@@ -651,7 +652,7 @@ the two participating threads' functional unit packages.
 
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
-\begin{lstlisting}[label=lst:stagger_spec, caption=Specification of the Stagger DBX connector]
+\begin{lstlisting}[label=lst:stagger_spec, caption=Specification of the Stagger DBX connector.]
 generic
   Priority_P : System.Any_Priority;
   Factor_P : Integer;
@@ -690,7 +691,7 @@ end Stagger_DBX;
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
 \begin{lstlisting}[label=lst:stagger_get, caption=Stagger DBX connector
-    \texttt{Get\_Value} procedure]
+    \texttt{Get\_Value} procedure.]
 
 
 
@@ -770,7 +771,7 @@ the functional part. Among the advantages of this approach are:
 \centering
 \includegraphics[scale=1.8]{figs/transform}
 \caption{Code generation from AADL with a stepper DBX between two
-  tasks}
+  tasks.}
 \label{fig:transformation}
 \end{figure}
 
@@ -792,7 +793,8 @@ periodic with a period of 40 ms, and so is the lowest priority thread.
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figs/control}
-\caption{The example system with two periodic and one sporadic thread}
+\caption{The example system with two periodic and one sporadic
+  thread.}
 \label{fig:control_simple}
 \end{figure}
 
@@ -842,11 +844,11 @@ deadlock-free execution.
 \begin{figure}
 \centering 
 \includegraphics[scale=0.75]{figs/control_simple_breach}
-\caption{Data flow determinism breached}
+\caption{Data flow determinism breached.}
 \label{fig:det_breach_simple}
 \vspace{5mm}
 \includegraphics[scale=0.75]{figs/control_simple_nobreach}
-\caption{Data flow determinism with deterministic exchanger}
+\caption{Data flow determinism with deterministic exchanger.}
 \label{fig:det_no_breach}
 \end{figure}
 
@@ -919,7 +921,7 @@ each process is given in the \kw{where} section.
 \begin{minipage}{\listingwidth}
 \lstset{language=lotos}
 \begin{lstlisting}[label=lst:lotos_ex, caption=An example of a LOTOS
-    specification]
+    specification.]
 specification IO_System [pc1, pc2, cc1, cc2] : exit behavior
   Producer [pc1, pc2]
     |[pc1, pc2]|
@@ -947,7 +949,7 @@ endspec
 \begin{figure}
 \centering
 \includegraphics[scale=1]{figs/ex1}
-\caption{The resulting labelled transition system}
+\caption{The resulting labelled transition system.}
 \label{fig:lotos_ex}
 \end{figure}
 
@@ -1013,7 +1015,7 @@ from the exchanger procedure, and has had the desired effect.
 \centering
 \includegraphics[angle=90, scale=0.70]{figs/stepper_code}
 \caption{LOTOS specification for a process modeling a stepper
-  exchanger}
+  exchanger.}
 \label{fig:lotos_stepper}
 \end{figure}
 
@@ -1063,7 +1065,7 @@ represent take place.
 \begin{figure}
 \centering
 \includegraphics[scale=0.7, angle=90]{figs/lotos_proc_code}
-\caption{LOTOS specification for the two threads}
+\caption{LOTOS specification for the two threads.}
 \label{fig:lotos_proc_code}
 \end{figure}
 
@@ -1120,7 +1122,8 @@ association \texttt{Frames\_To\_Verify => 3}.
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{figs/lotos_lts_ex1}
-\caption{The labelled transition system generated by CADP from the example}
+\caption{The labelled transition system generated by CADP from the
+  example.}
 \label{fig:lts_ex1}
 \end{figure}
 
@@ -1129,7 +1132,7 @@ association \texttt{Frames\_To\_Verify => 3}.
 \begin{sideways}
 \lstset{language=lotos, frame=none}
 \begin{lstlisting}[label=lst:lotos_stepper, caption=LOTOS
-    specification for a process modeling a stepper exchanger]
+    specification for a process modeling a stepper exchanger.]
 process STEPPER_Data_Fusion_inpA[READ_Data_Fusion_inpA, WRITE_Data_Fusion_inpA] (Inv, Factor, Store_0, Store_1 : NAT) : noexit :=
   WRITE_Data_Fusion_inpA?x:NAT;
   (
@@ -1151,7 +1154,7 @@ endproc
 \begin{sideways}\centering
 \lstset{frame=none, language=lotos}
 \begin{lstlisting}[label=lst:lotos_thread_procs, caption=LOTOS
-    specifications for the two threads]
+    specifications for the two threads.]
 process Sensor_A [FRAME_START, FRAME_END, ERR, WRITE_Data_Fusion_inpA, Interface_Sensor_A_Data_Fusion] : noexit :=
   FRAME_START; WRITE_Data_Fusion_inpA!(1); Interface_Sensor_A_Data_Fusion; WRITE_Data_Fusion_inpA!(2); FRAME_END; 
   FRAME_START; WRITE_Data_Fusion_inpA!(3); Interface_Sensor_A_Data_Fusion; WRITE_Data_Fusion_inpA!(4); FRAME_END; 
@@ -1249,7 +1252,7 @@ Level E & No effect & None\\
 \hline
 \end{tabular}
 }
-\caption{DO-178B Safety Criticality Levels~\cite{gasperoni@ae02}}
+\caption{DO-178B Safety Criticality Levels~\cite{gasperoni@ae02}.}
 \label{table:do178b_cats}
 \end{table}
 
@@ -1352,7 +1355,7 @@ is always from the head of the queue.
 \centering
 \includegraphics{figs/ho-exch}
 \caption{The internal queue behavior of a higher-order exchanger, with
-  hyperperiod age of 3}
+  hyperperiod age of 3.}
 \label{fig:ho-exch}
 \end{figure}
 
@@ -1373,7 +1376,7 @@ queue of size 3.
 
 \begin{figure}
 \centering \includegraphics{figs/ho-example}
-\caption{The AADL model for the $2^{nd}$ order filter example}
+\caption{The AADL model for the $2^{nd}$ order filter example.}
 \label{fig:ho-example}
 \end{figure}
 
@@ -1399,7 +1402,7 @@ the data flow is as expected.
 \begin{figure}
 \centering
 \includegraphics[scale=0.75]{figs/second_order}
-\caption{The LTS of the $2^{nd}$ order filter system}
+\caption{The LTS of the $2^{nd}$ order filter system.}
 \label{fig:second_order}
 \end{figure}
 

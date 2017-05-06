@@ -39,7 +39,7 @@ procedure \texttt{Main}.
 
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
-\begin{lstlisting}[caption=Tasks in a procedure,label=tasks_in_proc]
+\begin{lstlisting}[caption=Tasks in a procedure.,label=tasks_in_proc]
 
 
 procedure Main is
@@ -70,7 +70,7 @@ end Main;
 \hspace{5mm}
 \begin{minipage}{0.45\linewidth}
 \lstset{language=ada}
-\begin{lstlisting}[caption=Sharing of data in tasks,label=shared_data]
+\begin{lstlisting}[caption=Sharing of data in tasks.,label=shared_data]
 with Ada.Text_IO;
 procedure Main is
    X : Integer := 0;
@@ -110,7 +110,7 @@ a \emph{rendezvous}. A rendezvous occurs when a task calls an
 
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
-\begin{lstlisting}[caption=Task rendezvous,label=rendezvous_single]
+\begin{lstlisting}[caption=Task rendezvous.,label=rendezvous_single]
 with Ada.Text_IO;
 
 procedure Main is
@@ -169,7 +169,7 @@ order to their declarations inside the \texttt{Calculate} task.
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
 \begin{lstlisting}[caption=Deadlock in rendezvous caused by
-    call/accept order inversion,label=deadlock_simple]
+    call/accept order inversion.,label=deadlock_simple]
 with Ada.Text_IO;
 
 procedure Main is
@@ -249,7 +249,7 @@ object's definition may not contain data elements.
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
 \begin{lstlisting}[caption=Declaring a protected object with
-    procedures,label=po_procs]
+    procedures.,label=po_procs]
 protected PO is
 	procedure Read (X : out Integer);
 	procedure Write (X : in Integer);
@@ -286,7 +286,7 @@ Exclusive Writer) protocol.
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
 \begin{lstlisting}[caption=Same protected object but with a function
-    for improved parallelism,label=po_proc_and_func]
+    for improved parallelism.,label=po_proc_and_func]
 protected PO is
 	function Read return Integer;
 	procedure Write (X : in Integer);
@@ -312,7 +312,7 @@ puts a new value.
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
 \begin{lstlisting}[caption=Pipe IPC construct for two multiple tasks
-    with a buffer size of 1,label=prod_consumer]
+    with a buffer size of 1.,label=prod_consumer]
 protected Pipe is
 	procedure Get (X : out Integer);
 	entry Put (X : in Integer);
@@ -353,7 +353,7 @@ respond to any combination of successive \texttt{Read} or
 \begin{minipage}{\listingwidth}
 \lstset{language=ada}
 \begin{lstlisting}[caption=Protected variable implemented as a task
-    with select entries,label=select_po]
+    with select entries.,label=select_po]
 task Protected_Variable is
 	entry Read (X : out Integer);
 	entry Write (X : in Integer);

@@ -61,7 +61,7 @@ Listing~\ref{rs-prof-def}.
 
 \begin{minipage}{\listingwidth}
 \begin{lstlisting}[label=rs-prof-def, caption=The Ada 95/2005 pragmas
-    needed to enable the Ravenscar Profile]
+    needed to enable the Ravenscar Profile.]
 
 pragma Task_Dispatching_Policy (FIFO_Within_Priorities);
 pragma Locking_Policy (Ceiling_Locking);
@@ -229,7 +229,7 @@ inversions within the system are bounded.
   use. \texttt{Ada.Asynchronous\_Task\_Control} exports the following
   API:
 \begin{lstlisting}[label=ada.asynchronous_task_control, caption=The
-    \texttt{Ada.Asynchronous\_Task\_Control} package specification]
+    \texttt{Ada.Asynchronous\_Task\_Control} package specification.]
 package Ada.Asynchronous_Task_Control is
   procedure Hold(T : in Ada.Task_Identification.Task_ID);
   procedure Continue(T : in Ada.Task_Identification.Task_ID);
@@ -325,7 +325,7 @@ package which contains the following API:
 
 \begin{minipage}{\listingwidth}
 \begin{lstlisting}[label=ada_dynamic_priorities, caption=The
-    \texttt{Ada.Dynamic\_Priorities} package specification]
+    \texttt{Ada.Dynamic\_Priorities} package specification.]
 package Ada.Dynamic_Priorities is
   procedure Set_Priority(
     Priority : in System.Any_Priority;
@@ -638,7 +638,7 @@ evident from the figure, such an offset causes a \emph{phase
   numberstyle=\tiny
 }
 \begin{lstlisting}[label=lst:starting_offset, caption=A periodic task
-    with a starting offset of 70 msec]
+    with a starting offset of 70 msec.]
 task type Periodic_Offset_Task(
    Priority_P : System.Priority;
    Period_P, Offset_P : Natural
@@ -689,7 +689,7 @@ given in Listing~\ref{lst:aperiodic}.
 \lstset{numbers=left,
 numberstyle=\tiny}
 \begin{lstlisting}[label=lst:aperiodic, caption=An aperiodic Ada
-    Ravenscar task]
+    Ravenscar task.]
 task type Aperiodic(Priority_P : System.Priority) is
    pragma Priority(Priority_P);
 end Aperiodic;
@@ -715,7 +715,7 @@ construct of a sporadic task is shown in Listing~\ref{lst:sporadic}.
   numbers=left,
   numberstyle=\tiny
 }
-\begin{lstlisting}[label=lst:sporadic, caption=A sporadic Ada Ravenscar task]
+\begin{lstlisting}[label=lst:sporadic, caption=A sporadic Ada Ravenscar task.]
 task type Sporadic(
    Priority_P : System.Any_Priority;
    Min_Separation_P : Ada.Real_Time.Time_Span
@@ -755,7 +755,8 @@ between lines 13 and 14, i.e., after the event has arrived but
 \emph{before} the task can compute its next release time. This may end
 up enforcing a higher inter-arrival time for the task than is
 stipulated by design. In effect, this problem arises because the start
-of the entry is not atomic with the \texttt{Clock} instruction.
+of the entry is not atomic with the \texttt{Clock}
+instruction.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -769,7 +770,7 @@ $t_0$ & Dispatching event for $\tau_2$ arrives, the
 \texttt{Event\_Object.Await} entry is entered by $\tau_2$ \\
 $t_1$ & $\tau_2$ returns from \texttt{Event\_Object.Await} and is
   immediately preempted by $\tau_1$ \\
-$t_2$ & $\tau_1$ sleeps after its processing, $\tau_2$ resumes
+$t_2$ & $\tau_1$ sleeps after its processing, $\tau_2$ resumed
   at \texttt{Next\_Dispatch := Ada.Real\_Time.Clock + Min\_Separation}
   \\
 $t_3$ & $\tau_2$ executes \kw{delay until }\texttt{Next\_Dispatch} \\
@@ -839,7 +840,7 @@ service API.
 
 \begin{minipage}{\listingwidth}
 \begin{lstlisting}[label=lst:two_tasks_comm, caption=Two periodic
-    tasks communicating via a protected object]
+    tasks communicating via a protected object.]
 protected Sh_Mem is
    procedure Set (D : in Integer);
    function Get return Integer;
@@ -911,7 +912,7 @@ would be a check on whether the internal queue is empty.
   numberstyle=\tiny
 }
 \begin{lstlisting}[label=lst:basic_po, caption=A protected object used
-    to synchronize two tasks with no data exchanged]
+    to synchronize two tasks with no data exchanged.]
 protected Event_Object is
    procedure Signal (D : in Integer);
    entry Await;
@@ -956,7 +957,7 @@ in Listing~\ref{lst:interrupt_po}.
 \lstset{numbers=none}
 \begin{center}
 \begin{lstlisting}[label=lst:interrupt_po, caption=A protected object
-    attached to an interrupt]
+    attached to an interrupt.]
 protected Interrupt_Event is
    entry Await (D : out Data); -- The data read from register(s)
    procedure Int_Handler;
@@ -1167,7 +1168,7 @@ various component categories, their details follow.
 architecture\\
 \hline
 \end{tabular}
-\caption{Different classes and categories of AADL components}
+\caption{Different classes and categories of AADL components.}
 \label{tab:comp_cats}
 \end{table}
 
@@ -1191,7 +1192,7 @@ one incoming data port is given in Listing~\ref{lst:comp_intro}.
 }
 \lstset{language=aadl}
 \begin{lstlisting}[label=lst:comp_intro, caption=An AADL periodic
-    thread with a period of 20 msec and one incoming data port]
+    thread with a period of 20 msec and one incoming data port.]
 thread T_1 is
 features
    in_port : in data port;
@@ -1223,7 +1224,7 @@ defined).
 \begin{minipage}{0.75\linewidth}
 \lstset{language=aadl}
 \begin{lstlisting}[label=lst:subprog_ex, caption=A subprogram type
-    definition to multiply two complex numbers]
+    definition to multiply two complex numbers.]
 subprogram Mult_Complex
 features
    A      : in parameter Complex.Impl;
@@ -1248,8 +1249,10 @@ end Mult_Complex;
  & Requires data access & \\
 \hline
 \end{tabular}
-\caption{Features and subcomponents possible for a \texttt{subprogram}
-  component. Note, it cannot contain any subcomponents.}
+\caption[Features and subcomponents possible for a \texttt{subprogram}
+  component.]{Features and subcomponents possible for a
+  \texttt{subprogram} component. Note, it cannot contain any
+  subcomponents.}
 \label{tab:subprog_rules}
 \end{table}
 
@@ -1297,7 +1300,7 @@ internal data subcomponents. This is the case for the
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{data}
-  component}
+  component.}
 \label{tab:data_rules}
 \end{table}
 
@@ -1306,7 +1309,7 @@ internal data subcomponents. This is the case for the
 \centering
 \lstset{language=aadl}
 \begin{lstlisting}[label=lst:data_basic_ex, caption=Integer data type and
-    10 element Integer vector]
+    10 element Integer vector.]
 
 
 
@@ -1328,7 +1331,7 @@ end Int_Vector;
 \hspace{1cm}
 \begin{minipage}{0.4\linewidth}
 \begin{lstlisting}[label=lst:data_comp_ex, caption=Structured data type to
-    represent angles]
+    represent angles.]
 subprogram Init_Angular
 features
   Hr : in parameter Int_Type;
@@ -1374,7 +1377,7 @@ with solid edges.
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{process}
-  component}
+  component.}
 \label{tab:proc_rules}
 \end{table}
 
@@ -1436,7 +1439,7 @@ analysis point-of-view are the following:
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{thread}
-  component}
+  component.}
 \label{tab:thread_rules}
 \end{table}
 
@@ -1466,7 +1469,7 @@ Table~\ref{tab:processor_rules}.
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{processor}
-  component}
+  component.}
 \label{tab:processor_rules}
 \end{table}
 
@@ -1495,7 +1498,7 @@ size and addressibility via different properties:
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{memory}
-  component}
+  component.}
 \label{tab:mem_rules}
 \end{table}
 
@@ -1538,7 +1541,7 @@ time and jitter etc.). The important ones are:
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{bus}
-  component}
+  component.}
 \label{tab:bus_rules}
 \end{table}
 
@@ -1567,7 +1570,7 @@ possible for a device are given in Table~\ref{tab:dev_rules}.
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{device}
-  component}
+  component.}
 \label{tab:dev_rules}
 \end{table}
 
@@ -1605,7 +1608,7 @@ required to produce a working application.
 \hline
 \end{tabular}
 \caption{Features and subcomponents possible for a \texttt{system}
-  component}
+  component.}
 \label{tab:sys_rules}
 \end{table}
 
@@ -1635,7 +1638,7 @@ given in Table~\ref{tab:prop_types}.
 \texttt{write\_only}, \texttt{read\_write}\} for memories\\
 \hline
 \end{tabular}
-\caption{Different data types for AADL properties}
+\caption{Different data types for AADL properties.}
 \label{tab:prop_types}
 \end{table}
 
@@ -1824,7 +1827,7 @@ for both values.
 \lstset{language=aadl}
 \centering
 \begin{lstlisting}[label=lst:subprog_features, caption=Subprograms
-    for data type declaration]
+    for data type declaration.]
 subprogram Set_Int
 features
   Param : in parameter Int_Type;
@@ -1844,7 +1847,7 @@ end Get_Int;
 \begin{minipage}{0.45\linewidth}
 \centering
 \begin{lstlisting}[label=lst:data_type_subprog, caption=Data type with
-  subprogram features]
+  subprogram features.]
 data Point
 features
   Set_X : subprogram Set_Int;
